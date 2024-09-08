@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  # Frontend service
+  client:
+    build: ./client  # Use the Dockerfile located in the 'client' directory
+    container_name: clientapp_c
+    ports:
+      - "3000:3000"  # Map port 3000 of the host to port 3000 of the container
+    volumes:
+      - ./client:/app  # Map the local 'client' folder to the '/app' folder in the container
+      - /app/node_modules  # Use container-specific node_modules to avoid conflicts with local ones
+    stdin_open: true
+    tty: true
+    depends_on:
+      - server  # Ensures the server is up before the client starts
+
+  # Backend service
+  server:
+    build: .  # Use the Dockerfile located in the root directory for the backend
+    container_name: serverapp_c
+    ports:
+      - "5000:5000"  # Map port 5000 of the host to port 5000 of the container
+    volumes:
+      - .:/app  # Map the project root folder to the '/app' folder in the container
+      - /app/node_modules  # Use container-specific node_modules to avoid conflicts with local ones
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/pokecrafter  # Environment variable for MongoDB connection
+    stdin_open: true
+    tty: true
+    depends_on:
+      - mongo  # Ensures MongoDB is up before the server starts
+
+  # MongoDB service
+  mongo:
+    image: mongo:6.0  # Use the official MongoDB image
+    container_name: mongo_db
+    ports:
+      - "27017:27017"  # Map MongoDB's default port
+    volumes:
+      - mongo-data:/data/db  # Store MongoDB data persistently using a Docker volume
+
+volumes:
+  mongo-data:  # Define a persistent volume for MongoDB data storage
