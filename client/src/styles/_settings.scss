@@ -34,20 +34,22 @@ $shadow: rgb(219, 218, 218);
 
   &::selection {
     background: $color-1;
-    color: $white;
+    color: black;
   }
 }
 a,
 a:visited {
   color: $color-3;
+  font-size: 0.9rem; // Ajustez la taille de police pour les liens
 }
 input,
 textarea {
   resize: none;
-  border-radius: 20px;
+  border-radius: 10px;
   width: 270px;
   font-family: $font-1;
   background: $white;
+  font-size: 0.9rem; // Ajustez la taille de police pour les inputs et textareas
 }
 textarea {
   &:focus {
@@ -64,8 +66,8 @@ input[type="submit"] {
   margin: 0;
   padding: 10px 20px;
   cursor: pointer;
-  font-size: 1.1rem;
-  border-radius: 20px 6px 20px 20px;
+  font-size: 0.9rem; // Ajustez la taille de police pour les boutons
+  border-radius: 10px;
 
   &:hover {
     background: $color-1;
@@ -89,12 +91,15 @@ body {
   line-height: 1.4rem;
   background: $white;
   color: $color-3;
+  font-size: 0.9rem; // Ajustez la taille de police par défaut pour le corps du document
 }
 .error {
   color: red;
   font-weight: bold;
+  font-size: 0.9rem; // Ajustez la taille de police pour les messages d'erreur
 }
 .success {
   color: green;
   font-weight: bold;
+  font-size: 0.9rem; // Ajustez la taille de police pour les messages de succès
 }

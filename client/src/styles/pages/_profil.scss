@@ -1,5 +1,14 @@
+body {
+  background-image: url('https://i.postimg.cc/Y2b0K5x2/background4.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  background-attachment: fixed;
+}
+
 .profil-page {
-  margin: 120px auto 0;
+  margin: 70px auto 0;
   max-width: 1200px;
 
   .icons {
@@ -7,14 +16,16 @@
   }
 
   .log-container {
-    margin: 0 auto;
+    margin: 0 auto 0 100px;
     display: grid;
     grid-template-columns: 60% 40%;
-
+  
     @media screen and (max-width: 885px) {
       grid-template-columns: 1fr;
+      margin: 0 auto;
     }
   }
+  
 
   .connection-form {
     border: none;
@@ -24,7 +35,7 @@
     text-align: center;
     margin: 0 auto;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 
       -5px 5px 10px 0px rgba(0, 0, 0, 0.123),
       2px 2px 10px -2px rgba(0, 0, 0, 0.123);
@@ -44,7 +55,7 @@
       ul {
         li {
           cursor: pointer;
-          border-radius: 20px;
+          border-radius: 18px;
           padding: 10px 20px;
           transition: 0.2s;
 
@@ -87,7 +98,7 @@
         input {
           padding: 14px 20px;
           margin: 0;
-          font-size: 1.2rem;
+          font-size: 0.9rem;
           font-family: $font-2;
           border-radius: 20px;
 
@@ -111,23 +122,26 @@
   .img-container {
     display: grid;
     align-items: center;
-    height: 100%;
-    margin-left: 50px;
-
+    position: fixed;
+    top: 50vh;
+    left: 66.67vw;
+    transform: translate(-40%, -50%);
+  
     img {
       height: 400px;
-
+      
       @media screen and (max-width: 1050px) {
-        height: 220px;
+        height: 350px;
       }
       @media screen and (max-width: 950px) {
-        height: 200px;
+        height: 300px;
       }
       @media screen and (max-width: 885px) {
         display: none;
       }
     }
   }
+  
   .update-container {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -138,7 +152,7 @@
 
     > div {
       background: $color-4;
-      border-radius: 20px;
+      border-radius: 10px;
       padding: 25px;
       margin: 20px 10px;
 
@@ -170,7 +184,7 @@
           width: 270px;
           background: $color-3;
           color: $color-2;
-          border-radius: 20px;
+          border-radius: 10px;
           display: inline-block;
           padding: 9px 0;
           transition: 0.2s;
@@ -190,7 +204,7 @@
         }
         input[type="submit"] {
           margin-top: 10px;
-          border-radius: 20px;
+          border-radius: 10px;
 
           &:hover {
             letter-spacing: 1px;
@@ -213,14 +227,14 @@
       textarea {
         min-height: 80px;
         border: 1px solid $color-1;
-        border-radius: 20px 20px 6px 20px;
+        border-radius: 10px;
         padding: 10px 20px;
-        font-size: 1.1rem;
+        font-size: 0.9rem;
       }
       textarea {
         width: 100%;
         margin-bottom: -6px;
-        font-size: 1.2rem;
+        font-size: 0.9rem;
       }
       button {
         margin: 5px 0;
@@ -235,8 +249,8 @@
         font-family: $font-1;
         margin: 20px 0;
         padding: 12px;
-        font-size: 1.1rem;
-        border-radius: 20px;
+        font-size: 0.9rem;
+        border-radius: 10px;
         transition: 0.2s;
         cursor: pointer;
 
@@ -269,7 +283,7 @@
       transform: translate(-100%);
       background: $color-2;
       padding: 25px;
-      border-radius: 20px;
+      border-radius: 10px;
       box-shadow: 0 0 2px rgba(131, 130, 130, 0.356);
       overflow: auto;
       transform: scaleY(0);
@@ -339,7 +353,7 @@
 
             button {
               background: $color-4;
-              border-radius: 20px;
+              border-radius: 10px;
               margin-right: 6px;
 
               &:hover {
