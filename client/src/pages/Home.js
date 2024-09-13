@@ -1,12 +1,23 @@
-import React from 'react';
+import React from "react";
+import LeftNav from "../components/LeftNav";
 
 const Home = () => {
+  
     return (
-        <div>
-            <br /><br /><br /><br /><br /><br /><br />
-            Hello depuis Home.js
+      <div className="home">
+        <LeftNav />
+        <div className="main">
+          <div className="home-header">
+          </div>
         </div>
+        <div className="right-side">
+          <div className="right-side-container">
+            <div className="wrapper">
+            </div>
+          </div>
+        </div>
+      </div>
     );
-};
-
+  };
+  
 export default Home;
