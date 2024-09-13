@@ -1,9 +1,12 @@
-const initialState = {}; // Ou n'importe quel état initial que tu veux
+import { GET_USER } from "../actions/user.actions";
 
-export default function userReducer(state = initialState, action) { // Assure-toi de fournir l'état initial ici
+const initialState = {};
+
+export default function userReducer(state = initialState, action) {
     switch (action.type) {
-        // Ajoute tes actions ici
+        case GET_USER:
+            return action.payload;
         default:
-            return state; // Toujours renvoyer l'état par défaut si aucune action n'est reconnue
+            return state;
     }
 }
