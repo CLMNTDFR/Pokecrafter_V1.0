@@ -3,7 +3,7 @@ import Log from "../components/Log";
 import { UidContext } from "../components/AppContext";
 
 const Profil = () => {
-    const iud = React.useContext(UidContext);
+    const uid = useContext(UidContext);
 
     return (
         <div className="profil-page">
@@ -16,7 +16,7 @@ const Profil = () => {
                     <img src="./img/log.svg" alt="Profil image pokeball" />
                 </div>
             </div>
-        )}
+            )}
         </div>
     );
 };
