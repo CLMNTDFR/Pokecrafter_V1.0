@@ -7,23 +7,23 @@ const LeftNav = () => {
             <div className="icons">
                 <div className="icons-bis">
                     <NavLink to='/' exact activeClassName="active-left-nav">
-                        <img src="./img/icons/house.svg" alt="home"/>
+                        <img src="./img/icons/house2.svg" alt="home"/>
                     </NavLink>
                     <br/>
                     <NavLink to='/contest' exact activeClassName="active-left-nav">
-                        <img src="./img/icons/trophy.svg" alt="contest"/>
+                        <img src="./img/icons/trophy2.svg" alt="contest"/>
                     </NavLink>
                     <br/>
                     <NavLink to='/add' exact activeClassName="active-left-nav">
-                        <img src="./img/icons/add2.svg" alt="contest"/>
+                        <img src="./img/icons/add3.svg" alt="contest"/>
                     </NavLink>
                     <br/>
                     <NavLink to='/trending' exact activeClassName="active-left-nav">
-                        <img src="./img/icons/fire.svg" alt="trending"/>
+                        <img src="./img/icons/fire2.svg" alt="trending"/>
                     </NavLink>
                     <br/>
                     <NavLink to='/profil' exact activeClassName="active-left-nav">
-                        <img src="./img/icons/user2.svg" alt="user"/>
+                        <img src="./img/icons/user3.svg" alt="user"/>
                     </NavLink>
                 </div>
             </div>

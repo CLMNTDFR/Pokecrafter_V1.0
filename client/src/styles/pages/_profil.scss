@@ -44,6 +44,17 @@ body {
       min-width: 200px;
     }
 
+    @media screen and (min-width: 1281px) {
+      margin-top: -40px;
+      
+    }
+
+    @media screen and (max-width: 850px) {
+      margin-bottom: 100px;
+      margin-top: -50px;
+    }
+    
+
     .form-container {
       display: grid;
       grid-template-columns: 30% 70%;
@@ -62,6 +73,9 @@ body {
           @media screen and (max-width: 550px) {
             width: 80%;
             margin: 0 auto;
+            display: inline-block;
+            width: auto;
+            margin: 0 10px;
           }
         }
         .active-btn {
@@ -80,17 +94,6 @@ body {
           position: relative;
           @media screen and (max-width: 550px) {
             margin-bottom: 30px;
-
-            &:after {
-              content: "";
-              position: absolute;
-              bottom: -10px;
-              left: 50%;
-              transform: translateX(-50%);
-              width: 80%;
-              height: 1px;
-              background: $color-2;
-            }
           }
         }
       }

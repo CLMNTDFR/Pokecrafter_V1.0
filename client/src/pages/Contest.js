@@ -1,12 +1,12 @@
 import React from 'react';
 import LeftNav from '../components/LeftNav';
 
-const Trending = () => {
+const Contest = () => {
     return (
         <div className="home">
             <LeftNav />
-        </div>
+            </div>
     );
 };
 
-export default Trending;
+export default Contest;
