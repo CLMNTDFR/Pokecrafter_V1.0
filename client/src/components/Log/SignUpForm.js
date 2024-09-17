@@ -8,6 +8,7 @@ const SignUpForm = () => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [controlPassword, setControlPassword] = React.useState("");
+    const [showTermsPopup, setShowTermsPopup] = React.useState(false); // Nouvel état
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -51,6 +52,7 @@ const SignUpForm = () => {
                 .catch((err) => console.log(err));
         }
     };
+
     return (
         <>
             {formSubmit ? (
@@ -91,7 +93,7 @@ const SignUpForm = () => {
                 value={password} />
             <div className="password error"></div>
             <br />
-            <label htmlFor="password-conf">Confirm Pseudo</label>
+            <label htmlFor="password-conf">Confirm Password</label>
             <br />
             <input
                 type="password"
@@ -103,13 +105,54 @@ const SignUpForm = () => {
             <br />
             <input type="checkbox" id="terms" />
             <label htmlFor="terms">
-                I accept the <a href="/" target="_blank" rel="noopener noreferrer">terms of use</a>
+                I accept the <span onClick={() => setShowTermsPopup(true)} style={{ color: 'blue', cursor: 'pointer' }}>terms of use</span>
             </label>
             <div className="terms error"></div>
             <br />
             <br />
             <input type="submit" value="Submit Registration" />
         </form>
+            )}
+
+            {showTermsPopup && (
+                <div className="popup-profil-container">
+                    <div className="modal">
+                        <h3>Terms of Use</h3>
+                        <p>
+                            Welcome to our community platform dedicated to sharing artistic creations related to the Pokémon universe. By using our site, you agree to the following terms of use:
+                            <br /><br />
+  
+                            <strong>1. Acceptance of Terms</strong><br />
+                            By accessing our site and using our services, you agree to comply with these terms of use. If you disagree with any of these terms, please stop using the platform.
+                            <br /><br />
+  
+                            <strong>2. Intellectual Property and Copyright</strong><br />
+                            The creations shared on the platform must respect copyright and trademarks, including those of Pokémon and Nintendo. By submitting a creation, you warrant that you are the author or have the necessary rights to share it.
+                            <br /><br />
+  
+                            <strong>3. Inappropriate Content</strong><br />
+                            Users are not allowed to share inappropriate, offensive, or illegal content. Any content deemed inappropriate will be removed, and the user may be banned from the platform.
+                            <br /><br />
+  
+                            <strong>4. Use of Your Creations</strong><br />
+                            By sharing a creation on the platform, you allow the platform to display, distribute, and promote your content as part of its activities. However, you retain all rights to your creations.
+                            <br /><br />
+  
+                            <strong>5. Data Privacy</strong><br />
+                            We are committed to protecting your personal data in accordance with applicable laws. The information you share with us will only be used to enhance your experience on the platform.
+                            <br /><br />
+  
+                            <strong>6. User Conduct</strong><br />
+                            All users must respect each other. Harassment, discrimination, or any form of abusive behavior will not be tolerated.
+                            <br /><br />
+  
+                            <strong>7. Modification of Terms</strong><br />
+                            We reserve the right to modify these terms at any time. You will be notified of any major changes, and your continued use of the platform will signify your acceptance of the new terms.
+                        </p>
+
+                        <div className="cross" onClick={() => setShowTermsPopup(false)}>X</div>
+                    </div>
+                </div>
             )}
         </>
     );

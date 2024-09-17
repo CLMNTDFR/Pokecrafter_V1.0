@@ -74,6 +74,12 @@ nav {
       }
 
       li {
+        transition: transform 0.2s ease; // Transition fluide
+
+        &:hover {
+          transform: translateX(3px); // Décale de 10px vers la droite au survol
+        }
+
         img {
           height: 24px;
           width: 24px;

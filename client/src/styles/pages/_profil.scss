@@ -283,24 +283,72 @@ body {
       position: absolute;
       top: 10%;
       left: 50%;
-      transform: translate(-100%);
+      transform: translate(-50%);
       background: $color-2;
       padding: 25px;
       border-radius: 10px;
       box-shadow: 0 0 2px rgba(131, 130, 130, 0.356);
-      overflow: auto;
+      overflow: hidden; /* initial state */
       transform: scaleY(0);
       transform-origin: center;
       animation: modal .5s forwards;
+    
+      // Limitation de la hauteur et ajout du scroll si nécessaire
+      max-height: 80vh; /* 80% de la hauteur de la fenêtre */
+      overflow-y: auto; /* Ajoute la barre de scroll verticale si nécessaire */
 
+      // Personnalisation de la barre de scroll
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Couleur de fond de la barre */
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #7f7f7f; /* Couleur de la poignée */
+    border-radius: 10px; /* Bord arrondi pour un effet plus doux */
+    border: 2px solid $color-2; /* Ajoute un peu de bord pour l'effet 3D */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: darken($color-1, 10%); /* Changement de couleur au hover */
+  }
+    
       h3 {
         min-width: 200px;
       }
-
+    
+      .cross {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        transition: 0.1s;
+        cursor: pointer;
+    
+        &:hover {
+          transform: scale(1.07);
+        }
+      }
+    
+      // Styles pour le contenu de la modal (le texte)
+      p {
+        margin: 15px 0;
+        line-height: 1.5;
+      }
+    
       @keyframes modal {
         to {
           transform: scale(1) translate(-50%);
         }
+      }
+
+      @media screen and (max-width: 600px) {
+        width: 90%; /* La modal prend 90% de la largeur de l'écran */
+        left: 50%;
+        transform: translate(-50%);
       }
 
       .cross {

@@ -55,16 +55,16 @@
       }
 
       a {
-        transition: 0.1s;
+        transition: 0.2s ease; // Applique la transition fluide pour les transformations
         display: inline-block;
         margin-bottom: 70px;
-
+      
         // Styles pour les grands écrans (ordinateur)
         @media screen and (min-width: 1025px) {
           margin-bottom: 0;
           flex: none;
         }
-
+      
         // Styles pour les petits écrans (tablette et téléphone)
         @media screen and (max-width: 1024px) {
           margin-bottom: 0; // Supprime le margin inférieur
@@ -72,7 +72,7 @@
           display: flex;
           justify-content: center; // Centre chaque icône
         }
-
+      
         &:before {
           transition: 0.15s ease;
           transform: scale(0);
@@ -84,21 +84,21 @@
           position: absolute;
           background: $color-4;
           border-radius: 50px;
-
+      
           // Désactiver cet effet sur mobile
           @media screen and (max-width: 1024px) {
             display: none;
           }
         }
-
+      
         &:hover {
-          transform: scale(1.02);
+          transform: translateX(4px); // Décale de 10px vers la droite au survol
         }
-
+      
         img {
           height: 30px;
           width: 30px;
-
+      
           // Réduction pour mobile
           @media screen and (max-width: 1024px) {
             height: 25px;
@@ -106,6 +106,7 @@
           }
         }
       }
+      
 
       .active-left-nav {
         position: relative;
