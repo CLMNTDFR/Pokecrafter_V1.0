@@ -4,7 +4,7 @@ import SignInForm from "./SignInForm";
 
 const SignUpForm = () => {
     const [formSubmit, setFormSubmit] = useState(false);
-    const [pseudo, setPseudo] = React.useState("");
+    const [username, setUsername] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [controlPassword, setControlPassword] = React.useState("");
@@ -13,7 +13,7 @@ const SignUpForm = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         const terms = document.getElementById("terms");
-        const pseudoError = document.querySelector(".pseudo.error");
+        const usernameError = document.querySelector(".username.error");
         const emailError = document.querySelector(".email.error");
         const passwordError = document.querySelector(".password.error");
         const passwordConfirmError = document.querySelector(".password-confirm.error");
@@ -35,14 +35,14 @@ const SignUpForm = () => {
                 url: `${process.env.REACT_APP_API_URL}api/user/register`,
                 withCredentials: true,
                 data: {
-                    pseudo,
+                    username, // Modifié
                     email,
-                    password
+                    password_hash: password // Modifié
                 }
             })
                 .then((res) => {
                     if (res.data.errors) {
-                        pseudoError.innerHTML = res.data.errors.pseudo;
+                        usernameError.innerHTML = res.data.errors.username;
                         emailError.innerHTML = res.data.errors.email;
                         passwordError.innerHTML = res.data.errors.password;
                     } else {
@@ -57,67 +57,67 @@ const SignUpForm = () => {
         <>
             {formSubmit ? (
                 <>
-                <SignInForm />
-                <span></span>
-                <h4 className="success">Registration successful, please log in</h4>
+                    <SignInForm />
+                    <span></span>
+                    <h4 className="success">Registration successful, please log in</h4>
                 </>
             ) : (
-        <form action="" onSubmit={handleRegister} id="sign-up-form">
-            <label htmlFor="pseudo">Pseudo</label>
-            <br />
-            <input
-                type="text"
-                name="pseudo"
-                id="pseudo"
-                onChange={(e) => setPseudo(e.target.value)}
-                value={pseudo} />
-            <div className="pseudo error"></div>
-            <br />
-            <label htmlFor="email">Email</label>
-            <br />
-            <input
-                type="text"
-                name="email"
-                id="email"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email} />
-            <div className="email error"></div>
-            <br />
-            <label htmlFor="password">Password</label>
-            <br />
-            <input
-                type="password"
-                name="password"
-                id="password"
-                onChange={(e) => setPassword(e.target.value)}
-                value={password} />
-            <div className="password error"></div>
-            <br />
-            <label htmlFor="password-conf">Confirm Password</label>
-            <br />
-            <input
-                type="password"
-                name="password"
-                id="password-conf"
-                onChange={(e) => setControlPassword(e.target.value)}
-                value={controlPassword} />
-            <div className="password-confirm error"></div>
-            <br />
-            <input type="checkbox" id="terms" />
-            <label htmlFor="terms">
-                I accept the <span onClick={() => setShowTermsPopup(true)} style={{ color: 'blue', cursor: 'pointer' }}>terms of use</span>
-            </label>
-            <div className="terms error"></div>
-            <br />
-            <br />
-            <input type="submit" value="Submit Registration" />
-        </form>
+                <form action="" onSubmit={handleRegister} id="sign-up-form">
+                    <label htmlFor="username">Username</label>
+                    <br />
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        onChange={(e) => setUsername(e.target.value)}
+                        value={username} />
+                    <div className="username error"></div>
+                    <br />
+                    <label htmlFor="email">Email</label>
+                    <br />
+                    <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email} />
+                    <div className="email error"></div>
+                    <br />
+                    <label htmlFor="password">Password</label>
+                    <br />
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password} />
+                    <div className="password error"></div>
+                    <br />
+                    <label htmlFor="password-conf">Confirm Password</label>
+                    <br />
+                    <input
+                        type="password"
+                        name="password"
+                        id="password-conf"
+                        onChange={(e) => setControlPassword(e.target.value)}
+                        value={controlPassword} />
+                    <div className="password-confirm error"></div>
+                    <br />
+                    <input type="checkbox" id="terms" />
+                    <label htmlFor="terms">
+                        I accept the <span onClick={() => setShowTermsPopup(true)} style={{ color: 'blue', cursor: 'pointer' }}>terms of use</span>
+                    </label>
+                    <div className="terms error"></div>
+                    <br />
+                    <br />
+                    <input type="submit" value="Submit Registration" />
+                </form>
             )}
 
             {showTermsPopup && (
                 <div className="popup-profil-container">
                     <div className="modal">
-                        <h3>Terms of Use</h3>
+                    <h3>Terms of Use</h3>
                         <p>
                             Welcome to our community platform dedicated to sharing artistic creations related to the Pokémon universe. By using our site, you agree to the following terms of use:
                             <br /><br />
@@ -149,7 +149,6 @@ const SignUpForm = () => {
                             <strong>7. Modification of Terms</strong><br />
                             We reserve the right to modify these terms at any time. You will be notified of any major changes, and your continued use of the platform will signify your acceptance of the new terms.
                         </p>
-
                         <div className="cross" onClick={() => setShowTermsPopup(false)}>X</div>
                     </div>
                 </div>
@@ -159,3 +158,4 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
+
