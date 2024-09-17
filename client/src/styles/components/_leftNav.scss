@@ -1,0 +1,153 @@
+.left-nav-container {
+  position: relative;
+
+  .icons {
+    position: fixed;
+    z-index: 10;
+    padding-top: 70px;
+    gap: 20px;
+
+    // Styles pour les grands écrans (ordinateur)
+    @media screen and (min-width: 1025px) {
+      top: 20vh;
+      left: 5vh;
+      bottom: 10vh;
+      height: 70vh; // Utiliser toute la hauteur de l'écran
+      display: flex;
+      flex-direction: column; // Colonne pour les icônes
+      justify-content: space-between; // Espacement égal entre les icônes
+      align-items: center; // Centrer horizontalement
+      padding: 0;
+    }
+
+    // Styles pour les petits écrans (tablette et téléphone)
+    @media screen and (max-width: 1024px) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between; // Espace égal entre les icônes
+      background-color: #fff; // Couleur de fond de la navbar
+      padding: 10px 0;
+      box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1); // Ombre vers le haut
+    }
+
+    .icons-bis {
+      position: absolute;
+
+      // Styles pour les grands écrans (ordinateur)
+      @media screen and (min-width: 1025px) {
+        position: static; // Réinitialiser la position absolue
+        display: flex;
+        flex-direction: column; // Colonne pour les icônes
+        justify-content: space-around; // Distribution verticale égale
+        width: 100%;
+        height: 100%; // Assurer que les icônes occupent toute la hauteur
+      }
+
+      // Styles pour les petits écrans (tablette et téléphone)
+      @media screen and (max-width: 1024px) {
+        position: static;
+        display: flex;
+        justify-content: space-around; // Distribution égale des icônes
+        width: 100%; // Prend toute la largeur de la barre
+      }
+
+      a {
+        transition: 0.2s ease; // Applique la transition fluide pour les transformations
+        display: inline-block;
+        margin-bottom: 70px;
+      
+        // Styles pour les grands écrans (ordinateur)
+        @media screen and (min-width: 1025px) {
+          margin-bottom: 0;
+          flex: none;
+        }
+      
+        // Styles pour les petits écrans (tablette et téléphone)
+        @media screen and (max-width: 1024px) {
+          margin-bottom: 0; // Supprime le margin inférieur
+          flex: 1; // Chaque icône prend une part égale
+          display: flex;
+          justify-content: center; // Centre chaque icône
+        }
+      
+        &:before {
+          transition: 0.15s ease;
+          transform: scale(0);
+          transform-origin: center;
+          z-index: -10;
+          content: "";
+          height: 45px;
+          width: 45px;
+          position: absolute;
+          background: $color-4;
+          border-radius: 50px;
+      
+          // Désactiver cet effet sur mobile
+          @media screen and (max-width: 1024px) {
+            display: none;
+          }
+        }
+      
+        &:hover {
+          transform: translateX(4px); // Décale de 10px vers la droite au survol
+        }
+      
+        img {
+          height: 30px;
+          width: 30px;
+      
+          // Réduction pour mobile
+          @media screen and (max-width: 1024px) {
+            height: 25px;
+            width: 25px;
+          }
+        }
+      }
+      
+
+      .active-left-nav {
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: -15px;
+          left: 50%;
+          transform: translateX(-50%);
+          height: 60px;
+          width: 60px;
+          border-radius: 50%;
+          background-color: #333;
+          z-index: -1;
+        }
+
+        img {
+          position: relative;
+          z-index: 1;
+        }
+
+        &::after {
+          content: "";
+          height: 40px;
+          width: 5px;
+          position: absolute;
+          background: $color-1;
+          left: -7px;
+          bottom: 8px;
+          border-radius: 40px;
+          transform: scaleY(0);
+          animation: scale 1.5s ease forwards;
+
+          @keyframes scale {
+            to {
+              transform: scaleY(1);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+nav {
+  position: fixed;
+  width: 100%;
+  height: 45px;
+  border-radius: 6px;
+  box-shadow: 
+    -5px 5px 10px 0px rgba(0, 0, 0, 0.123),
+    2px 2px 10px -2px rgba(0, 0, 0, 0.123);
+  z-index: 10;
+  top: 0;
+
+  @media screen and (max-width: 1251px) {
+    padding: 0 20px;
+  }
+
+  &::after {
+    content: "";
+    height: 45px;
+    width: 110%;
+    left: -20px;
+    top: 0;
+    position: absolute;
+    backdrop-filter: blur(3px);
+    background: rgba(255, 255, 255, 0.86);
+    z-index: -8;
+  }
+
+  .nav-container {
+    display: flex;
+    width: 100%;
+    max-width: 1190px;
+    margin: 0 auto;
+    justify-content: space-between;
+    height: 45px;
+    align-items: center;
+    position: relative;
+
+    .logo {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -10px);
+      display: flex;
+      align-items: center;
+
+      img {
+        height: 80px;
+        width: 80px;
+        object-fit: contain;
+
+        @media screen and (max-width: 590px) {
+          transform: translateY(0);
+        }
+      }
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 35%;
+      font-size: 1.2rem;
+      margin-left: auto; /* Fait que la liste est poussée vers la droite */
+
+      .welcome {
+        transform: translateY(2px);
+
+        @media screen and (max-width: 590px) {
+          display: none;
+        }
+
+        h5 {
+          font-family: $font-3;
+        }
+      }
+
+      li {
+        transition: transform 0.2s ease; // Transition fluide
+
+        &:hover {
+          transform: translateX(3px); // Décale de 10px vers la droite au survol
+        }
+
+        img {
+          height: 24px;
+          width: 24px;
+          cursor: pointer;
+          display: grid;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
