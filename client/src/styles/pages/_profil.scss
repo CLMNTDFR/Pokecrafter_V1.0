@@ -155,10 +155,13 @@ body {
     }
 
     > div {
-      background: $color-4;
+      background: rgba($color-4, 0.6);
       border-radius: 10px;
       padding: 25px;
       margin: 20px 10px;
+      box-shadow: 
+        10px 10px 20px rgba(0, 0, 0, 0.072),
+        -10px -10px 20px rgba(0, 0, 0, 0.053);
 
       @media screen and (max-width: 700px) {
         margin: 10px 10px;
@@ -174,7 +177,7 @@ body {
       img {
         height: 180px;
         width: 180px;
-        border-radius: 46px;
+        border-radius: 50%;
         object-fit: cover;
         margin-bottom: 30px;
         box-shadow: 0 0 6px rgba(51, 51, 51, 0.363);
@@ -231,9 +234,10 @@ body {
       }
       p,
       textarea {
+        background-color: #efefef;
         min-height: 80px;
-        border: 1px solid $color-1;
-        border-radius: 10px;
+        border: 1px solid $color-2;
+        border-radius: 10px 10px 0px 10px;
         padding: 10px 20px;
         font-size: 0.9rem;
       }
@@ -250,8 +254,11 @@ body {
         margin: 60px 0 10px;
       }
       h5 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background: $color-1;
-        color: $color-4;
+        color: black;
         font-family: $font-1;
         margin: 20px 0;
         padding: 12px;
@@ -259,10 +266,15 @@ body {
         border-radius: 10px;
         transition: 0.2s;
         cursor: pointer;
-
+    
         &:hover {
-          filter: brightness(110%);
           transform: translateX(2px);
+        }
+    
+        .icon {
+          width: 25px;
+          height: 25px;
+          margin-right: 10px;
         }
       }
     }
@@ -274,104 +286,88 @@ body {
     left: 0;
     height: 100%;
     position: fixed;
-    animation: popup 1s forwards;
-
+    opacity: 0; // Initialement invisible
+    animation: popup 0.3s ease-out forwards; // Animation uniquement avec fade-in
+  
     @keyframes popup {
       to {
-        backdrop-filter: blur(2px);
+        opacity: 1; // Transition d'opacité de 0 à 1
+        backdrop-filter: blur(2px); // Effet de flou en fond
       }
     }
-
+  
     .modal {
       position: absolute;
       top: 10%;
       left: 50%;
-      transform: translate(-50%);
-      background: $color-2;
+      transform: translate(-50%); // Centrage horizontal
+      background: #efefef;
       padding: 25px;
       border-radius: 10px;
-      box-shadow: 0 0 2px rgba(131, 130, 130, 0.356);
-      overflow: hidden; /* initial state */
-      transform: scaleY(0);
-      transform-origin: center;
-      animation: modal .5s forwards;
-    
+      box-shadow: 
+        10px 10px 20px rgba(0, 0, 0, 0.237),
+        -10px -10px 20px rgba(0, 0, 0, 0.135);
+      overflow: hidden; // Contenu caché au-delà des limites
+  
       // Limitation de la hauteur et ajout du scroll si nécessaire
-      max-height: 80vh; /* 80% de la hauteur de la fenêtre */
-      overflow-y: auto; /* Ajoute la barre de scroll verticale si nécessaire */
-
+      max-height: 80vh; // 80% de la hauteur de la fenêtre
+      overflow-y: auto; // Ajoute la barre de scroll verticale si nécessaire
+      
+  
       // Personnalisation de la barre de scroll
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Couleur de fond de la barre */
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #7f7f7f; /* Couleur de la poignée */
-    border-radius: 10px; /* Bord arrondi pour un effet plus doux */
-    border: 2px solid $color-2; /* Ajoute un peu de bord pour l'effet 3D */
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: darken($color-1, 10%); /* Changement de couleur au hover */
-  }
-    
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+  
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1; // Couleur de fond de la barre
+        border-radius: 10px;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background: #7f7f7f; // Couleur de la poignée
+        border-radius: 10px; // Bord arrondi pour un effet plus doux
+        border: 2px solid $color-2; // Ajoute un peu de bord pour l'effet 3D
+      }
+  
+      &::-webkit-scrollbar-thumb:hover {
+        background: darken($color-1, 10%); // Changement de couleur au hover
+      }
+  
       h3 {
         min-width: 200px;
       }
-    
+  
       .cross {
         position: absolute;
         top: 25px;
         right: 25px;
         transition: 0.1s;
         cursor: pointer;
-    
+  
         &:hover {
           transform: scale(1.07);
         }
       }
-    
+  
       // Styles pour le contenu de la modal (le texte)
       p {
         margin: 15px 0;
         line-height: 1.5;
       }
-    
-      @keyframes modal {
-        to {
-          transform: scale(1) translate(-50%);
-        }
-      }
-
+  
       @media screen and (max-width: 600px) {
-        width: 90%; /* La modal prend 90% de la largeur de l'écran */
+        width: 90%; // La modal prend 90% de la largeur de l'écran
         left: 50%;
         transform: translate(-50%);
       }
-
-      .cross {
-        position: absolute;
-        top: 25px;
-        right: 25px;
-        transition: 0.1s;
-        cursor: pointer;
-
-        &:hover {
-          transform: scale(1.07);
-        }
-      }
-
+  
       ul {
         margin: 20px 0 0;
         max-height: 500px;
         overflow-y: scroll;
         overflow-x: hidden;
-
+  
         &::-webkit-scrollbar {
           width: 2px;
         }
@@ -384,17 +380,17 @@ body {
         &::-webkit-scrollbar-thumb:hover {
           background: #555;
         }
-
+  
         li {
           display: grid;
           grid-template-columns: 64px 1fr 114px;
           align-items: center;
           margin: 10px 0;
-
+  
           img {
             height: 50px;
             width: 50px;
-            border-radius: 20px;
+            border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 0 2px rgba(51, 51, 51, 0.376);
           }
@@ -404,12 +400,12 @@ body {
           }
           .follow-handler {
             text-align: left;
-
+  
             button {
               background: $color-4;
               border-radius: 10px;
               margin-right: 6px;
-
+  
               &:hover {
                 color: $color-3;
                 transform: translateX(2px);
@@ -420,4 +416,4 @@ body {
       }
     }
   }
-}
+}  

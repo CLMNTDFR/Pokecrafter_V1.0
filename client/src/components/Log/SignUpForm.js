@@ -8,7 +8,7 @@ const SignUpForm = () => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [controlPassword, setControlPassword] = React.useState("");
-    const [showTermsPopup, setShowTermsPopup] = React.useState(false); // Nouvel état
+    const [showTermsPopup, setShowTermsPopup] = React.useState(false);
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -35,9 +35,9 @@ const SignUpForm = () => {
                 url: `${process.env.REACT_APP_API_URL}api/user/register`,
                 withCredentials: true,
                 data: {
-                    username, // Modifié
+                    username,
                     email,
-                    password_hash: password // Modifié
+                    password_hash: password
                 }
             })
                 .then((res) => {
@@ -149,7 +149,7 @@ const SignUpForm = () => {
                             <strong>7. Modification of Terms</strong><br />
                             We reserve the right to modify these terms at any time. You will be notified of any major changes, and your continued use of the platform will signify your acceptance of the new terms.
                         </p>
-                        <div className="cross" onClick={() => setShowTermsPopup(false)}>X</div>
+                        <div className="cross" onClick={() => setShowTermsPopup(false)}>✖</div>
                     </div>
                 </div>
             )}
