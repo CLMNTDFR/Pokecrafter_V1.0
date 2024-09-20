@@ -367,7 +367,7 @@ body {
         max-height: 500px;
         overflow-y: scroll;
         overflow-x: hidden;
-  
+      
         &::-webkit-scrollbar {
           width: 2px;
         }
@@ -380,13 +380,15 @@ body {
         &::-webkit-scrollbar-thumb:hover {
           background: #555;
         }
-  
+      
         li {
           display: grid;
-          grid-template-columns: 64px 1fr 114px;
+          grid-template-columns: 64px 1fr; // Déclaration déplacée ici
+          grid-template-rows: auto auto;   // Déclaration déplacée ici
+          grid-row-gap: 10px;              // Déclaration déplacée ici
           align-items: center;
           margin: 10px 0;
-  
+      
           img {
             height: 50px;
             width: 50px;
@@ -398,39 +400,35 @@ body {
             text-align: left;
             min-width: 210px;
           }
-
-          grid-template-columns: 64px 1fr; // Sur mobile, deux colonnes : image et nom
-          grid-template-rows: auto auto; // Deux lignes : nom d'utilisateur puis bouton
-          grid-row-gap: 10px; // Espace entre le nom d'utilisateur et le bouton
-
+      
           .follow-handler {
             text-align: left;
-            grid-column: span 2; // Le bouton occupe toute la largeur
-            width: 100%; // Assure que le conteneur prenne toute la largeur
-            margin-top: 10px; // Espace entre le nom et le bouton
-          
+            grid-column: span 2;
+            width: 100%;
+            margin-top: 10px;
+      
             button {
-              display: flex; // Utilisation de flexbox pour aligner icône et texte
-              align-items: center; // Aligne le texte et l'icône verticalement
-              justify-content: center; // Centre le contenu horizontalement
-              padding: 10px; // Ajuste le padding pour un meilleur rendu
-              width: 100%; // Le bouton prend toute la largeur du conteneur
-              box-sizing: border-box; // Prend en compte le padding dans la taille totale
-              background: $color-1; // Supprime tout fond pouvant créer un "cercle"
-              border: none; // Supprime la bordure si présente
-              min-width: unset; // Supprime la taille minimale du bouton
-              margin-right: 0; // Pas de marge à droite sur mobile
-              padding: 10px; // Ajustement du padding pour un meilleur rendu
-              box-sizing: border-box; // Assure que le padding est pris en compte dans la taille totale
-        
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 10px;
+              width: 100%;
+              box-sizing: border-box;
+              background: $color-1;
+              border: none;
+              min-width: unset;
+              margin-right: 0;
+              padding: 10px;
+              box-sizing: border-box;
+      
               img.icon {
                 width: 20px;
                 height: 20px;
-                margin-right: 15px; // Espace entre l'icône et le texte
-                box-shadow: none; // Supprime toute ombre entourant l'icône
-                border-radius: 0; // Assure qu'il n'y ait pas de coins arrondis
+                margin-right: 15px;
+                box-shadow: none;
+                border-radius: 0;
               }
-          
+      
               &:hover {
                 color: $color-3;
                 transform: translateX(3px);
@@ -438,7 +436,7 @@ body {
             }
           }
         }
-      }
+      }      
     }
   }
 }  

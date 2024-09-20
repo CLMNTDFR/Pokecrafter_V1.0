@@ -4,6 +4,7 @@ import UploadImg from "./UploadImg";
 import { updateBio } from "../../actions/user.actions";
 import { dateParser } from "../Utils";
 import FollowHandler from "./FollowHandler";
+import Trophy from "./Trophy";
 
 const UpdateProfil = () => {
   const [bio, setBio] = useState("");
@@ -70,6 +71,12 @@ const UpdateProfil = () => {
           </h5>
         </div>
       </div>
+      <br />
+      <Trophy />
+      <br />
+      <br />
+      <br />
+
       {followingPopup && (
         <div className="popup-profil-container">
           <div className="modal">
