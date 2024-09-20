@@ -398,17 +398,42 @@ body {
             text-align: left;
             min-width: 210px;
           }
+
+          grid-template-columns: 64px 1fr; // Sur mobile, deux colonnes : image et nom
+          grid-template-rows: auto auto; // Deux lignes : nom d'utilisateur puis bouton
+          grid-row-gap: 10px; // Espace entre le nom d'utilisateur et le bouton
+
           .follow-handler {
             text-align: left;
-  
+            grid-column: span 2; // Le bouton occupe toute la largeur
+            width: 100%; // Assure que le conteneur prenne toute la largeur
+            margin-top: 10px; // Espace entre le nom et le bouton
+          
             button {
-              background: $color-4;
-              border-radius: 10px;
-              margin-right: 6px;
-  
+              display: flex; // Utilisation de flexbox pour aligner icône et texte
+              align-items: center; // Aligne le texte et l'icône verticalement
+              justify-content: center; // Centre le contenu horizontalement
+              padding: 10px; // Ajuste le padding pour un meilleur rendu
+              width: 100%; // Le bouton prend toute la largeur du conteneur
+              box-sizing: border-box; // Prend en compte le padding dans la taille totale
+              background: $color-1; // Supprime tout fond pouvant créer un "cercle"
+              border: none; // Supprime la bordure si présente
+              min-width: unset; // Supprime la taille minimale du bouton
+              margin-right: 0; // Pas de marge à droite sur mobile
+              padding: 10px; // Ajustement du padding pour un meilleur rendu
+              box-sizing: border-box; // Assure que le padding est pris en compte dans la taille totale
+        
+              img.icon {
+                width: 20px;
+                height: 20px;
+                margin-right: 15px; // Espace entre l'icône et le texte
+                box-shadow: none; // Supprime toute ombre entourant l'icône
+                border-radius: 0; // Assure qu'il n'y ait pas de coins arrondis
+              }
+          
               &:hover {
                 color: $color-3;
-                transform: translateX(2px);
+                transform: translateX(3px);
               }
             }
           }
