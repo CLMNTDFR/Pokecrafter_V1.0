@@ -22,6 +22,11 @@ const ArtworkSchema = new mongoose.Schema(
    //   type: String,
     //  required: true,
   //  },
+    category: {
+      type: String,
+      enum: ['AI', '3D', 'DigitalArt', 'Handcraft', 'Other'],
+      required: true
+  },
     likers: {
       type: [String]
     },

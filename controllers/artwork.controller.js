@@ -25,6 +25,7 @@ module.exports.readArtwork = async (req, res) => {
         posterId: req.body.posterId,
         title: req.body.title,
         description: req.body.description,
+        category: req.body.category,
         likers: [],
         comments: [],
         // picture:
@@ -48,6 +49,7 @@ module.exports.readArtwork = async (req, res) => {
     const updatedRecord = {
       title: req.body.title,
       description: req.body.description,
+      category: req.body.category,
     };
   
     try {
