@@ -7,10 +7,10 @@ const userSchema = new mongoose.Schema(
         username: {
             type: String,
             required: true,
-            minLenght: 3,
-            maxLenght: 55,
+            minlength: 3,
+            maxlength: 55,
             unique: true,
-            trimp: true,
+            trim: true,
         },
         email: {
             type: String,
@@ -18,11 +18,12 @@ const userSchema = new mongoose.Schema(
             validate: [isEmail],
             lowercase: true,
             trim: true,
+            unique: true,
         },
         password_hash: {
             type: String,
             required: true,
-            minLenght: 6,
+            minlength: 6,
             max: 1024,
         },
         picture: {
@@ -70,7 +71,7 @@ userSchema.statics.login = async function(email, password_hash) {
       if (auth) {
         return user;
       }
-      throw Error('wrong password');
+      throw Error('wrong password_hash');
     }
     throw Error('wrong email')
   };

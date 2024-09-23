@@ -1,5 +1,6 @@
 const express = require('express');
 const userRoutes = require('./routes/user.routes');
+const artworkRoutes = require('./routes/artwork.routes');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');  // Import du package cors
 require('dotenv').config({path: './config/.env'});
@@ -24,6 +25,7 @@ app.get('/jwtid', requireAuth, (req, res) => {
 });
 
 app.use('/api/user', userRoutes);
+app.use('/api/artwork', artworkRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running on port ${process.env.PORT}`);
