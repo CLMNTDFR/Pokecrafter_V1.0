@@ -27,7 +27,6 @@ const UpdateProfil = () => {
           <h3>Profile picture</h3>
           <br />
           <img src={userData.picture} alt="user-profil-picture" />
-          <br />
           <UploadImg />
         </div>
         <div className="right-part">
