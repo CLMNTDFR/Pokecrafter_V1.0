@@ -3,7 +3,7 @@ import axios from "axios";
 
 const SignInForm = () => {
     const [email, setEmail] = useState('');
-    const [password_hash, setPassword] = useState(''); // Modifié
+    const [password_hash, setPassword] = useState('');
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -16,7 +16,7 @@ const SignInForm = () => {
             withCredentials: true,
             data : {
                 email,
-                password_hash, // Modifié
+                password_hash,
             },
         })
         .then((res) => {

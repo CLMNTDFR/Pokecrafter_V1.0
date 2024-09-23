@@ -47,9 +47,9 @@ textarea {
   resize: none;
   border-radius: 10px;
   width: 270px;
-  font-family: $font-1;
-  background: $white;
-  font-size: 0.9rem; // Ajustez la taille de police pour les inputs et textareas
+  font-family: $font-2;
+  background: #ffffff;
+  font-size: 1rem; // Ajustez la taille de police pour les inputs et textareas
 }
 textarea {
   &:focus {
@@ -59,8 +59,8 @@ textarea {
 button,
 input[type="submit"] {
   background: $color-2;
-  color: $color-1;
-  font-family: $font-3;
+  color: black;
+  font-family: $font-2;
   cursor: pointer;
   transition: 0.2s;
   margin: 0;
@@ -71,7 +71,8 @@ input[type="submit"] {
 
   &:hover {
     background: $color-1;
-    color: $color-2;
+    color: black;
+    transform: translateX(3px);
   }
 }
 input[type="checkbox"] {

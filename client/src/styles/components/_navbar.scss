@@ -56,17 +56,16 @@ nav {
     ul {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      width: 35%;
+      justify-content: flex-end; /* Aligne les éléments à droite */
+      width: auto; /* Ajuste la largeur de la liste en fonction des éléments */
       font-size: 1.2rem;
       margin-left: auto; /* Fait que la liste est poussée vers la droite */
 
       .welcome {
-        transform: translateY(2px);
-
-        @media screen and (max-width: 590px) {
-          display: none;
-        }
+        display: flex;
+        align-items: center; /* Aligne verticalement avec l'icône */
+        margin-right: 20px; /* Réduit l'espace entre le texte et l'icône */
+        transform: translateY(1px);
 
         h5 {
           font-family: $font-3;
@@ -74,10 +73,10 @@ nav {
       }
 
       li {
-        transition: transform 0.2s ease; // Transition fluide
+        transition: transform 0.2s ease; /* Transition fluide */
 
         &:hover {
-          transform: translateX(3px); // Décale de 10px vers la droite au survol
+          transform: translateX(3px); /* Décale de 3px vers la droite au survol */
         }
 
         img {

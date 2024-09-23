@@ -1,0 +1,42 @@
+.trophy-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  
+    .trophy {
+      position: relative;
+      display: inline-block;
+  
+      img {
+        width: 100px;
+        height: auto;
+      }
+  
+      .badge {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+  
+        & {
+          color: rgb(0, 0, 0); /* Déclaration encapsulée */
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+        }
+      }
+    }
+  
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+  
+      .trophy {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  
