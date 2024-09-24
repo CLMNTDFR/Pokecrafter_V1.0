@@ -20,7 +20,7 @@ const Thread = () => {
             <ul>
                 {artworks && artworks.length > 0 ? (
                     artworks.map((artwork) => {
-                        return <Card post={artwork} key={artwork._id} />;
+                        return <Card artwork={artwork} key={artwork._id} />;  // Changement de "post" à "artwork"
                     })
                 ) : (
                     <li>No artwork available</li> // Default message if empty

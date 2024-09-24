@@ -12,7 +12,7 @@ const Navbar = () => {
     <nav>
       <div className="nav-container">
         <div className="logo">
-          <NavLink exact to="/">
+          <NavLink to="/">
             <div className="logo">
               <img src="./img/icon.svg" alt="icon" />
             </div>
@@ -20,20 +20,17 @@ const Navbar = () => {
         </div>
         {uid ? (
             <ul>
-                <li></li>
                 <li className="welcome">
-                    <NavLink exact to="/profil">
-                    <h5>{userData.username}</h5>
+                    <NavLink to="/profil">
+                      <h5>{userData.username}</h5>
                     </NavLink>
                 </li>
                 <Logout />
             </ul>
         ) : (
             <ul>
-                <li></li>
                 <li>
-                    <NavLink exact to="/profil">
-                    <li className="welcome"></li>
+                    <NavLink to="/profil">
                         <img src="./img/icons/login.svg" alt="login" />
                     </NavLink>
                 </li>
@@ -45,3 +42,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
