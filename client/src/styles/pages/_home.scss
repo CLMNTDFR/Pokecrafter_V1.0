@@ -167,14 +167,43 @@
   justify-content: center;
   align-items: center;
   z-index: 1000; /* Assurez-vous qu'il soit au-dessus d'autres éléments */
+  opacity: 0; // Initialement invisible
+  animation: popup 0.3s ease-out forwards; // Animation uniquement avec fade-in
+  
+    @keyframes popup {
+      to {
+        opacity: 0.95; // Transition d'opacité de 0 à 1
+        backdrop-filter: blur(2px); // Effet de flou en fond
+      }
+    }
 }
 
 .popup-content {
   background-color: white;
   position: relative;
-  width: 80%; /* Prendre toute la largeur */
+  width: 90%; /* Prendre toute la largeur */
   height: 100%; /* Prendre toute la hauteur */
   overflow-y: auto; /* Permettre le défilement si le contenu est plus grand que l'écran */
+
+        // Personnalisation de la barre de scroll
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
+    
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1; // Couleur de fond de la barre
+          border-radius: 10px;
+        }
+    
+        &::-webkit-scrollbar-thumb {
+          background: #7f7f7f; // Couleur de la poignée
+          border-radius: 10px; // Bord arrondi pour un effet plus doux
+          border: 2px solid $color-2; // Ajoute un peu de bord pour l'effet 3D
+        }
+    
+        &::-webkit-scrollbar-thumb:hover {
+          background: darken($color-1, 10%); // Changement de couleur au hover
+        }
 
   @media screen and (max-width: 990px) {
     width: 100%; /* Réduire la largeur pour les petits écrans */

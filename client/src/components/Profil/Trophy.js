@@ -1,6 +1,4 @@
-import React from "react";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
+import React, { useState } from "react";
 
 const Trophy = () => {
   const trophies = [
@@ -10,18 +8,24 @@ const Trophy = () => {
     { src: "/img/black_trophy.svg", alt: "Black Trophy, Winner of an official contest." },
   ];
 
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
   return (
     <div className="trophy-container">
       {trophies.map((trophy, index) => (
-        <div className="trophy" key={index}>
-          <Popup
-            trigger={<img src={trophy.src} alt={trophy.alt} />}
-            position={["bottom center", "bottom right", "bottom left"]}
-            closeOnDocumentClick
-          >
-            <div>{trophy.alt}</div>
-          </Popup>
+        <div
+          className="trophy"
+          key={index}
+          onMouseEnter={() => setHoveredIndex(index)}
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          <img src={trophy.src} alt={trophy.alt} />
           <div className="badge">x 0</div>
+          {hoveredIndex === index && (
+            <div className="trophy-popup-container">
+              <div className="popup-description">{trophy.alt}</div>
+            </div>
+          )}
         </div>
       ))}
     </div>
@@ -29,4 +33,3 @@ const Trophy = () => {
 };
 
 export default Trophy;
-

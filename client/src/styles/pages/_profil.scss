@@ -443,4 +443,10 @@ body {
       }      
     }
   }
+  .popup-custom {
+    padding: 20px; /* Padding à l'intérieur de la pop-up */
+    border-radius: 10px; /* Coins arrondis */
+    background-color: white; /* Couleur de fond */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Ombre pour donner un effet de profondeur */
+  }
 }  

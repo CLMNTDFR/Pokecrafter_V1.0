@@ -153,11 +153,19 @@
       }
     }
     .card-pic {
-      width: 100%;
-      border-radius: 6px;
+      transform: translateX(-10px);
+      height: 60vh; /* Occupation de 60% de la hauteur de l'écran */
+      width: auto; /* Largeur automatique pour maintenir le ratio d'aspect */
       margin-top: 12px;
       box-shadow: 0 0 3px rgba(51, 51, 51, 0.342);
+    
+      @media screen and (max-width: 440px) {
+        height: auto;
+        width: 110%; /* Largeur à 100% pour petits écrans */
+        transform: translateX(-26px);
+      }
     }
+    
     iframe {
       width: 100%;
       min-height: 330px;
