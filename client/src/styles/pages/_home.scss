@@ -1,102 +1,193 @@
+* {
+  box-sizing: border-box; /* Ajoutez ceci pour tous les éléments */
+}
+
 .home {
   display: grid;
   max-width: 1200px;
-  grid-template-columns: 60px 1fr 374px;
-  overflow: hidden;
-  margin: 58px 50px;
+  grid-template-columns: 50px 1fr;
+  margin: 50px auto;
   position: relative;
 
-  // Media query pour les écrans de largeur maximale 990px
   @media screen and (max-width: 990px) {
-    grid-template-columns: 60px 1fr;
-    margin: 58px 20px 50px;
+    grid-template-columns: 0px 1fr; /* Ici */
+    margin: 58px 20px; /* Ajouter une marge de 10px à droite et à gauche */
   }
 
-  // Media query pour les écrans de largeur maximale 590px
   @media screen and (max-width: 590px) {
-    grid-template-columns: 1fr;
-    margin: 58px 8px 50px;
+    grid-template-columns: 1fr; /* Une seule colonne pour les petits écrans */
+    margin: 58px 8px;
   }
 
-  // Styles pour la section principale
   .main {
-    .home-header {
-      margin: 0 auto 12px;
-      text-align: center;
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; /* Pour un alignement vertical au centre */
+      margin-bottom: 20px;
+      margin-top: 40px;
 
-      // Styles pour le formulaire de connexion
-      .connection-form {
-        background: $color-4;
-        border-radius: 20px;
-        padding: 20px;
+      h3 {
+        margin: 0;
+        transform: translateY(-12px);
+      }
+    }
 
-        ul {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 18px;
+    hr {
+      border: 1px solid #ccc;
+      margin: 20px 0;
+      width: 100%;
+    }
+  }
+}
 
-          li {
-            cursor: pointer;
-            border-radius: 20px;
-            padding: 12px 14px;
-            transition: .2s;
-            margin: 0 8px;
+/* Style pour le conteneur de la mosaïque */
+.thread-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 colonnes pour les écrans d'ordinateur */
+  gap: 16px; /* Espace entre les cartes */
+  padding: 16px; /* Ajoutez du padding si nécessaire */
 
-            // Styles pour le bouton actif
-            &.active-btn {
-              background: $color-1;
+  @media screen and (max-width: 990px) {
+    grid-template-columns: 1fr; /* Une seule colonne pour les petits écrans */
+    padding: 0; /* Enlevez le padding pour les petits écrans */
+  }
 
-              &:hover {
-                background: $color-2;
-              }
-            }
+  .artwork-grid {
+    list-style-type: none; /* Supprimez les puces par défaut */
+    padding: 0; /* Supprimez le padding */
+    margin: 0; /* Supprimez la marge */
+    display: contents; /* Pour que les enfants s'affichent directement sous la grille */
+    
+    li {
+      /* Assurez-vous que les images s'adaptent correctement */
+      max-width: 100%; /* Limitez la largeur des éléments à 100% */
+      overflow: hidden; /* Cachez tout débordement */
+      
+      img {
+        width: 100%; /* Assurez-vous que les images occupent 100% de leur conteneur */
+        height: auto; /* Gardez les proportions des images */
+        display: block; /* Enlevez l'espace blanc en dessous de l'image */
+      }
+    }
+  }
+}
 
-            // Styles pour les boutons non actifs
-            &:not(.active-btn) {
-              &:hover {
-                transform: translateX(3px);
-              }
-            }
-          }
-        }
+/* Style du menu déroulant */
+.dropdown {
+  position: relative;
+  width: auto; /* Permet au bouton de s'ajuster à son contenu */
+  background: transparent;
+  margin: 0; /* Enlever les marges excessives */
+  text-align: left; /* Alignement à gauche pour le dropdown */
+  border-radius: 10px;
+  z-index: 1;
+  box-shadow: none;
 
-        // Styles pour le formulaire
-        form {
-          input {
-            padding: 10px 14px;
-            margin: 0;
-            font-size: 1.2rem;
-            font-family: $font-2;
-            border-radius: 20px;
+  @media screen and (max-width: 990px) {
+    transform: translateX(13px);
+  }
 
-            &:focus {
-              box-shadow: 0 0 3px rgba(51, 51, 51, 0.2);
-            }
-          }
+  .dropdown-trigger {
+    background-color: #2d2f31;
+    color: white;
+    padding: 12px 40px; /* Ajuster le padding pour garder le bouton compact */
+    padding-left: 15px; /* Ajouter une marge de 5px à gauche */
+    font-size: 0.9em;
+    font-variant: small-caps;
+    cursor: pointer;
+    position: relative;
+    border: none; /* S'assurer qu'il n'y a pas de bordure non voulue */
+    border-radius: 5px; /* Arrondir le bouton */
+    white-space: nowrap; /* Empêcher le texte de se diviser sur deux lignes */
 
-          // Styles pour le bouton de soumission
-          input[type=submit] {
-            padding: 14px 14px;
-            border-radius: 20px;
-          }
+    &:after {
+      content: "+"; /* Contenu par défaut */
+      font-size: 1.7em; /* Réduire la taille du "+" */
+      position: absolute;
+      right: 15px; /* Le "+" est plus proche du bord droit */
+      top: 50%; /* Centrer verticalement */
+      transform: translateY(-50%); /* Ajustement centré */
+    }
+
+    &.open:after {
+      content: "-"; /* Contenu quand le menu est ouvert */
+      font-size: 1.7em; /* Réduire la taille du "+" */
+      position: absolute;
+      right: 18px; /* Le "+" est plus proche du bord droit */
+      top: 50%; /* Centrer verticalement */
+      transform: translateY(-50%); /* Ajustement centré */
+    }
+  }
+
+  .dropdown-menu {
+    clear: both;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease;
+    background-color: white;
+    text-align: center;
+    z-index: 1;
+
+    &.open {
+      height: auto; /* Ouvrir le menu quand il est cliqué */
+    }
+
+    li {
+      list-style: none;
+      padding: 15px;
+
+      .dropdown-item {
+        background: none;
+        border: none;
+        color: #2d2f31;
+        font-size: 0.9em;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+          color: $color-3; /* Assurez-vous que $color-3 est défini */
         }
       }
     }
   }
+}
 
-  // Styles pour la section de droite
-  .right-side {
-    position: relative;
-    width: 100%;
-    margin: 0px 0 0 14px;
+/* styles.css */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Assurez-vous qu'il soit au-dessus d'autres éléments */
+}
 
-    // Media query pour les écrans de largeur maximale 990px
-    @media screen and (max-width: 990px) {
-      display: none;
-    }
+.popup-content {
+  background-color: white;
+  position: relative;
+  width: 80%; /* Prendre toute la largeur */
+  height: 100%; /* Prendre toute la hauteur */
+  overflow-y: auto; /* Permettre le défilement si le contenu est plus grand que l'écran */
 
-    .right-side-container {
-      position: fixed;
-    }
+  @media screen and (max-width: 990px) {
+    width: 100%; /* Réduire la largeur pour les petits écrans */
   }
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1100; /* Assurez-vous qu'il soit au-dessus du contenu */
 }
