@@ -1,13 +1,17 @@
 .card-container {
   display: grid;
-  grid-template-columns: 66px 1fr;
-  border: 2px solid $color-2;
+  grid-template-columns: 80px 1fr;
+  border: 1px solid $color-1;
   margin: 10px;
   padding: 16px;
-  border-radius: 20px;
+  border-radius: 5px;
   margin: 8px auto;
   position: relative;
   min-height: 100px;
+  background: rgba($color-4, 0.6);
+  box-shadow: 
+        10px 10px 20px rgba(0, 0, 0, 0.072),
+        -10px -10px 20px rgba(0, 0, 0, 0.053);
 
   @media screen and (max-width: 590px) {
     grid-template-columns: 1fr;
@@ -17,7 +21,7 @@
   }
 
   .fa-spinner {
-    position: absolute;
+    position: center;
     top: 40%;
     left: 49%;
     font-size: 1.5rem;
@@ -35,7 +39,7 @@
       @media screen and (max-width: 590px) {
         height: 40px;
         width: 40px;
-        margin-left: 18px;
+        margin-left: 10px;
         border-radius: 14px;
       }
     }
@@ -104,7 +108,6 @@
       }
 
       span {
-        font-style: italic;
         font-family: $font-1;
 
         @media screen and (max-width: 440px) {
@@ -114,11 +117,19 @@
     }
     p {
       margin: 3px 0 9px;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
 
       @media screen and (max-width: 440px) {
         margin-top: -18px;
       }
+    }
+    .follow-text {
+      display: inline-block;
+      margin-left: 0px; // Adjust the space between the icon and the text
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: $color-3; // Customize the color as needed
+      transform: translateY(-8px);
     }
     .update-post {
       textarea {
@@ -142,11 +153,19 @@
       }
     }
     .card-pic {
-      width: 100%;
-      border-radius: 6px;
+      transform: translateX(-10px);
+      height: 60vh; /* Occupation de 60% de la hauteur de l'écran */
+      width: auto; /* Largeur automatique pour maintenir le ratio d'aspect */
       margin-top: 12px;
       box-shadow: 0 0 3px rgba(51, 51, 51, 0.342);
+    
+      @media screen and (max-width: 440px) {
+        height: auto;
+        width: 110%; /* Largeur à 100% pour petits écrans */
+        transform: translateX(-26px);
+      }
     }
+    
     iframe {
       width: 100%;
       min-height: 330px;

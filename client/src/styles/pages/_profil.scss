@@ -1,5 +1,5 @@
 body {
-  background-image: url('https://i.postimg.cc/Y2b0K5x2/background4.png');
+  background-image: url('https://i.imgur.com/mPtV2Jv.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -442,5 +442,11 @@ body {
         }
       }      
     }
+  }
+  .popup-custom {
+    padding: 20px; /* Padding à l'intérieur de la pop-up */
+    border-radius: 10px; /* Coins arrondis */
+    background-color: white; /* Couleur de fond */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Ombre pour donner un effet de profondeur */
   }
 }  
