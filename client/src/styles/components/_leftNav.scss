@@ -1,3 +1,5 @@
+/* LeftNav.scss */
+
 .left-nav-container {
   position: relative;
 
@@ -62,13 +64,13 @@
         transition: 0.2s ease; // Applique la transition fluide pour les transformations
         display: inline-block;
         margin-bottom: 70px;
-      
+
         // Styles pour les grands écrans (ordinateur)
         @media screen and (min-width: 1025px) {
           margin-bottom: 0;
           flex: none;
         }
-      
+
         // Styles pour les petits écrans (tablette et téléphone)
         @media screen and (max-width: 1024px) {
           margin-bottom: 0; // Supprime le margin inférieur
@@ -76,7 +78,7 @@
           display: flex;
           justify-content: center; // Centre chaque icône
         }
-      
+
         &:before {
           transition: 0.15s ease;
           transform: scale(0);
@@ -98,17 +100,34 @@
         &:hover {
           transform: translateX(4px); // Décale de 10px vers la droite au survol
         }
-      
+
         img {
           height: 25px;
           width: 25px;
-      
+
           // Réduction pour mobile
           @media screen and (max-width: 1024px) {
             height: 22px;
             width: 22px;
           }
         }
+      }
+    }
+
+    // Styles de la pop-up qui s'affiche au survol
+    .nav-popup-container {
+      position: absolute;
+      background-color: white; /* Couleur de fond de la bulle */
+      padding: 10px; /* Padding de la bulle */
+      border-radius: 10px; /* Coins arrondis */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Ombre pour donner un effet de profondeur */
+      white-space: nowrap; /* Empêche le texte de se plier à la ligne */
+      max-width: 150px; /* Largeur maximale pour contrôler la taille */
+      text-align: center; /* Centrer le texte */
+      z-index: 20; /* Assure que la pop-up soit au-dessus des autres éléments */
+
+      @media (max-width: 1024px) {
+        display: none; /* Ne pas afficher sur les petits écrans */
       }
     }
   }
