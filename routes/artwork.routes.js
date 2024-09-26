@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const artworkController = require('../controllers/artwork.controller');
+const fileUpload = require('express-fileupload'); // Require express-fileupload
+const path = require('path');
 
 router.get('/', artworkController.readArtwork);
 router.post('/', artworkController.createArtwork);

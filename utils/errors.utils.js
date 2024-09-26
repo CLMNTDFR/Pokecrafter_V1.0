@@ -31,3 +31,17 @@ module.exports.signUpErrors = (err) => {
     return errors;
   }
 
+  module.exports.uploadErrors = (err) => {
+    let errors = { format: "", maxSize: "" };
+  
+    if (err.message.includes("invalid file")) {
+      errors.format = "Format incompatible. Seules les images jpg, jpeg et png sont acceptées.";
+    }
+  
+    if (err.message.includes("max size")) {
+      errors.maxSize = "Le fichier dépasse la taille maximale de 500 Ko.";
+    }
+  
+    return errors;
+  };
+

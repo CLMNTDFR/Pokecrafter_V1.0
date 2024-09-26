@@ -18,10 +18,10 @@ const ArtworkSchema = new mongoose.Schema(
       maxlength: 1000,
       required: true
     },
-  //  picture: {
-   //   type: String,
-    //  required: true,
-  //  },
+    picture: {
+      type: String,
+      required: true,
+    },
     category: {
       type: String,
       enum: ['AI', '3D', 'DigitalArt', 'Handcraft', 'Other'],
