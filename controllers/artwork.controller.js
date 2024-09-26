@@ -68,7 +68,7 @@ module.exports.createArtwork = async (req, res) => {
                     category: req.body.category,
                     likers: [],
                     comments: [],
-                    picture: "./uploads/artworks/" + fileName,
+                    picture: "./img/uploads/artworks/" + fileName,
                 });
 
                 const artwork = await newArtwork.save();
