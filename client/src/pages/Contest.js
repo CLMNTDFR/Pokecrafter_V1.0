@@ -5,7 +5,7 @@ const Contest = () => {
     return (
         <div className="home">
             <LeftNav />
-            </div>
+        </div>
     );
 };
 

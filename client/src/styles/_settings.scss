@@ -1,20 +1,12 @@
-@font-face {
-  font-family: "font-1";
-  src: url(./assets/fonts/JosefinSans-ExtraLight.ttf);
-}
-@font-face {
-  font-family: "font-2";
-  src: url(./assets/fonts/JosefinSans-Regular.ttf);
-}
-@font-face {
-  font-family: "font-3";
-  src: url(./assets/fonts/JosefinSans-Bold.ttf);
-}
+/* Importation de la police Roboto avec différents font-weight */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
 
-$font-1: "font-1", sans-serif;
-$font-2: "font-2", serif;
-$font-3: "font-3", serif;
+/* Définition des polices */
+$font-1: "Roboto", sans-serif; /* Extra Light (100) */
+$font-2: "Roboto", sans-serif; /* Regular (400) */
+$font-3: "Roboto", sans-serif; /* Bold (700) */
 
+/* Couleurs */
 $color-1: #bdbdbd;
 $color-2: #bdbdbd;
 $color-3: rgb(0, 22, 44);
@@ -37,36 +29,42 @@ $shadow: rgb(219, 218, 218);
     color: black;
   }
 }
+
 a,
 a:visited {
   color: $color-3;
-  font-size: 0.9rem; // Ajustez la taille de police pour les liens
+  font-size: 0.9rem; /* Ajustez la taille de police pour les liens */
+  font-family: $font-2; /* Utilise Roboto Regular */
 }
+
 input,
 textarea {
   resize: none;
   border-radius: 10px;
   width: 270px;
-  font-family: $font-2;
+  font-family: $font-2; /* Utilise Roboto Regular */
   background: #ffffff;
-  font-size: 1rem; // Ajustez la taille de police pour les inputs et textareas
+  font-size: 1rem; /* Ajustez la taille de police pour les inputs et textareas */
 }
+
 textarea {
   &:focus {
     box-shadow: 0 0 4px rgba(0, 22, 44, 0.1);
   }
 }
+
 button,
 input[type="submit"] {
   background: $color-2;
   color: black;
-  font-family: $font-2;
+  font-family: $font-2; /* Utilise Roboto Regular */
+  font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
   margin: 0;
   padding: 10px 20px;
   cursor: pointer;
-  font-size: 0.9rem; // Ajustez la taille de police pour les boutons
+  font-size: 0.9rem; /* Ajustez la taille de police pour les boutons */
   border-radius: 10px;
 
   &:hover {
@@ -75,11 +73,13 @@ input[type="submit"] {
     transform: translateX(3px);
   }
 }
+
 input[type="checkbox"] {
   box-shadow: none;
   width: 20px;
   margin: 10px 0;
 }
+
 i {
   transition: 0.15s;
 
@@ -87,20 +87,25 @@ i {
     transform: scale(1.1);
   }
 }
+
 body {
-  font-family: $font-2;
+  font-family: $font-2; /* Utilise Roboto Regular pour le corps */
   line-height: 1.4rem;
   background: $white;
   color: $color-3;
-  font-size: 0.9rem; // Ajustez la taille de police par défaut pour le corps du document
+  font-size: 0.9rem; /* Ajustez la taille de police par défaut pour le corps du document */
 }
+
 .error {
   color: red;
   font-weight: bold;
-  font-size: 0.9rem; // Ajustez la taille de police pour les messages d'erreur
+  font-size: 0.9rem; /* Ajustez la taille de police pour les messages d'erreur */
+  font-family: $font-3; /* Utilise Roboto Bold */
 }
+
 .success {
   color: green;
   font-weight: bold;
-  font-size: 0.9rem; // Ajustez la taille de police pour les messages de succès
+  font-size: 0.9rem; /* Ajustez la taille de police pour les messages de succès */
+  font-family: $font-3; /* Utilise Roboto Bold */
 }

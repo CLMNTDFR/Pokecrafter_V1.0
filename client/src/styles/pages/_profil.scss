@@ -11,6 +11,10 @@ body {
   margin: 70px auto 0;
   max-width: 1200px;
 
+  @media screen and (max-width: 885px) {
+    margin-top: -50px;
+  }
+
   .icons {
     top: 55px;
   }

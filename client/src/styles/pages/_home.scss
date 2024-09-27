@@ -1,5 +1,5 @@
 * {
-  box-sizing: border-box; /* Ajoutez ceci pour tous les éléments */
+  box-sizing: border-box; /* Pour s'assurer que tous les éléments respectent cette règle */
 }
 
 .home {
@@ -10,12 +10,12 @@
   position: relative;
 
   @media screen and (max-width: 990px) {
-    grid-template-columns: 0px 1fr; /* Ici */
-    margin: 58px 20px; /* Ajouter une marge de 10px à droite et à gauche */
+    grid-template-columns: 0px 1fr; /* Cache la colonne de gauche sur petits écrans */
+    margin: 58px 20px; /* Ajoute une marge sur les côtés */
   }
 
   @media screen and (max-width: 590px) {
-    grid-template-columns: 1fr; /* Une seule colonne pour les petits écrans */
+    grid-template-columns: 1fr; /* Une seule colonne pour les très petits écrans */
     margin: 58px 8px;
   }
 
@@ -23,7 +23,7 @@
     .header-container {
       display: flex;
       justify-content: space-between;
-      align-items: center; /* Pour un alignement vertical au centre */
+      align-items: center;
       margin-bottom: 20px;
       margin-top: 40px;
 
@@ -46,40 +46,91 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* 5 colonnes pour les écrans d'ordinateur */
   gap: 16px; /* Espace entre les cartes */
-  padding: 16px; /* Ajoutez du padding si nécessaire */
+  padding: 16px;
 
   @media screen and (max-width: 990px) {
     grid-template-columns: 1fr; /* Une seule colonne pour les petits écrans */
-    padding: 0; /* Enlevez le padding pour les petits écrans */
+    padding: 0;
   }
 
   .artwork-grid {
-    list-style-type: none; /* Supprimez les puces par défaut */
-    padding: 0; /* Supprimez le padding */
-    margin: 0; /* Supprimez la marge */
-    display: contents; /* Pour que les enfants s'affichent directement sous la grille */
-    
+    list-style-type: none; /* Supprime les puces */
+    padding: 0;
+    margin: 0;
+    display: contents;
+
     li {
-      /* Assurez-vous que les images s'adaptent correctement */
-      max-width: 100%; /* Limitez la largeur des éléments à 100% */
-      overflow: hidden; /* Cachez tout débordement */
-      
+      /* Pour les grands écrans */
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; /* Prend toute la largeur de la colonne */
+      padding-top: 100%; /* Crée une boîte carrée en fonction de la largeur */
+      position: relative;
+      transition: transform 0.3s ease; /* Transition pour l'agrandissement */
+
       img {
-        width: 100%; /* Assurez-vous que les images occupent 100% de leur conteneur */
-        height: auto; /* Gardez les proportions des images */
-        display: block; /* Enlevez l'espace blanc en dessous de l'image */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Couvre entièrement l'espace, rognant les parties inutiles */
+        transition: transform 0.3s ease; /* Transition pour l'agrandissement */
+      }
+
+      /* Effet de survol pour les écrans d'ordinateur */
+      @media screen and (min-width: 991px) {
+        &:hover {
+          transform: scale(1.05); /* Agrandit légèrement l'élément au survol */
+        }
+
+        img:hover {
+          transform: scale(1.03); /* Agrandit légèrement l'image au survol */
+        }
+      }
+
+      /* Pour les tablettes et téléphones */
+      @media screen and (max-width: 990px) {
+        padding-top: 0px;
+        position: relative;
+        width: 100%;
+        height: auto;
+
+        img {
+          position: relative;
+          width: 100%;
+          height: auto;
+          object-fit: contain; /* Conserve les proportions d'origine sans rognage */
+        }
+      }
+
+      @media screen and (max-width: 590px) {
+        padding-top: auto;
+        position: relative;
+        width: 100%;
+        height: auto;
+
+        img {
+          position: relative;
+          width: 100%;
+          height: auto;
+          object-fit: contain; /* Conserve les proportions d'origine sans rognage */
+        }
       }
     }
   }
 }
 
+
 /* Style du menu déroulant */
 .dropdown {
   position: relative;
-  width: auto; /* Permet au bouton de s'ajuster à son contenu */
+  width: auto;
   background: transparent;
-  margin: 0; /* Enlever les marges excessives */
-  text-align: left; /* Alignement à gauche pour le dropdown */
+  margin: 0;
+  text-align: left;
   border-radius: 10px;
   z-index: 1;
   box-shadow: none;
@@ -91,32 +142,31 @@
   .dropdown-trigger {
     background-color: #2d2f31;
     color: white;
-    padding: 12px 40px; /* Ajuster le padding pour garder le bouton compact */
-    padding-left: 15px; /* Ajouter une marge de 5px à gauche */
+    font-family: $font-2; /* Utilise Roboto Regular */
+    padding: 12px 40px;
+    padding-left: 15px;
     font-size: 0.9em;
-    font-variant: small-caps;
     cursor: pointer;
     position: relative;
-    border: none; /* S'assurer qu'il n'y a pas de bordure non voulue */
-    border-radius: 5px; /* Arrondir le bouton */
-    white-space: nowrap; /* Empêcher le texte de se diviser sur deux lignes */
+    border: none;
+    border-radius: 5px;
+    white-space: nowrap;
 
     &:after {
-      content: "+"; /* Contenu par défaut */
-      font-size: 1.7em; /* Réduire la taille du "+" */
+      content: "+";
+      font-size: 1.7em;
       position: absolute;
-      right: 15px; /* Le "+" est plus proche du bord droit */
-      top: 50%; /* Centrer verticalement */
-      transform: translateY(-50%); /* Ajustement centré */
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     &.open:after {
-      content: "-"; /* Contenu quand le menu est ouvert */
-      font-size: 1.7em; /* Réduire la taille du "+" */
-      position: absolute;
-      right: 18px; /* Le "+" est plus proche du bord droit */
-      top: 50%; /* Centrer verticalement */
-      transform: translateY(-50%); /* Ajustement centré */
+      content: "-";
+      font-size: 1.7em;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 
@@ -131,7 +181,7 @@
     z-index: 1;
 
     &.open {
-      height: auto; /* Ouvrir le menu quand il est cliqué */
+      height: auto;
     }
 
     li {
@@ -148,7 +198,7 @@
         text-decoration: none;
 
         &:hover {
-          color: $color-3; /* Assurez-vous que $color-3 est défini */
+          color: #ff5733; /* Remplacer par $color-3 si défini */
         }
       }
     }
@@ -162,51 +212,50 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+  background-color: rgba(190, 190, 190, 0.397);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Assurez-vous qu'il soit au-dessus d'autres éléments */
-  opacity: 0; // Initialement invisible
-  animation: popup 0.3s ease-out forwards; // Animation uniquement avec fade-in
-  
-    @keyframes popup {
-      to {
-        opacity: 0.95; // Transition d'opacité de 0 à 1
-        backdrop-filter: blur(2px); // Effet de flou en fond
-      }
+  z-index: 1000;
+  opacity: 0; /* Initialement invisible */
+  animation: popup 0.3s ease-out forwards; /* Animation pour le fade-in */
+
+  @keyframes popup {
+    to {
+      opacity: 0.95;
+      backdrop-filter: blur(2px); /* Effet de flou */
     }
+  }
 }
 
 .popup-content {
   background-color: white;
   position: relative;
-  width: 90%; /* Prendre toute la largeur */
-  height: 100%; /* Prendre toute la hauteur */
-  overflow-y: auto; /* Permettre le défilement si le contenu est plus grand que l'écran */
+  width: 90%;
+  height: 100%;
+  overflow-y: auto;
 
-        // Personnalisation de la barre de scroll
-        &::-webkit-scrollbar {
-          width: 10px;
-        }
-    
-        &::-webkit-scrollbar-track {
-          background: #f1f1f1; // Couleur de fond de la barre
-          border-radius: 10px;
-        }
-    
-        &::-webkit-scrollbar-thumb {
-          background: #7f7f7f; // Couleur de la poignée
-          border-radius: 10px; // Bord arrondi pour un effet plus doux
-          border: 2px solid $color-2; // Ajoute un peu de bord pour l'effet 3D
-        }
-    
-        &::-webkit-scrollbar-thumb:hover {
-          background: darken($color-1, 10%); // Changement de couleur au hover
-        }
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #7f7f7f;
+    border-radius: 10px;
+    border: 2px solid #ddd; /* Ajuster selon la couleur utilisée pour $color-2 */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: darken(#7f7f7f, 10%);
+  }
 
   @media screen and (max-width: 990px) {
-    width: 100%; /* Réduire la largeur pour les petits écrans */
+    width: 100%;
   }
 }
 
@@ -214,9 +263,13 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: none;
+  background: transparent;
   border: none;
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
-  z-index: 1100; /* Assurez-vous qu'il soit au-dessus du contenu */
+  z-index: 1100;
+
+  &:hover {
+    background: transparent !important; /* Assurez-vous que le fond reste transparent au survol */
+  }
 }

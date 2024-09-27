@@ -55,11 +55,25 @@
     }
     .card-header {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column; // Modifier pour empiler les éléments
+      justify-content: flex-start; // Aligner les éléments au début
       margin: 2px 0 4px;
       min-height: 35px;
 
+      .publication-date {
+        font-size: 0.8rem;
+        font-style: italic;
+        font-family: $font-1;
+        color: #4c4c4c;
+        transform: translateY(-8px);
+      }
+
+
       @media screen and (max-width: 590px) {
+        display: flex;
+        justify-content: space-between;
+        margin: 2px 0 4px;
+        min-height: 35px;
         margin: 12px 0 14px;
       }
 
@@ -79,7 +93,7 @@
 
         span {
           transform: translate(0px, -5px);
-
+          
           @media screen and (max-width: 440px) {
             margin: 0px 0 -10px;
             padding: 0;
@@ -105,7 +119,7 @@
             color: $color-2;
           }
         }
-      }
+      } 
 
       span {
         font-family: $font-1;
@@ -127,7 +141,7 @@
       display: inline-block;
       margin-left: 0px; // Adjust the space between the icon and the text
       font-size: 0.85rem;
-      font-weight: bold;
+      font-weight: lighter;
       color: $color-3; // Customize the color as needed
       transform: translateY(-8px);
     }
@@ -153,52 +167,92 @@
       }
     }
     .card-pic {
-      transform: translateX(-10px);
-      height: 60vh; /* Occupation de 60% de la hauteur de l'écran */
-      width: auto; /* Largeur automatique pour maintenir le ratio d'aspect */
+      width: 100%;
+      height: auto; // Assurez-vous que ça reste auto pour les petits écrans
+      cursor: pointer;
       margin-top: 12px;
       box-shadow: 0 0 3px rgba(51, 51, 51, 0.342);
     
-      @media screen and (max-width: 440px) {
-        height: auto;
-        width: 110%; /* Largeur à 100% pour petits écrans */
-        transform: translateX(-26px);
+      @media screen and (min-width: 930px) {
+        height: 65vh; // Hauteur de 70% de l'écran
+        width: auto; // Laisse la largeur auto pour maintenir le ratio
+        margin: 0 auto; // Centrage horizontal
+        display: block; // Assure que l'image est traitée comme un bloc
+        padding-bottom: 10px;
+      }
+    
+      @media screen and (max-width: 930px) {
+        width: 100%;
+        margin-top: 12px;
       }
     }
     
-    iframe {
-      width: 100%;
-      min-height: 330px;
-      border-radius: 6px;
-      box-shadow: 0 0 3px rgba(51, 51, 51, 0.342);
+
+    .description {
+      margin-top: 15px;
+      font-size: 0.9rem;
     }
-    .button-container {
-      justify-content: flex-end;
+
+    .card-footer {
       display: flex;
+      justify-content: space-between;
+      padding-top: 12px;
 
-      div {
-        padding: 5px 9px;
-        margin-left: 5px;
-        background: $color-2;
-        border-radius: 50px;
-        transition: 0.1s;
-        cursor: pointer;
+      @media screen and (min-width: 930px) {
+        justify-content: flex-end;
+        align-items: center;
 
-        &:hover {
-          transform: scale(1.07);
-        }
-
-        img {
-          height: 16px;
-          width: 16px;
-          transform: translateY(3px);
+        .comment-icon,
+        .like-container {
+          margin-right: 15px;
         }
       }
     }
+
+    p {
+      margin: 3px 0 9px;
+      font-size: 0.9rem;
+
+      @media screen and (max-width: 930px) {
+        margin-top: -18px;
+      }
+    }
+
+    .follow-text {
+      display: inline-block;
+      margin-left: 0px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: $color-3;
+      transform: translateY(-8px);
+    }
+
+    .update-post {
+      textarea {
+        font-size: 1.3rem;
+        border: 1px solid $color-2;
+        padding: 10px;
+        border-radius: 20px 20px 6px 20px;
+      }
+
+      .button-container {
+        .btn {
+          background: $color-2;
+          width: 240px;
+          transform: translateY(-3px);
+
+          &:hover {
+            background: $color-1;
+            width: 250px;
+            letter-spacing: 1px;
+          }
+        }
+      }
+    }
+
     .card-footer {
       display: flex;
       align-items: center;
-      justify-content: center;
       justify-content: space-between;
       padding: 12px 0 4px;
 
@@ -212,6 +266,7 @@
           transform: scale(1.2);
         }
       }
+
       .comment-icon,
       .like-container {
         display: flex;
@@ -219,16 +274,18 @@
 
         span {
           font-size: 1.02rem;
-          position: absolute;
-          transform: translate(29px, 2px);
+          position: relative;
+          transform: translate(0px, 2px);
         }
       }
     }
+
     .comment-container.client {
       background: $color-4;
       border: none;
       border-radius: 20px 20px 6px 20px;
     }
+
     .comment-container {
       display: grid;
       grid-template-columns: 50px 1fr;
@@ -244,16 +301,17 @@
         box-shadow: 1px 1px 3px rgba(51, 51, 51, 0.192);
         object-fit: cover;
 
-        @media screen and (max-width: 440px) {
+        @media screen and (max-width: 930px) {
           height: 37px;
           width: 37px;
         }
       }
+
       .comment-header {
         display: flex;
         justify-content: space-between;
 
-        @media screen and (max-width: 440px) {
+        @media screen and (max-width: 930px) {
           flex-direction: column;
         }
 
@@ -263,6 +321,7 @@
           h3 {
             font-family: $font-1;
           }
+
           span {
             transform: translate(6px, 4px);
             cursor: pointer;
@@ -281,11 +340,14 @@
           font-family: $font-1;
         }
       }
+
       p {
         margin-top: 8px;
       }
+
       .edit-comment {
         color: $color-2;
+
         img {
           float: right;
           margin-left: 10px;
@@ -302,6 +364,7 @@
 
         .edit-comment-form {
           margin-top: 14px;
+
           label {
             background: $white;
             color: $color-1;
@@ -316,6 +379,7 @@
               transform: scale(1.05);
             }
           }
+
           input[type="text"] {
             margin: 4px 0;
             background: $white;
@@ -324,6 +388,7 @@
             width: 100%;
             border-radius: 6px 20px 6px 20px;
           }
+
           .btn {
             display: flex;
             align-items: center;
@@ -345,6 +410,7 @@
                 transform: translate(-5px, 0);
               }
             }
+
             input[type="submit"] {
               background: $color-2;
               width: inherit;
@@ -359,6 +425,7 @@
         }
       }
     }
+
     .comment-form {
       margin-top: 6px;
 
@@ -373,59 +440,41 @@
           box-shadow: 0 0 2px rgba(51, 51, 51, 0.5);
         }
       }
+
       input[type="submit"] {
         margin-top: 4px;
-        padding: 12px 16px;
-        width: 120px;
+        padding: 5px 30px;
+        border-radius: 30px;
         background: $color-2;
-        border-radius: 20px 6px 20px 20px;
-        transition: 0.2s;
-        float: right;
-
-        &:hover {
-          background: $color-1;
-          letter-spacing: 2px;
-          width: 130px;
-        }
-      }
-      button {
-        float: right;
-        background: $color-1;
+        color: white;
+        font-size: 1rem;
+        border: none;
         transition: 0.2s;
 
         &:hover {
-          background: $color-2;
-        }
-      }
-    }
-    .like-container {
-      span {
-        font-size: 1.02rem;
-        position: absolute;
-        transform: translate(8px, -1px);
-      }
-    }
-    .fa-share-alt {
-      transform: translate(0, 2px);
-    }
-  }
-  .update-post {
-    textarea {
-      width: 100% !important;
-      height: 80px;
-    }
-    .button-container {
-      text-align: right;
-
-      button {
-        margin: 0;
-        margin-left: 5px;
-        width: 150px;
-
-        &:nth-child(1) {
           background: $color-1;
         }
       }
     }
   }
+}
+
+.fullscreen-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.fullscreen-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
 }
