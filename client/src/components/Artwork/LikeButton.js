@@ -1,51 +1,52 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UidContext } from "../AppContext";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 import { useDispatch } from "react-redux";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 import { likeArtwork, unlikeArtwork } from "../../actions/artwork.actions";
 
-const LikeButton = ({ artwork }) => {
-    const [liked, setLiked] = useState(false);
-    const uid = useContext(UidContext);
-    const dispatch = useDispatch();
+const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
+  const [liked, setLiked] = useState(false);
+  const uid = useContext(UidContext);
+  const dispatch = useDispatch();
 
-    const like = () => {
-        dispatch(likeArtwork(artwork._id, uid));
-        setLiked(true);
-    }
+  const like = () => {
+    setLiked(true);
+    setLikersCount(likersCount + 1); // Met à jour localement le nombre de likes
+    dispatch(likeArtwork(artwork._id, uid));
+  };
 
-    const unlike = () => {
-        dispatch(unlikeArtwork(artwork._id, uid));
-        setLiked(false);
-    }
+  const unlike = () => {
+    setLiked(false);
+    setLikersCount(likersCount - 1); // Met à jour localement le nombre de likes
+    dispatch(unlikeArtwork(artwork._id, uid));
+  };
 
-    useEffect(() => {
-        if (artwork.likers.includes(localStorage.getItem("userId"))) {
-            setLiked(true);
-        }
-    }, [uid, artwork.likers, liked]);
+  useEffect(() => {
+    if (artwork.likers.includes(uid)) setLiked(true);
+    else setLiked(false);
+  }, [uid, artwork.likers]);
 
-    return (
-        <div className="like-container">
-            {uid === null && (
-                <Popup
-                    trigger={<img src="/img/icons/heart.svg" alt="like" />}
-                    position={["bottom center", "bottom right", "bottom left"]}
-                    closeOnDocumentClick
-                >
-                    <div>Log in to like this post.</div>
-                </Popup>
-            )}
-            {uid && liked === false && (
-                <img src="/img/icons/heart.svg" onClick={like} alt="like" />
-            )}
-            {uid && liked === true && (
-                <img src="/img/icons/heart-filled.svg" onClick={unlike} alt="unlike" />
-            )}
-            <span>{artwork.likers.length}</span>
-        </div>
-    );
+  return (
+    <div className="like-container">
+      {uid === null && (
+        <Popup
+          trigger={<img src="./img/icons/heart.svg" alt="like" />}
+          position={["bottom center", "bottom right", "bottom left"]}
+          closeOnDocumentClick
+        >
+          <div>Connectez-vous pour aimer un artwork !</div>
+        </Popup>
+      )}
+      {uid && !liked && (
+        <img src="./img/icons/heart.svg" onClick={like} alt="like" />
+      )}
+      {uid && liked && (
+        <img src="./img/icons/heart-filled.svg" onClick={unlike} alt="unlike" />
+      )}
+      <span>{likersCount}</span> {/* Affiche le nombre de likers mis à jour */}
+    </div>
+  );
 };
 
 export default LikeButton;

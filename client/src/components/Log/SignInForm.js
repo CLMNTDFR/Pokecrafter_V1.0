@@ -8,7 +8,7 @@ const SignInForm = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         const emailError = document.querySelector('.email.error'); 
-        const passwordError = document.querySelector('.password.error');
+        const passwordError = document.querySelector('.password-hash.error'); // Correspond à "password_hash"
 
         axios({
             method: "post",
@@ -23,13 +23,15 @@ const SignInForm = () => {
             console.log(res);
             if (res.data.errors) {
                 emailError.innerHTML = res.data.errors.email;
-                passwordError.innerHTML = res.data.errors.password;
+                passwordError.innerHTML = res.data.errors.password_hash; // Correspond à la clé "password_hash"
             } else {
                 window.location = "/";
             }
         })
         .catch((err) => {
             console.log(err);
+            emailError.innerHTML = "Unknown email or incorrect password"; // Gestion par défaut des erreurs
+
         });
     };
 
@@ -43,7 +45,7 @@ const SignInForm = () => {
             <label htmlFor="password">Password</label>
             <br />
             <input type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} value={password_hash} />
-            <div className="password error"></div>
+            <div className="password-hash error"></div>
             <br />
             <br />
             <input type="submit" value="Login" />

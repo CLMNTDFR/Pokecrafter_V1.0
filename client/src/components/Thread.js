@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getArtworks } from '../actions/artwork.actions';
-import Card from './Artwork/Card'; // Import your Card component
+import Card from './Artwork/Card';
 
 const Thread = ({ selectedCategory }) => {
     const [loadArtwork, setLoadArtwork] = useState(true);
+    const [count, setCount] = useState(20);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedArtwork, setSelectedArtwork] = useState(null); // État pour l'artwork sélectionné
     const [isPopupOpen, setIsPopupOpen] = useState(false); // État pour gérer l'ouverture du pop-up
@@ -13,11 +14,23 @@ const Thread = ({ selectedCategory }) => {
     const artworks = useSelector((state) => state.artworkReducer);
 
     useEffect(() => {
+        const loadMore = () => {
+            if (
+                window.innerHeight + document.documentElement.scrollTop + 1 > document.documentElement.offsetHeight
+            ) {
+                setLoadArtwork(true);
+                setCount((prevCount) => prevCount + 15); // Utilisation d'une fonction dans setCount pour garantir une mise à jour correcte
+            }
+        };
+
         if (loadArtwork) {
-            dispatch(getArtworks());
+            dispatch(getArtworks(count));
             setLoadArtwork(false);
         }
-    }, [loadArtwork, dispatch]);
+
+        window.addEventListener("scroll", loadMore);
+        return () => window.removeEventListener("scroll", loadMore);
+    }, [loadArtwork, count, dispatch]);
 
     useEffect(() => {
         if (artworks.length > 0) {
@@ -77,4 +90,3 @@ const Thread = ({ selectedCategory }) => {
 };
 
 export default Thread;
-

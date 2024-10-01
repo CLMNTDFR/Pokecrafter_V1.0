@@ -7,7 +7,7 @@ import LikeButton from "./LikeButton";
 const Card = ({ artwork }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isImageFullScreen, setIsImageFullScreen] = useState(false);
-  const [isSharePopupOpen, setIsSharePopupOpen] = useState(false); // État pour le pop-up de partage
+  const [likersCount, setLikersCount] = useState(artwork.likers.length);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
 
@@ -17,9 +17,10 @@ const Card = ({ artwork }) => {
     }
   }, [usersData]);
 
-  const poster = artwork && artwork.posterId 
-    ? usersData.find((user) => String(user._id) === String(artwork.posterId)) 
-    : null;
+  const poster =
+    artwork && artwork.posterId
+      ? usersData.find((user) => String(user._id) === String(artwork.posterId))
+      : null;
 
   const handleImageClick = () => {
     setIsImageFullScreen(true);
@@ -29,19 +30,23 @@ const Card = ({ artwork }) => {
     setIsImageFullScreen(false);
   };
 
-  // Gestion du pop-up de partage
-  const handleShareClick = () => {
-    setIsSharePopupOpen(true); // Ouvre le pop-up de partage
-  };
+  const handleShareClick = async () => {
+    try {
+      const shareUrl = new URL(artwork.picture, window.location.origin).href;
+      await navigator.clipboard.writeText(shareUrl);
 
-  const handleCloseSharePopup = () => {
-    setIsSharePopupOpen(false); // Ferme le pop-up de partage
-  };
+      // Afficher la notification personnalisée
+      const toast = document.getElementById("custom-toast");
+      toast.classList.add("show");
 
-  // URLs de partage pour les réseaux sociaux
-  const shareUrl = window.location.href; // URL actuelle de la page ou du post
-  const twitterShareUrl = `https://twitter.com/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(artwork.title)}`;
-  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+      // Cacher la notification après 3 secondes
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
 
   return (
     <li className="card-container" key={artwork?._id}>
@@ -51,28 +56,40 @@ const Card = ({ artwork }) => {
         <>
           <div className="card-left">
             <img
-              src={poster && poster.picture 
-                ? poster.picture 
-                : process.env.PUBLIC_URL + "/img/uploads/profil/random-user.png"}
-              alt={poster ? `Photo de profil de ${poster.username}` : "Photo de profil par défaut"}
+              src={
+                poster && poster.picture
+                  ? poster.picture
+                  : process.env.PUBLIC_URL + "/img/uploads/profil/random-user.png"
+              }
+              alt={
+                poster ? `Profil picture of ${poster.username}` : "Default user picture"
+              }
             />
           </div>
           <div className="card-right">
             <div className="card-header">
               <div className="pseudo">
-                <h4>{poster ? poster.username : "Utilisateur inconnu"}</h4>
+                <h4>{poster ? poster.username : "Unknown user"}</h4>
                 {artwork && artwork.posterId !== userData._id && (
                   <FollowHandler idToFollow={artwork.posterId} type={"card"} />
                 )}
               </div>
-              <span className="publication-date">{artwork ? dateParser(artwork.createdAt) : ""}</span>
+              <span className="publication-date">
+                {artwork ? dateParser(artwork.createdAt) : ""}
+              </span>
             </div>
 
-            <img 
-              src={artwork?.picture ? artwork.picture : process.env.PUBLIC_URL + "/img/uploads/profil/random-artwork.png"}
-              alt={`${poster ? poster.username : "Utilisateur inconnu"} - ${artwork?.title ? artwork.title : "Artwork"}`}
+            <img
+              src={
+                artwork?.picture
+                  ? artwork.picture
+                  : process.env.PUBLIC_URL + "/img/uploads/profil/random-artwork.png"
+              }
+              alt={`${poster ? poster.username : "Unknown user"} - ${
+                artwork?.title ? artwork.title : "Artwork"
+              }`}
               className="card-pic"
-              onClick={handleImageClick} 
+              onClick={handleImageClick}
             />
 
             <p className="description">{artwork?.description}</p>
@@ -83,14 +100,18 @@ const Card = ({ artwork }) => {
                 <span>{artwork.comments.length}</span>
               </div>
 
-              <LikeButton artwork={artwork} />
+              <LikeButton
+                artwork={artwork}
+                likersCount={likersCount}
+                setLikersCount={setLikersCount}
+              />
 
               {/* Bouton de partage */}
-              <img 
-                src="./img/icons/share.svg" 
-                alt="share" 
-                onClick={handleShareClick} 
-                style={{ cursor: "pointer" }} 
+              <img
+                src="./img/icons/share.svg"
+                alt="share"
+                className="share-icon"
+                onClick={handleShareClick}
               />
             </div>
           </div>
@@ -98,37 +119,24 @@ const Card = ({ artwork }) => {
           {/* Fullscreen image modal */}
           {isImageFullScreen && (
             <div className="fullscreen-modal" onClick={handleCloseFullScreen}>
-              <img 
-                src={artwork?.picture ? artwork.picture : process.env.PUBLIC_URL + "/img/uploads/profil/random-artwork.png"} 
-                alt="Fullscreen artwork" 
+              <img
+                src={
+                  artwork?.picture
+                    ? artwork.picture
+                    : process.env.PUBLIC_URL + "/img/uploads/profil/random-artwork.png"
+                }
+                alt="Fullscreen artwork"
                 className="fullscreen-image"
               />
             </div>
           )}
-
-          {/* Share popup */}
-          {isSharePopupOpen && (
-            <div className="popupwindowshare" onClick={handleCloseSharePopup}>
-              <div className="popupwindowshare-content" onClick={(e) => e.stopPropagation()}>
-                <span className="popupwindowshare-cross" onClick={handleCloseSharePopup}>×</span>
-                <h3>Share this artwork</h3>
-                <ul className="popupwindowshare-options">
-                  <li className="popupwindowshare-icons">
-                    <a href={facebookShareUrl} target="_blank" rel="noopener noreferrer">
-                      <img src="/img/icons/facebook.svg" alt="Facebook" style={{ width: '50px', height: '50px' }} />
-                    </a>
-                  </li>
-                  <li className="popupwindowshare-icons">
-                    <a href={twitterShareUrl} target="_blank" rel="noopener noreferrer">
-                      <img src="/img/icons/twitter.svg" alt="Twitter" style={{ width: '50px', height: '50px' }} />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          )}
         </>
       )}
+
+      {/* Notification pop-up */}
+      <div id="custom-toast" className="toast">
+        URL copied to clipboard
+      </div>
     </li>
   );
 };
