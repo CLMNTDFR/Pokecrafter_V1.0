@@ -11,7 +11,6 @@ const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const http = require('http');
-const socketIo = require('socket.io');
 
 const app = express();
 
