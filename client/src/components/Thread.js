@@ -5,7 +5,7 @@ import Card from './Artwork/Card';
 
 const Thread = ({ selectedCategory }) => {
     const [loadArtwork, setLoadArtwork] = useState(true);
-    const [count, setCount] = useState(20);
+    const [count, setCount] = useState(100);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedArtwork, setSelectedArtwork] = useState(null); // État pour l'artwork sélectionné
     const [isPopupOpen, setIsPopupOpen] = useState(false); // État pour gérer l'ouverture du pop-up
@@ -19,7 +19,7 @@ const Thread = ({ selectedCategory }) => {
                 window.innerHeight + document.documentElement.scrollTop + 1 > document.documentElement.offsetHeight
             ) {
                 setLoadArtwork(true);
-                setCount((prevCount) => prevCount + 15); // Utilisation d'une fonction dans setCount pour garantir une mise à jour correcte
+                setCount((prevCount) => prevCount + 50); // Utilisation d'une fonction dans setCount pour garantir une mise à jour correcte
             }
         };
 

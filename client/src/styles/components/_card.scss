@@ -164,6 +164,20 @@
             letter-spacing: 1px;
           }
         }
+        .btn-validate {
+          text-align: center !important;
+        }
+      }
+
+      .button-container-validate {
+        display: flex; /* Active Flexbox */
+        justify-content: center; /* Centre horizontalement les éléments */
+        margin-top: -10px;
+        
+        .btn-validate {
+          text-align: center !important;
+          border-radius: 5px !important;
+        }
       }
     }
     .card-pic {
@@ -297,8 +311,8 @@
       img {
         height: 40px;
         width: 40px;
-        border-radius: 14px;
-        box-shadow: 1px 1px 3px rgba(51, 51, 51, 0.192);
+        border-radius: 50px;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.192);
         object-fit: cover;
 
         @media screen and (max-width: 930px) {
@@ -320,6 +334,7 @@
 
           h3 {
             font-family: $font-1;
+            font-size: 1em !important;
           }
 
           span {
@@ -330,14 +345,24 @@
               box-shadow: none;
               height: 15px;
               width: 15px;
+              transform: translateY(-3px);
             }
           }
         }
 
         span {
-          font-size: 0.9rem;
-          font-style: italic;
+          font-size: 0.8rem;
           font-family: $font-1;
+          color: #4c4c4c;
+
+          @media screen and (max-width: 930px) {
+            font-size: 0.7em;
+          }
+
+          @media screen and (min-width: 930px) {
+            transform: translateX(-10px);
+            
+          }
         }
       }
 
@@ -502,4 +527,44 @@
   visibility: visible;
   opacity: 1;
   z-index: 1000;
+}
+
+.user-artworks {
+  max-width: 80%;
+  margin: 0 auto; /* Centre horizontalement */
+}
+
+@media (max-width: 768px) { /* Pour les tablettes et téléphones */
+  .user-artworks {
+      max-width: 100%; /* 100% de largeur sur petits écrans */
+  }
+}
+
+.edit-button {
+  display: flex;
+  justify-content: left; /* Centrer le bouton horizontalement */
+  margin-top: 10px; /* Espacement au-dessus du bouton */
+  margin-bottom: 10px;
+}
+
+.edit-icon, .delete-icon {
+  width: 25px; /* Largeur de l'image */
+  height: 25px; /* Hauteur de l'image */
+}
+
+.update-textarea {
+  width: 100%; /* Prend 80% de la largeur de son conteneur */
+  font-size: 1em !important; /* Taille du texte à l'intérieur */
+  margin: 10px auto; /* Centrer le textarea */
+  display: block; /* Permet d'utiliser margin auto pour centrer */
+  border-radius: 5px !important;
+}
+
+.text-edit-btn, .text-delete-btn {
+  transform: translateX(7px);
+  transform: translateY(3px);
+}
+
+.btn-validate {
+  justify-content: center !important;
 }

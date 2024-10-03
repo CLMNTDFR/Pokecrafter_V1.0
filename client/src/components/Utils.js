@@ -11,6 +11,18 @@ export const dateParser = (num, locale = "en-GB") => {
   return date.toString();
 };
 
+export const timestampParser = (num, locale = "en-GB") => {
+  let options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+
+  let date = new Date(num).toLocaleDateString(locale, options);
+
+  return date.toString();
+};
+
 export const isEmpty = (value) => {
   return (
     value === undefined ||

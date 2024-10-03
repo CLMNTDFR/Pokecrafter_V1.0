@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 import Home from '../../pages/Home';
 import Trending from '../../pages/Trending';
 import Profil from '../../pages/Profil';
-import Contest from '../../pages/Contest'; // Import de la page Contest
+import Contest from '../../pages/Contest';
+import Add from '../../pages/Add';
 import NavBar from '../NavBar';
+import ArtworkDetail from '../../pages/ArtworkDetail';
 
 const Index = () => {
     return (
@@ -14,7 +16,9 @@ const Index = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/trending" element={<Trending />} />
                 <Route path="/profil" element={<Profil />} />
-                <Route path="/contest" element={<Contest />} />
+                <Route path="/contests" element={<Contest />} />
+                <Route path="/add" element={<Add />} />
+                <Route path="/artwork/:id" element={<ArtworkDetail />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>

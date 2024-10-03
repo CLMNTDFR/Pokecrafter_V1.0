@@ -10,7 +10,7 @@ const LeftNav = () => {
                         <img src="./img/icons/house2.svg" alt="home" />
                     </NavLink>
                     <br />
-                    <NavLink to='/contest' className={({ isActive }) => isActive ? "active-left-nav" : ""}>
+                    <NavLink to='/contests' className={({ isActive }) => isActive ? "active-left-nav" : ""}>
                         <img src="./img/icons/trophy2.svg" alt="contest" />
                     </NavLink>
                     <br />

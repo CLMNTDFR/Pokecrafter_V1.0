@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UploadImg from "./UploadImg";
 import { updateBio } from "../../actions/user.actions";
 import { dateParser } from "../Utils";
 import FollowHandler from "./FollowHandler";
 import Trophy from "./Trophy";
+import CardUser from "../Artwork/CardUser"; // Import du composant CardUser
+import { getArtworks } from "../../actions/artwork.actions"; // Importer l'action
 
 const UpdateProfil = () => {
   const [bio, setBio] = useState("");
   const [updateForm, setUpdateForm] = useState(false);
   const userData = useSelector((state) => state.userReducer);
   const usersData = useSelector((state) => state.usersReducer);
+  const artworks = useSelector((state) => state.artworkReducer); // Sélection des œuvres d'art
   const dispatch = useDispatch();
   const [followingPopup, setFollowingPopup] = useState(false);
   const [followersPopup, setFollowersPopup] = useState(false);
@@ -19,6 +22,15 @@ const UpdateProfil = () => {
     dispatch(updateBio(userData._id, bio));
     setUpdateForm(false);
   };
+
+  useEffect(() => {
+    // Charger les œuvres d'art de l'utilisateur lorsqu'on monte le composant
+    dispatch(getArtworks());
+
+    if (userData.bio) {
+      setBio(userData.bio);
+    }
+  }, [dispatch, userData.bio]); // Ajoute `dispatch` comme dépendance
 
   return (
     <div className="profil-container">
@@ -76,6 +88,22 @@ const UpdateProfil = () => {
       <br />
       <br />
 
+      {/* Affichage des œuvres d'art de l'utilisateur */}
+      <div className="user-artworks">
+      <h3 style={{ textAlign: "center" }}>Your Artworks</h3>
+        <br />
+        <ul>
+          {artworks &&
+            artworks
+              .filter((artwork) => artwork.posterId === userData._id) // Filtre les œuvres d'art de l'utilisateur actuel
+              .map((artwork) => (
+                <CardUser key={artwork._id} artwork={artwork} />
+              ))}
+        </ul>
+        <br /><br /><br />
+      </div>
+
+      {/* Popups de following et followers */}
       {followingPopup && (
         <div className="popup-profil-container">
           <div className="modal">
@@ -87,14 +115,12 @@ const UpdateProfil = () => {
               {usersData
                 .filter((user) => userData.following.includes(user._id)) // Filtre les utilisateurs suivis
                 .map(
-                  (
-                    user // Map uniquement sur les utilisateurs filtrés
-                  ) => (
+                  (user) => (
                     <li key={user._id}>
                       <img src={user.picture} alt="user-profil-picture" />
                       <h4>{user.username}</h4>
                       <div className="follow-handler">
-                        <FollowHandler idToFollow={user._id} type={'suggestion'}/>
+                        <FollowHandler idToFollow={user._id} type={"suggestion"} />
                       </div>
                     </li>
                   )
@@ -114,14 +140,12 @@ const UpdateProfil = () => {
               {usersData
                 .filter((user) => userData.followers.includes(user._id)) // Filtre les utilisateurs suivis
                 .map(
-                  (
-                    user // Map uniquement sur les utilisateurs filtrés
-                  ) => (
+                  (user) => (
                     <li key={user._id}>
                       <img src={user.picture} alt="user-profil-picture" />
                       <h4>{user.username}</h4>
                       <div className="follow-handler">
-                        <FollowHandler idToFollow={user._id} type={'suggestion'}/>
+                        <FollowHandler idToFollow={user._id} type={"suggestion"} />
                       </div>
                     </li>
                   )

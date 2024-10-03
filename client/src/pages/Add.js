@@ -1,13 +1,13 @@
 import React from 'react';
 import LeftNav from '../components/LeftNav';
 
-const Contest = () => {
+const Add = () => {
     return (
         <div className="home">
             <LeftNav />
-            <h1>CONTEST PAGE</h1>
+            <h1>ADD PAGE</h1>
         </div>
     );
 };
 
-export default Contest;
+export default Add;
