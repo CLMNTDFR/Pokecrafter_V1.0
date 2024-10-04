@@ -1,24 +1,24 @@
 .card-container {
+  max-width: 100%; // Assurer que la carte ne dépasse jamais 100% de la largeur de son conteneur
+  width: 100%;
   display: grid;
   grid-template-columns: 80px 1fr;
-  border: 1px solid $color-1;
-  margin: 10px;
+  margin: 10px auto;
   padding: 16px;
-  border-radius: 5px;
-  margin: 8px auto;
-  position: relative;
-  min-height: 100px;
-  background: rgba($color-4, 0.6);
-  box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.072),
-        -10px -10px 20px rgba(0, 0, 0, 0.053);
+  padding-bottom: 50px; // Ajouter de l'espace en bas
+  padding-top: 50px; // Ajouter de l'espace en haut
+  border-bottom: 2px solid #ababab; // Bordure en bas
+
+
+
+  @media screen and (min-width: 930px) {
+    max-width: 200vh; // Limiter la largeur des cartes sur grands écrans
+  }
 
   @media screen and (max-width: 590px) {
     grid-template-columns: 1fr;
   }
-  @media screen and (max-width: 440px) {
-    padding-top: 26px;
-  }
+
 
   .fa-spinner {
     position: center;
@@ -39,13 +39,13 @@
       @media screen and (max-width: 590px) {
         height: 40px;
         width: 40px;
-        margin-left: 10px;
-        border-radius: 14px;
+        margin-left: 0px;
+        border-radius: 50px;
       }
     }
     @media screen and (max-width: 590px) {
       position: absolute;
-      transform: translate(17px, 18px);
+      transform: translate(0px, -5px);
     }
   }
 
@@ -60,12 +60,20 @@
       margin: 2px 0 4px;
       min-height: 35px;
 
+      @media screen and (max-width: 590px) {
+        transform: translate(-20px, 0px);
+      }
+
       .publication-date {
         font-size: 0.8rem;
         font-style: italic;
         font-family: $font-1;
         color: #4c4c4c;
         transform: translateY(-8px);
+
+        @media screen and (max-width: 590px) {
+          transform: translate(50px, -20px);
+        }
       }
 
 
@@ -185,10 +193,10 @@
       height: auto; // Assurez-vous que ça reste auto pour les petits écrans
       cursor: pointer;
       margin-top: 12px;
-      box-shadow: 0 0 3px rgba(51, 51, 51, 0.342);
+      transform: translateX(-10px);
     
       @media screen and (min-width: 930px) {
-        height: 65vh; // Hauteur de 70% de l'écran
+        height: 75vh; // Hauteur de 70% de l'écran
         width: auto; // Laisse la largeur auto pour maintenir le ratio
         margin: 0 auto; // Centrage horizontal
         display: block; // Assure que l'image est traitée comme un bloc
@@ -199,7 +207,15 @@
         width: 100%;
         margin-top: 12px;
       }
+    
+      // Ajout pour téléphone (par exemple, moins de 590px)
+      @media screen and (max-width: 590px) {
+        width: 120%; // 110% de la largeur du conteneur
+        transform: translateX(-11%); // Décaler de 5% pour centrer l'image sur l'écran
+        margin: 0; // Supprimer les marges pour aligner avec le bord de l'écran
+      }
     }
+    
     
 
     .description {
@@ -211,25 +227,25 @@
       display: flex;
       justify-content: space-between;
       padding-top: 12px;
+      .comment-icon,
+        .like-container {
+          margin-right: 15px;
+        }
+        .share-icon {
+          margin-right: 20px;
+        }
 
       @media screen and (min-width: 930px) {
         justify-content: flex-end;
         align-items: center;
 
-        .comment-icon,
-        .like-container {
-          margin-right: 15px;
-        }
+        
       }
     }
 
     p {
       margin: 3px 0 9px;
       font-size: 0.9rem;
-
-      @media screen and (max-width: 930px) {
-        margin-top: -18px;
-      }
     }
 
     .follow-text {
@@ -268,7 +284,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 0 4px;
+      padding: 12px 0 15px;
+      
 
       img {
         height: 22px;
@@ -285,8 +302,10 @@
       .like-container {
         display: flex;
         align-items: center;
+        margin-right: 15px;
 
         span {
+          margin-left: 10px;
           font-size: 1.02rem;
           position: relative;
           transform: translate(0px, 2px);
@@ -295,52 +314,69 @@
     }
 
     .comment-container.client {
-      background: $color-4;
-      border: none;
-      border-radius: 20px 20px 6px 20px;
-    }
-
-    .comment-container {
       display: grid;
       grid-template-columns: 50px 1fr;
       border: 1px solid $color-2;
       padding: 15px;
       margin: 5px 0;
       border-radius: 20px 20px 20px 6px;
+      background-color: darken($color-4, 10%); /* Fond légèrement plus foncé */
+    }
+    
+    .comment-container.client img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50px;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.192);
+      object-fit: cover;
+    
+      @media screen and (max-width: 930px) {
+        height: 37px;
+        width: 37px;
+      }
+    }
+    
 
+    .comment-container {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      border-top: 1px solid $color-2;
+      padding: 15px;
+      margin: 5px 0;
+    
       img {
         height: 40px;
         width: 40px;
         border-radius: 50px;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.192);
         object-fit: cover;
-
+    
         @media screen and (max-width: 930px) {
           height: 37px;
           width: 37px;
         }
       }
-
+    
       .comment-header {
         display: flex;
         justify-content: space-between;
-
+    
         @media screen and (max-width: 930px) {
           flex-direction: column;
         }
-
+    
         .pseudo {
           display: flex;
-
+    
           h3 {
             font-family: $font-1;
             font-size: 1em !important;
           }
-
+    
           span {
             transform: translate(6px, 4px);
             cursor: pointer;
-
+    
             img {
               box-shadow: none;
               height: 15px;
@@ -349,30 +385,29 @@
             }
           }
         }
-
+    
         span {
           font-size: 0.8rem;
           font-family: $font-1;
           color: #4c4c4c;
-
+    
           @media screen and (max-width: 930px) {
             font-size: 0.7em;
           }
-
+    
           @media screen and (min-width: 930px) {
             transform: translateX(-10px);
-            
           }
         }
       }
-
+    
       p {
         margin-top: 8px;
       }
-
+    
       .edit-comment {
-        color: $color-2;
-
+        color: $color-3;
+      
         img {
           float: right;
           margin-left: 10px;
@@ -381,106 +416,94 @@
           box-shadow: none;
           height: 20px;
           width: 20px;
-
+      
           &:hover {
             transform: scale(1.1);
           }
         }
-
+      
         .edit-comment-form {
           margin-top: 14px;
-
-          label {
-            background: $white;
-            color: $color-1;
-            padding: 6px 12px 5px;
-            border-radius: 20px 20px 20px 6px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-block;
-            font-family: $font-3;
-
-            &:hover {
-              transform: scale(1.05);
-            }
-          }
-
+          display: flex;
+          flex-direction: column; // S'assure que le bouton soit en dessous du champ texte
+          align-items: center;
+      
           input[type="text"] {
-            margin: 4px 0;
-            background: $white;
-            font-size: 1.15rem;
-            padding: 16px;
             width: 100%;
-            border-radius: 6px 20px 6px 20px;
+            background: #dfdfdf;
+            color: black;
+            border-radius: 10px;
+            border: 1px solid #8e8e8e;
+            padding: 20px;
+            font-size: 1rem;
+      
+            &:focus {
+              box-shadow: 0 0 2px rgba(51, 51, 51, 0.5);
+            }
           }
-
-          .btn {
+      
+          .button-container {
             display: flex;
-            align-items: center;
-            float: right;
-
-            span {
-              background: $white;
-              padding: 10px 5px;
-              border-radius: 50px;
-              margin-right: 6px;
+            justify-content: space-between; // Ajoute de l'espace entre les boutons
+            width: 100%; // Assurez-vous que le conteneur occupe toute la largeur disponible
+            margin-top: 10px; // Ajustez si nécessaire
+      
+            input[type="submit"], // Pour le bouton "Change"
+            .delete-button { // Pour le bouton "Delete"
+              width: 45%; // Chaque bouton occupera 40% de la largeur du conteneur
+              padding: 5px 0; // Ajustez le padding pour les rendre plus petits
+              border-radius: 10px;
+              background: $color-4;
+              color: rgb(0, 0, 0);
+              font-size: 1rem;
+              border: none;
               transition: 0.2s;
-              cursor: pointer;
-
+              box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+              white-space: nowrap; // Empêche le texte de passer à la ligne
+      
               &:hover {
-                background: $color-2;
-              }
-
-              img {
-                transform: translate(-5px, 0);
-              }
-            }
-
-            input[type="submit"] {
-              background: $color-2;
-              width: inherit;
-              transition: 0.2s;
-
-              &:hover {
-                width: inherit;
-                background: $color-1;
+                background: $color-4; // Changez la couleur au survol si nécessaire
               }
             }
           }
+    
         }
-      }
+      }      
     }
+    
 
     .comment-form {
       margin-top: 6px;
-
+      display: flex;
+      flex-direction: column; // S'assure que le bouton soit en dessous du champ texte
+      align-items: center; // Centre les éléments horizontalement
+    
       input[type="text"] {
         width: 100%;
-        background: $color-4;
-        border-radius: 20px 20px 6px 20px;
+        background: #dfdfdf;
+        color: black;
+        border-radius: 10px;
+        border: 1px solid #8e8e8e;
         padding: 20px;
-        font-size: 1.4rem;
-
+        font-size: 1rem;
+    
         &:focus {
           box-shadow: 0 0 2px rgba(51, 51, 51, 0.5);
         }
       }
-
+    
       input[type="submit"] {
-        margin-top: 4px;
+        margin-top: 5px;
         padding: 5px 30px;
-        border-radius: 30px;
-        background: $color-2;
-        color: white;
+        border-radius: 10px;
+        background: $color-4;
+        color: rgb(0, 0, 0);
         font-size: 1rem;
         border: none;
         transition: 0.2s;
-
-        &:hover {
-          background: $color-1;
-        }
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
       }
-    }
+    }    
   }
 }
 
@@ -496,13 +519,16 @@
   align-items: center;
   z-index: 1000;
   cursor: pointer;
+  margin: 0;  /* Assurez-vous qu'il n'y a pas de marge */
+  padding: 0; /* Assurez-vous qu'il n'y a pas de padding */
 }
 
 .fullscreen-image {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 90vw;
+  max-height: 90vh;
   object-fit: contain;
 }
+
 
 .toast {
   visibility: hidden;

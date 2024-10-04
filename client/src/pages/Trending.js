@@ -29,7 +29,8 @@ const Trending = () => {
       <LeftNav />
       <div className="main">
         <div className="header-container">
-          <h3>Trending</h3> {/* Titre Trending */}
+          <h3>Trending</h3>
+          <br /><br />
         </div>
         <hr />
         <TrendThread artworks={sortedArtworks} /> {/* Utilise TrendThread avec les artworks triés */}

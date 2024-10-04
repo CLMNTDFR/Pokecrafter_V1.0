@@ -90,8 +90,8 @@ const UpdateProfil = () => {
 
       {/* Affichage des œuvres d'art de l'utilisateur */}
       <div className="user-artworks">
-      <h3 style={{ textAlign: "center" }}>Your Artworks</h3>
         <br />
+      <h3 style={{ textAlign: "center", marginBottom: "-80px" }}>Your Artworks</h3>
         <ul>
           {artworks &&
             artworks

@@ -6,7 +6,7 @@ import { UidContext } from "../AppContext"; // Contexte pour l'UID de l'utilisat
 const EditDeleteComment = ({ comment, artworkId }) => {
   const [isAuthor, setIsAuthor] = useState(false); // Pour vérifier si l'utilisateur est l'auteur du commentaire
   const [edit, setEdit] = useState(false); // Mode édition
-  const [text, setText] = useState(""); // Stockage du texte du commentaire
+  const [text, setText] = useState(comment.text); // Initialiser avec le texte du commentaire
   const uid = useContext(UidContext); // Utilisation du contexte UID
   const dispatch = useDispatch();
 
@@ -16,14 +16,13 @@ const EditDeleteComment = ({ comment, artworkId }) => {
 
     if (text) {
       dispatch(editComment(artworkId, comment._id, text)); // Dispatch l'action pour modifier le commentaire
-      setText("");
       setEdit(false); // Désactive le mode édition après modification
     }
   };
 
   // Fonction pour gérer la suppression d'un commentaire
   const handleDelete = () => {
-    if (window.confirm("Voulez-vous supprimer ce commentaire ?")) {
+    if (window.confirm("Do you want to delete this comment?")) {
       dispatch(deleteComment(artworkId, comment._id)); // Dispatch l'action pour supprimer le commentaire
     }
   };
@@ -40,33 +39,33 @@ const EditDeleteComment = ({ comment, artworkId }) => {
 
   return (
     <div className="edit-comment">
-      {/* Affichage de l'icône d'édition si l'utilisateur est l'auteur */}
-      {isAuthor && edit === false && (
-        <span onClick={() => setEdit(!edit)}>
+      {/* Affichage de l'icône d'édition toujours visible */}
+      {isAuthor && (
+        <span onClick={() => setEdit((prev) => !prev)}>
           <img src="./img/icons/edit.svg" alt="edit-comment" />
         </span>
       )}
-      
+
       {/* Mode édition du commentaire */}
       {isAuthor && edit && (
         <form action="" onSubmit={handleEdit} className="edit-comment-form">
-          <label htmlFor="text" onClick={() => setEdit(!edit)}>
-            Editer
-          </label>
           <br />
           <input
             type="text"
             name="text"
             onChange={(e) => setText(e.target.value)}
-            defaultValue={comment.text} // Valeur par défaut du champ texte
+            value={text} // Utilisez value au lieu de defaultValue
           />
           <br />
-          <div className="btn">
-            {/* Bouton pour supprimer le commentaire */}
-            <span onClick={handleDelete}>
-              <img src="./img/icons/trash.svg" alt="delete" />
-            </span>
-            <input type="submit" value="Valider modification" />
+          <div className="button-container">
+            <input type="submit" value="Change" />
+            <button
+              type="button"
+              className="delete-button"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
           </div>
         </form>
       )}

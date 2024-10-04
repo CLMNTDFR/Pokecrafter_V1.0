@@ -43,15 +43,9 @@
 
 /* Style pour le conteneur de la mosaïque */
 .thread-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 colonnes pour les écrans d'ordinateur */
-  gap: 16px; /* Espace entre les cartes */
-  padding: 16px;
-
-  @media screen and (max-width: 990px) {
     grid-template-columns: 1fr; /* Une seule colonne pour les petits écrans */
     padding: 0;
-  }
+  
 
   .artwork-grid {
     list-style-type: none; /* Supprime les puces */

@@ -6,7 +6,6 @@ import Profil from '../../pages/Profil';
 import Contest from '../../pages/Contest';
 import Add from '../../pages/Add';
 import NavBar from '../NavBar';
-import ArtworkDetail from '../../pages/ArtworkDetail';
 
 const Index = () => {
     return (
@@ -18,7 +17,6 @@ const Index = () => {
                 <Route path="/profil" element={<Profil />} />
                 <Route path="/contests" element={<Contest />} />
                 <Route path="/add" element={<Add />} />
-                <Route path="/artwork/:id" element={<ArtworkDetail />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>
@@ -26,4 +24,3 @@ const Index = () => {
 };
 
 export default Index;
-

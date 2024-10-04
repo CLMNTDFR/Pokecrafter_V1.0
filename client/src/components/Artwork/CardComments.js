@@ -34,14 +34,7 @@ const CardComments = ({ artwork }) => {
             usersData.find((user) => user._id === comment.commenterId);
 
           return (
-            <div
-              className={
-                comment.commenterId === userData._id
-                  ? "comment-container-client" // Classe spécifique si c'est le commentaire de l'utilisateur connecté
-                  : "comment-container"
-              }
-              key={comment._id}
-            >
+            <div className="comment-container">
               <div className="left-part">
                 <img
                   src={
