@@ -38,11 +38,9 @@ const Card = ({ artwork }) => {
       const shareUrl = new URL(artwork.picture, window.location.origin).href;
       await navigator.clipboard.writeText(shareUrl);
 
-      // Afficher la notification personnalisée
       const toast = document.getElementById("custom-toast");
       toast.classList.add("show");
 
-      // Cacher la notification après 3 secondes
       setTimeout(() => {
         toast.classList.remove("show");
       }, 3000);
@@ -117,7 +115,6 @@ const Card = ({ artwork }) => {
                 setLikersCount={setLikersCount}
               />
 
-              {/* Bouton de partage */}
               <img
                 src="./img/icons/share.svg"
                 alt="share"
@@ -128,7 +125,6 @@ const Card = ({ artwork }) => {
             {showComments && <CardComments artwork={artwork} />}
           </div>
 
-          {/* Fullscreen image modal */}
           {isImageFullScreen && (
             <div className="fullscreen-modal" onClick={handleCloseFullScreen}>
               <img
@@ -146,7 +142,6 @@ const Card = ({ artwork }) => {
         </>
       )}
 
-      {/* Notification pop-up */}
       <div id="custom-toast" className="toast">
         URL copied to clipboard
       </div>

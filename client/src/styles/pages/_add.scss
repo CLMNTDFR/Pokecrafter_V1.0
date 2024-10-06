@@ -1,0 +1,28 @@
+.please-login {
+    display: inline-block;
+    padding: 5px 30px;
+    border-radius: 10px;
+    background: $color-4; /* $color-4 */
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    border: none;
+    transition: 0.2s, transform 0.3s; /* Ajout de la transition pour le décalage */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .please-login:hover {
+    background: $color-4; /* Ajuster la couleur pour le hover */
+    transform: translateX(3px); /* Décalage de 3px vers la droite */
+  }
+  
+  .centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  

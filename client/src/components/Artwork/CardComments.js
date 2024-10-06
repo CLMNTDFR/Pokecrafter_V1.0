@@ -1,47 +1,42 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment, getArtworks } from "../../actions/artwork.actions"; // Assure-toi que getArtworks est bien importé
+import { addComment, getArtworks } from "../../actions/artwork.actions";
 import { isEmpty, timestampParser } from "../Utils";
-import EditDeleteComment from "./EditDeleteComment"; // Composant pour gérer l'édition et la suppression des commentaires
+import EditDeleteComment from "./EditDeleteComment";
 
 const CardComments = ({ artwork }) => {
-  const [text, setText] = useState(""); // État pour le texte du nouveau commentaire
-  const usersData = useSelector((state) => state.usersReducer); // Tous les utilisateurs
-  const userData = useSelector((state) => state.userReducer); // Données de l'utilisateur connecté
+  const [text, setText] = useState("");
+  const usersData = useSelector((state) => state.usersReducer);
+  const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
-  // Fonction pour gérer l'ajout d'un commentaire
   const handleComment = (e) => {
     e.preventDefault();
 
-    if (text) {
-      dispatch(
-        addComment(artwork._id, userData._id, text, userData.pseudo) // Ajout du commentaire avec les infos requises
-      )
-        .then(() => dispatch(getArtworks())) // Mise à jour des artworks après ajout
-        .then(() => setText("")); // Réinitialise le champ de texte après envoi
+    if (text && userData?._id) {
+      dispatch(addComment(artwork._id, userData._id, text, userData.username))
+        .then(() => dispatch(getArtworks()))
+        .then(() => setText(""));
     }
   };
 
   return (
     <div className="comments-container">
-      {/* Affichage des commentaires existants */}
       {artwork.comments && artwork.comments.length > 0 ? (
         artwork.comments.map((comment) => {
-          // Trouver l'utilisateur qui a posté le commentaire
           const commenter =
             !isEmpty(usersData) &&
             usersData.find((user) => user._id === comment.commenterId);
 
           return (
-            <div className="comment-container">
+            <div className="comment-container" key={comment._id}>
               <div className="left-part">
                 <img
                   src={
                     commenter && commenter.picture
                       ? commenter.picture
                       : process.env.PUBLIC_URL +
-                        "/img/uploads/profil/random-user.png" // Avatar par défaut
+                        "/img/uploads/profil/random-user.png"
                   }
                   alt={
                     commenter
@@ -58,17 +53,15 @@ const CardComments = ({ artwork }) => {
                   <span>{timestampParser(comment.timestamp)}</span>
                 </div>
                 <p>{comment.text}</p>
-                {/* Ajout du composant pour éditer ou supprimer le commentaire */}
-                <EditDeleteComment comment={comment} postId={artwork._id} />
+                <EditDeleteComment comment={comment} artworkId={artwork._id} />
               </div>
             </div>
           );
         })
       ) : (
-        <p>No comments yet</p> // Message si aucun commentaire n'est présent
+        <p>No comments yet</p>
       )}
 
-      {/* Formulaire pour ajouter un nouveau commentaire */}
       {userData._id && (
         <form action="" onSubmit={handleComment} className="comment-form">
           <input

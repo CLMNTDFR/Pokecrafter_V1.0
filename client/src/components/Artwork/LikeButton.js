@@ -12,13 +12,13 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
 
   const like = () => {
     setLiked(true);
-    setLikersCount(likersCount + 1); // Met à jour localement le nombre de likes
+    setLikersCount(likersCount + 1);
     dispatch(likeArtwork(artwork._id, uid));
   };
 
   const unlike = () => {
     setLiked(false);
-    setLikersCount(likersCount - 1); // Met à jour localement le nombre de likes
+    setLikersCount(likersCount - 1);
     dispatch(unlikeArtwork(artwork._id, uid));
   };
 
@@ -44,7 +44,7 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
       {uid && liked && (
         <img src="./img/icons/heart-filled.svg" onClick={unlike} alt="unlike" />
       )}
-      <span>{likersCount}</span> {/* Affiche le nombre de likers mis à jour */}
+      <span>{likersCount}</span>
     </div>
   );
 };

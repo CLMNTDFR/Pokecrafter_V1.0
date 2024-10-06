@@ -5,15 +5,15 @@ import { updateBio } from "../../actions/user.actions";
 import { dateParser } from "../Utils";
 import FollowHandler from "./FollowHandler";
 import Trophy from "./Trophy";
-import CardUser from "../Artwork/CardUser"; // Import du composant CardUser
-import { getArtworks } from "../../actions/artwork.actions"; // Importer l'action
+import CardUser from "../Artwork/CardUser";
+import { getArtworks } from "../../actions/artwork.actions";
 
 const UpdateProfil = () => {
   const [bio, setBio] = useState("");
   const [updateForm, setUpdateForm] = useState(false);
   const userData = useSelector((state) => state.userReducer);
   const usersData = useSelector((state) => state.usersReducer);
-  const artworks = useSelector((state) => state.artworkReducer); // Sélection des œuvres d'art
+  const artworks = useSelector((state) => state.artworkReducer);
   const dispatch = useDispatch();
   const [followingPopup, setFollowingPopup] = useState(false);
   const [followersPopup, setFollowersPopup] = useState(false);
@@ -24,13 +24,12 @@ const UpdateProfil = () => {
   };
 
   useEffect(() => {
-    // Charger les œuvres d'art de l'utilisateur lorsqu'on monte le composant
     dispatch(getArtworks());
 
     if (userData.bio) {
       setBio(userData.bio);
     }
-  }, [dispatch, userData.bio]); // Ajoute `dispatch` comme dépendance
+  }, [dispatch, userData.bio]);
 
   return (
     <div className="profil-container">
@@ -70,7 +69,9 @@ const UpdateProfil = () => {
               alt="following icon"
               className="icon"
             />
-            Following: {userData.following ? userData.following.length : ""}
+            Subscription
+            {userData.following && userData.following.length > 1 && "s"}:{" "}
+            {userData.following ? userData.following.length : ""}
           </h5>
           <h5 onClick={() => setFollowersPopup(true)}>
             <img
@@ -78,7 +79,8 @@ const UpdateProfil = () => {
               alt="followers icon"
               className="icon"
             />
-            Followers: {userData.followers ? userData.followers.length : ""}
+            Follower{userData.followers && userData.followers.length > 1 && "s"}
+            : {userData.followers ? userData.followers.length : ""}
           </h5>
         </div>
       </div>
@@ -88,43 +90,49 @@ const UpdateProfil = () => {
       <br />
       <br />
 
-      {/* Affichage des œuvres d'art de l'utilisateur */}
       <div className="user-artworks">
         <br />
-      <h3 style={{ textAlign: "center", marginBottom: "-80px" }}>Your Artworks</h3>
+        <h3 style={{ textAlign: "center", marginBottom: "-80px" }}>
+          Your Artworks
+        </h3>
         <ul>
           {artworks &&
             artworks
-              .filter((artwork) => artwork.posterId === userData._id) // Filtre les œuvres d'art de l'utilisateur actuel
+              .filter((artwork) => artwork.posterId === userData._id)
               .map((artwork) => (
                 <CardUser key={artwork._id} artwork={artwork} />
               ))}
         </ul>
-        <br /><br /><br />
+        <br />
+        <br />
+        <br />
       </div>
 
-      {/* Popups de following et followers */}
       {followingPopup && (
         <div className="popup-profil-container">
           <div className="modal">
-            <h3>Following</h3>
+            <h3>
+              Subscription
+              {userData.following && userData.following.length > 1 && "s"}
+            </h3>
             <span onClick={() => setFollowingPopup(false)} className="cross">
               ✖
             </span>
             <ul>
               {usersData
-                .filter((user) => userData.following.includes(user._id)) // Filtre les utilisateurs suivis
-                .map(
-                  (user) => (
-                    <li key={user._id}>
-                      <img src={user.picture} alt="user-profil-picture" />
-                      <h4>{user.username}</h4>
-                      <div className="follow-handler">
-                        <FollowHandler idToFollow={user._id} type={"suggestion"} />
-                      </div>
-                    </li>
-                  )
-                )}
+                .filter((user) => userData.following.includes(user._id))
+                .map((user) => (
+                  <li key={user._id}>
+                    <img src={user.picture} alt="user-profil-picture" />
+                    <h4>{user.username}</h4>
+                    <div className="follow-handler">
+                      <FollowHandler
+                        idToFollow={user._id}
+                        type={"suggestion"}
+                      />
+                    </div>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
@@ -138,18 +146,19 @@ const UpdateProfil = () => {
             </span>
             <ul>
               {usersData
-                .filter((user) => userData.followers.includes(user._id)) // Filtre les utilisateurs suivis
-                .map(
-                  (user) => (
-                    <li key={user._id}>
-                      <img src={user.picture} alt="user-profil-picture" />
-                      <h4>{user.username}</h4>
-                      <div className="follow-handler">
-                        <FollowHandler idToFollow={user._id} type={"suggestion"} />
-                      </div>
-                    </li>
-                  )
-                )}
+                .filter((user) => userData.followers.includes(user._id))
+                .map((user) => (
+                  <li key={user._id}>
+                    <img src={user.picture} alt="user-profil-picture" />
+                    <h4>{user.username}</h4>
+                    <div className="follow-handler">
+                      <FollowHandler
+                        idToFollow={user._id}
+                        type={"suggestion"}
+                      />
+                    </div>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

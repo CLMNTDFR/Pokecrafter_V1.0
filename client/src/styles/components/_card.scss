@@ -350,6 +350,7 @@
         border-radius: 50px;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.192);
         object-fit: cover;
+        transform: translateY(5px);
     
         @media screen and (max-width: 930px) {
           height: 37px;
@@ -593,4 +594,5 @@
 
 .btn-validate {
   justify-content: center !important;
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
 }

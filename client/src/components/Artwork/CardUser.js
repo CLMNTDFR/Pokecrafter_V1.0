@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { dateParser } from "../Utils";
 import LikeButton from "./LikeButton";
-import CardComments from "./CardComments"; // Import du composant CardComments
+import CardComments from "./CardComments";
 import { updateArtwork, deleteArtwork } from "../../actions/artwork.actions";
 
 const CardUser = ({ artwork }) => {
@@ -11,11 +11,10 @@ const CardUser = ({ artwork }) => {
   const [textUpdate, setTextUpdate] = useState(null);
   const [isImageFullScreen, setIsImageFullScreen] = useState(false);
   const [likersCount, setLikersCount] = useState(artwork.likers.length);
-  const [showComments, setShowComments] = useState(false); // State pour afficher/masquer les commentaires
+  const [showComments, setShowComments] = useState(false);
   const usersData = useSelector((state) => state.usersReducer);
   const dispatch = useDispatch();
 
-  // Mise à jour de l'œuvre
   const updateItem = async () => {
     if (textUpdate) {
       dispatch(updateArtwork(artwork._id, textUpdate));
@@ -23,7 +22,6 @@ const CardUser = ({ artwork }) => {
     setIsUpdated(false);
   };
 
-  // Suppression de l'œuvre
   const deleteArtworkHandler = () => {
     if (window.confirm("Do you really want to delete this artwork?")) {
       console.log("Attempting to delete artwork with ID:", artwork._id);
@@ -31,7 +29,6 @@ const CardUser = ({ artwork }) => {
     }
   };
 
-  // Gérer l'affichage plein écran de l'image
   const handleImageClick = () => {
     setIsImageFullScreen(true);
   };
@@ -40,7 +37,6 @@ const CardUser = ({ artwork }) => {
     setIsImageFullScreen(false);
   };
 
-  // Gérer le partage de l'URL de l'œuvre
   const handleShareClick = async () => {
     try {
       const shareUrl = new URL(artwork.picture, window.location.origin).href;
@@ -57,7 +53,6 @@ const CardUser = ({ artwork }) => {
     }
   };
 
-  // Charger les données des utilisateurs
   useEffect(() => {
     if (usersData && usersData.length > 0) {
       setIsLoading(false);
@@ -97,7 +92,6 @@ const CardUser = ({ artwork }) => {
               <br />
             </p>
 
-            {/* Si l'utilisateur est l'auteur de l'œuvre, afficher les boutons d'édition et de suppression */}
             {usersData && poster && poster._id === artwork.posterId && (
               <div
                 className="button-container"
@@ -123,7 +117,11 @@ const CardUser = ({ artwork }) => {
                     src="./img/icons/edit.svg"
                     alt="edit"
                     className="edit-icon"
-                    style={{ width: "25px", height: "25px", marginRight: "5px" }}
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      marginRight: "5px",
+                    }}
                   />
                   <span>Edit</span>
                 </div>
@@ -141,7 +139,11 @@ const CardUser = ({ artwork }) => {
                     src="./img/icons/trash.svg"
                     alt="delete"
                     className="delete-icon"
-                    style={{ width: "25px", height: "25px", marginRight: "5px" }}
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      marginRight: "5px",
+                    }}
                   />
                   <span>Delete</span>
                 </div>
@@ -160,7 +162,6 @@ const CardUser = ({ artwork }) => {
               </p>
             )}
 
-            {/* Affichage du formulaire de modification */}
             {isUpdated && (
               <div className="update-post">
                 <textarea
@@ -186,12 +187,12 @@ const CardUser = ({ artwork }) => {
                     OK
                   </button>
                 </div>
+                <br />
               </div>
             )}
 
             <div className="card-footer">
               <div className="comment-icon">
-                {/* Icône pour afficher les commentaires */}
                 <img
                   onClick={() => setShowComments(!showComments)}
                   src="/img/icons/message1.svg"
@@ -201,14 +202,12 @@ const CardUser = ({ artwork }) => {
                 <span>{artwork.comments.length}</span>
               </div>
 
-              {/* Bouton Like */}
               <LikeButton
                 artwork={artwork}
                 likersCount={likersCount}
                 setLikersCount={setLikersCount}
               />
 
-              {/* Bouton de partage */}
               <img
                 src="./img/icons/share.svg"
                 alt="share"
@@ -218,11 +217,9 @@ const CardUser = ({ artwork }) => {
               />
             </div>
 
-            {/* Affichage des commentaires si showComments est true */}
             {showComments && <CardComments artwork={artwork} />}
           </div>
 
-          {/* Fullscreen image modal */}
           {isImageFullScreen && (
             <div className="fullscreen-modal" onClick={handleCloseFullScreen}>
               <img
@@ -240,7 +237,6 @@ const CardUser = ({ artwork }) => {
         </>
       )}
 
-      {/* Notification pop-up */}
       <div id="custom-toast" className="toast">
         URL copied to clipboard
       </div>
