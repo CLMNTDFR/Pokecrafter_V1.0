@@ -124,7 +124,7 @@ const NewArtworkForm = () => {
             <br />
             <br />
             <div className="btn-send">
-              {(category || description || artworkPicture) && (
+              {(description || artworkPicture) && (
                 <button className="cancel" onClick={cancelPost}>
                   Cancel
                 </button>
