@@ -48,7 +48,8 @@ module.exports.createArtwork = async (req, res) => {
             throw Error("max size");
         }
 
-        const fileName = "Pokecrafter_" + req.body.category + "_" + req.body.posterId + ".jpg";
+        const timeStamp = Date.now();
+        const fileName = "Pokecrafter_" + req.body.category + "_" + req.body.posterId + timeStamp +".jpg";
         const filePath = path.join(__dirname, "../client/public/img/uploads/artworks", fileName);
         console.log('Chemin du fichier:', filePath);
 

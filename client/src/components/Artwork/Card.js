@@ -97,7 +97,14 @@ const Card = ({ artwork }) => {
               onClick={handleImageClick}
             />
 
-            <p className="description">{artwork?.description}</p>
+            <p className="description">
+              {artwork?.description.split("\n").map((line, index) => (
+                <span key={index}>
+                  {line}
+                  <br />
+                </span>
+              ))}
+            </p>
 
             <div className="card-footer">
               <div className="comment-icon">

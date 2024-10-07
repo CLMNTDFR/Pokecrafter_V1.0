@@ -2,6 +2,7 @@ import axios from "axios";
 
 // Actions pour les artworks
 export const GET_ARTWORKS = "GET_ARTWORKS";
+export const ADD_ARTWORK = "ADD_ARTWORK";
 export const LIKE_ARTWORK = "LIKE_ARTWORK";
 export const UNLIKE_ARTWORK = "UNLIKE_ARTWORK";
 export const UPDATE_ARTWORK = "UPDATE_ARTWORK";
@@ -11,6 +12,10 @@ export const DELETE_ARTWORK = "DELETE_ARTWORK";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const EDIT_COMMENT = "EDIT_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
+
+// Errors
+export const GET_ARTWORK_ERRORS = "GET_ARTWORK_ERRORS";
+
 
 // Trends (ajoutée)
 export const GET_TRENDS = "GET_TRENDS";
@@ -25,6 +30,21 @@ export const getArtworks = (num) => {
         dispatch({ type: GET_ARTWORKS, payload: array });
       })
       .catch((err) => console.log(err));
+  };
+};
+
+// Ajouter un artwork
+export const addArtwork = (data) => {
+  return (dispatch) => {
+    return axios
+      .post(`${process.env.REACT_APP_API_URL}api/artwork/`, data)
+      .then((res) => {
+        if (res.data.errors) {
+          dispatch({ type: "GET_ARTWORK_ERRORS", payload: res.data.errors });
+        } else {
+          dispatch({ type: "GET_ARTWORK_ERRORS", payload: res.data });
+        }
+      });
   };
 };
 
