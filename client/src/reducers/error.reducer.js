@@ -1,6 +1,3 @@
-import { GET_ARTWORK_ERRORS } from '../actions/artwork.actions';
-import { GET_USER_ERRORS } from '../actions/user.actions';
-
 const initialState = {artworkError: []};
 
 export default function errorReducer(state = initialState, action) {
