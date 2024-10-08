@@ -1,0 +1,97 @@
+/* Styles de base pour tous les écrans */
+.artiste-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ajoute cet élément pour répartir l'espace entre les éléments */
+    padding: 10px;
+    border-bottom: 1px solid $color-2;
+  }
+
+  .follow-handler-search {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Pousse le bouton à droite */
+  }
+  
+  .follow-handler-search button {
+    display: flex;
+    align-items: center; /* Aligne verticalement le texte et l'icône */
+    justify-content: flex-start; /* Aligne le contenu à gauche */
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    min-width: unset;
+    margin-right: 0;
+  
+    /* Suppression de la marge à droite pour le texte */
+    img.icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px; /* Réduit la marge à droite de l'icône pour rapprocher le texte */
+      box-shadow: none;
+      border-radius: 0;
+    }
+  
+    /* Style du texte */
+    &:hover {
+      color: $color-3;
+      transform: translateX(3px);
+    }
+  }
+  
+  .artiste-left {
+    margin-right: 20px;
+  }
+  
+  .artiste-left img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .artiste-right {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .artiste-right h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Styles pour les écrans de plus de 930px */
+  @media (min-width: 930px) {
+    .artiste-container {
+      width: 50%;  /* Conteneur principal prend 50% de la largeur de l'écran */
+      margin: 0 auto;  /* Centrage horizontal */
+    }
+  }
+  
+  /* Styles pour la barre de recherche */
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  @media (min-width: 930px) {
+    .search-container {
+        display: flex;
+        justify-content: center; /* Centre les éléments horizontalement */
+      }
+
+    .search-bar {
+      width: 50%; /* La barre de recherche prend 50% de la largeur de l'écran sur les grands écrans */
+    }
+  }
+  

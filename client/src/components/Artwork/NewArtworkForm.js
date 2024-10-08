@@ -5,21 +5,24 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addArtwork, getArtworks } from "../../actions/artwork.actions";
 
+// Limite de taille maximale du fichier à 500 Ko
+const MAX_FILE_SIZE = 500000; // 500 Ko
+
 const NewArtworkForm = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [category, setCategory] = useState("AI");
   const [description, setDescription] = useState("");
   const [artworkPicture, setArtworkPicture] = useState("");
   const [file, setFile] = useState(null);
+  const [error, setError] = useState(""); // État pour gérer les messages d'erreur
   const fileInputRef = useRef();
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
-  // Fonction pour générer le titre automatiquement
   const generateTitle = () => {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Janvier est 0 !
+    const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
     return `${userData.username}-${category}-${formattedDate}`;
@@ -29,7 +32,7 @@ const NewArtworkForm = () => {
     if (category && description && artworkPicture) {
       const data = new FormData();
       data.append("posterId", userData._id);
-      data.append("title", generateTitle()); // Utiliser le titre généré
+      data.append("title", generateTitle());
       data.append("category", category);
       data.append("description", description);
       if (file) data.append("file", file);
@@ -37,10 +40,7 @@ const NewArtworkForm = () => {
 
       await dispatch(addArtwork(data));
       dispatch(getArtworks());
-
-          // Délai avant la redirection pour afficher le toast
       window.location.href = "/"; // Redirige vers la page d'accueil
-
       cancelPost();
     } else {
       alert("Please enter all fields (category, description, picture)");
@@ -48,8 +48,18 @@ const NewArtworkForm = () => {
   };
 
   const handlePicture = (e) => {
-    setArtworkPicture(URL.createObjectURL(e.target.files[0]));
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      if (selectedFile.size > MAX_FILE_SIZE) {
+        setError("File size exceeds 500 KB. Please choose a smaller file.");
+        setArtworkPicture(""); // Réinitialise l'aperçu de l'image
+        setFile(null); // Réinitialise le fichier
+      } else {
+        setError(""); // Réinitialise l'erreur
+        setArtworkPicture(URL.createObjectURL(selectedFile));
+        setFile(selectedFile);
+      }
+    }
   };
 
   const cancelPost = () => {
@@ -58,6 +68,7 @@ const NewArtworkForm = () => {
     setArtworkPicture("");
     setFile(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
+    setError(""); // Réinitialise l'erreur lors de l'annulation
   };
 
   useEffect(() => {
@@ -103,10 +114,11 @@ const NewArtworkForm = () => {
               id="file"
               name="file"
               className="file-input-custom"
-              accept=".jpg, .jpeg, .png"
-              onChange={(e) => handlePicture(e)}
+              accept=".jpg, .jpeg"
+              onChange={handlePicture}
               ref={fileInputRef}
             />
+            {error && <div className="error-message">{error}</div>}
             <br /><br />
             <div className="label-img-select">
               Select a category:

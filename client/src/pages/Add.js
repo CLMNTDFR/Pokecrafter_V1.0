@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 import LeftNav from '../components/LeftNav';
 import { UidContext } from '../components/AppContext';
 import NewArtworkForm from '../components/Artwork/NewArtworkForm';

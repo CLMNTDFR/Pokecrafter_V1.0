@@ -8,38 +8,42 @@ const Navbar = () => {
     const uid = useContext(UidContext);
     const userData = useSelector((state) => state.userReducer);
 
-  return (
-    <nav>
-      <div className="nav-container">
-        <div className="logo">
-          <NavLink to="/">
-            <div className="logo">
-              <img src="./img/icon.svg" alt="icon" />
+    return (
+        <nav>
+            <div className="nav-container">
+                <div className="logo">
+                    <NavLink to="/">
+                        <div className="logo">
+                            <img src="./img/icon.svg" alt="icon" />
+                        </div>
+                    </NavLink>
+                </div>
+                <ul>
+                    {uid ? (
+                        <>
+                            <li className="welcome">
+                                <NavLink to="/profil">
+                                    <h5>{userData.username}</h5>
+                                </NavLink>
+                            </li>
+                            <Logout />
+                        </>
+                    ) : (
+                        <li className="login-icon">
+                            <NavLink to="/profil">
+                                <img src="./img/icons/login2.svg" alt="login" />
+                            </NavLink>
+                        </li>
+                    )}
+                    <li className="search-icon">
+                        <NavLink to="/artist">
+                            <img src="./img/icons/search2.svg" alt="search" />
+                        </NavLink>
+                    </li>
+                </ul>
             </div>
-          </NavLink>
-        </div>
-        {uid ? (
-            <ul>
-                <li className="welcome">
-                    <NavLink to="/profil">
-                      <h5>{userData.username}</h5>
-                    </NavLink>
-                </li>
-                <Logout />
-            </ul>
-        ) : (
-            <ul>
-                <li>
-                    <NavLink to="/profil">
-                        <img src="./img/icons/login.svg" alt="login" />
-                    </NavLink>
-                </li>
-            </ul>
-        )}
-        </div>
-    </nav>
-  );
+        </nav>
+    );
 };
 
 export default Navbar;
-

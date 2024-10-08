@@ -4,7 +4,6 @@ import { dateParser } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
 import LikeButton from "./LikeButton";
 import CardComments from "./CardComments";
-import { updateArtwork, deleteArtwork } from "../../actions/artwork.actions";
 
 const Card = ({ artwork }) => {
   const [isLoading, setIsLoading] = useState(true);

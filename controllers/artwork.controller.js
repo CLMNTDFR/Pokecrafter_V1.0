@@ -36,7 +36,7 @@ module.exports.createArtwork = async (req, res) => {
         console.log('Détails du fichier:', file); // Affiche les détails du fichier
 
         // Vérification du type MIME
-        const validMimeTypes = ["image/jpg", "image/png", "image/jpeg"];
+        const validMimeTypes = ["image/jpg", "image/jpeg"];
         if (!validMimeTypes.includes(file.mimetype)) {
             console.error('Type MIME invalide:', file.mimetype);
             throw Error("invalid file");

@@ -56,15 +56,14 @@ nav {
     ul {
       display: flex;
       align-items: center;
-      justify-content: flex-end; /* Aligne les éléments à droite */
-      width: auto; /* Ajuste la largeur de la liste en fonction des éléments */
+      width: auto;
       font-size: 1.2rem;
-      margin-left: auto; /* Fait que la liste est poussée vers la droite */
+      margin-left: auto;
 
       .welcome {
         display: flex;
-        align-items: center; /* Aligne verticalement avec l'icône */
-        margin-right: 20px; /* Réduit l'espace entre le texte et l'icône */
+        align-items: center;
+        margin-right: 10px;
         transform: translateY(1px);
 
         h5 {
@@ -73,19 +72,29 @@ nav {
       }
 
       li {
-        transition: transform 0.2s ease; /* Transition fluide */
+        transition: transform 0.2s ease;
+        display: flex;
+        align-items: center;
 
         &:hover {
-          transform: translateX(3px); /* Décale de 3px vers la droite au survol */
+          transform: translateX(3px);
         }
 
         img {
           height: 24px;
           width: 24px;
           cursor: pointer;
-          display: grid;
-          align-items: center;
         }
+      }
+
+      .search-icon {
+        margin-left: 25px; /* Pousse l'icône de recherche complètement à droite */
+        margin-top: 7px;
+      }
+
+      .login-icon {
+        margin-left: 20px; /* Pousse l'icône de connexion à droite */
+        margin-top: 7px;
       }
     }
   }

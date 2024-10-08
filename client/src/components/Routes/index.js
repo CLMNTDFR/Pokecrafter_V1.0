@@ -6,6 +6,7 @@ import Profil from '../../pages/Profil';
 import Contest from '../../pages/Contest';
 import Add from '../../pages/Add';
 import NavBar from '../NavBar';
+import Artistepage from '../../pages/Artistepage';
 
 const Index = () => {
     return (
@@ -16,6 +17,7 @@ const Index = () => {
                 <Route path="/trending" element={<Trending />} />
                 <Route path="/profil" element={<Profil />} />
                 <Route path="/contests" element={<Contest />} />
+                <Route path="/artist" element={<Artistepage />} />
                 <Route path="/add" element={<Add />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
