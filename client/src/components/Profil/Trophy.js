@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 
-const Trophy = () => {
-  const userData = useSelector((state) => state.userReducer);
+const Trophy = ({ userTrophies }) => {
   const trophies = [
     {
       type: "gold-trophy",
@@ -28,12 +26,14 @@ const Trophy = () => {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const userTrophies = userData.trophies || [];
+  // Utiliser les trophées de l'utilisateur si fournis, sinon utiliser un tableau vide par défaut
+  const trophiesToDisplay = userTrophies || [];
 
   return (
     <div className="trophy-container">
       {trophies.map((trophy, index) => {
-        const trophyCount = userTrophies.filter(
+        // Compter les trophées de l'utilisateur correspondant au type de trophée
+        const trophyCount = trophiesToDisplay.filter(
           (userTrophy) => userTrophy.type === trophy.type
         ).length;
 

@@ -2,6 +2,7 @@ import axios from "axios";
 
 // Actions pour les artworks
 export const GET_ARTWORKS = "GET_ARTWORKS";
+export const GET_ALL_ARTWORKS = "GET_ALL_ARTWORKS";
 export const ADD_ARTWORK = "ADD_ARTWORK";
 export const LIKE_ARTWORK = "LIKE_ARTWORK";
 export const UNLIKE_ARTWORK = "UNLIKE_ARTWORK";
@@ -28,6 +29,18 @@ export const getArtworks = (num) => {
       .then((res) => {
         const array = res.data.slice(0, num);
         dispatch({ type: GET_ARTWORKS, payload: array });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+// Obtenir tous les artworks sans limitation
+export const getAllArtworks = () => {
+  return (dispatch) => {
+    return axios
+      .get(`${process.env.REACT_APP_API_URL}api/artwork/`)
+      .then((res) => {
+        dispatch({ type: GET_ALL_ARTWORKS, payload: res.data });
       })
       .catch((err) => console.log(err));
   };

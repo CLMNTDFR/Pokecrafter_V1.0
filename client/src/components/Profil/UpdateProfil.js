@@ -17,6 +17,7 @@ const UpdateProfil = () => {
   const dispatch = useDispatch();
   const [followingPopup, setFollowingPopup] = useState(false);
   const [followersPopup, setFollowersPopup] = useState(false);
+  const user = useSelector((state) => state.userReducer);
 
   const handleUpdate = () => {
     dispatch(updateBio(userData._id, bio));
@@ -85,7 +86,7 @@ const UpdateProfil = () => {
         </div>
       </div>
       <br />
-      <Trophy />
+      <Trophy userTrophies={user.trophies} />
       <br />
       <br />
       <br />
