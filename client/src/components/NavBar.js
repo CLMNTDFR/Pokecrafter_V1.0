@@ -14,7 +14,7 @@ const Navbar = () => {
                 <div className="logo">
                     <NavLink to="/">
                         <div className="logo">
-                            <img src="./img/icon.svg" alt="icon" />
+                            <img src="./img/pokecrafter-icon.svg" alt="icon" />
                         </div>
                     </NavLink>
                 </div>
@@ -31,13 +31,13 @@ const Navbar = () => {
                     ) : (
                         <li className="login-icon">
                             <NavLink to="/profil">
-                                <img src="./img/icons/login2.svg" alt="login" />
+                                <img src="./img/icons/pokecrafter-login2.svg" alt="login" />
                             </NavLink>
                         </li>
                     )}
                     <li className="search-icon">
                         <NavLink to="/artist">
-                            <img src="./img/icons/search2.svg" alt="search" />
+                            <img src="./img/icons/pokecrafter-search2.svg" alt="search" />
                         </NavLink>
                     </li>
                 </ul>

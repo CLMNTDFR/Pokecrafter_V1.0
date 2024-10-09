@@ -114,7 +114,7 @@ const CardUser = ({ artwork }) => {
                   }}
                 >
                   <img
-                    src="./img/icons/edit.svg"
+                    src="./img/icons/pokecrafter-edit.svg"
                     alt="edit"
                     className="edit-icon"
                     style={{
@@ -136,7 +136,7 @@ const CardUser = ({ artwork }) => {
                   }}
                 >
                   <img
-                    src="./img/icons/trash.svg"
+                    src="./img/icons/pokecrafter-trash.svg"
                     alt="delete"
                     className="delete-icon"
                     style={{
@@ -195,7 +195,7 @@ const CardUser = ({ artwork }) => {
               <div className="comment-icon">
                 <img
                   onClick={() => setShowComments(!showComments)}
-                  src="/img/icons/message1.svg"
+                  src="/img/icons/pokecrafter-message1.svg"
                   alt="comment"
                   style={{ cursor: "pointer" }}
                 />
@@ -209,7 +209,7 @@ const CardUser = ({ artwork }) => {
               />
 
               <img
-                src="./img/icons/share.svg"
+                src="./img/icons/pokecrafter-share.svg"
                 alt="share"
                 className="share-icon"
                 onClick={handleShareClick}

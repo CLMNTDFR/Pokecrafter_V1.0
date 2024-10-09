@@ -109,7 +109,7 @@ const Card = ({ artwork }) => {
               <div className="comment-icon">
                 <img
                   onClick={() => setShowComments(!showComments)}
-                  src="/img/icons/message1.svg"
+                  src="/img/icons/pokecrafter-message1.svg"
                   alt="comment"
                 />
                 <span>{artwork.comments.length}</span>
@@ -122,7 +122,7 @@ const Card = ({ artwork }) => {
               />
 
               <img
-                src="./img/icons/share.svg"
+                src="./img/icons/pokecrafter-share.svg"
                 alt="share"
                 className="share-icon"
                 onClick={handleShareClick}

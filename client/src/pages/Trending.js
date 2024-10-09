@@ -33,7 +33,7 @@ const Trending = () => {
           <br /><br />
         </div>
         <hr />
-        <TrendThread artworks={sortedArtworks} /> {/* Utilise TrendThread avec les artworks triés */}
+        <TrendThread artworks={sortedArtworks} />
       </div>
     </div>
   );

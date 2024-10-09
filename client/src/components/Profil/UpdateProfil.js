@@ -66,7 +66,7 @@ const UpdateProfil = () => {
           <h4>• Crafter since {dateParser(userData.createdAt)} •</h4>
           <h5 onClick={() => setFollowingPopup(true)}>
             <img
-              src="/img/icons/following.svg"
+              src="/img/icons/pokecrafter-following.svg"
               alt="following icon"
               className="icon"
             />
@@ -76,7 +76,7 @@ const UpdateProfil = () => {
           </h5>
           <h5 onClick={() => setFollowersPopup(true)}>
             <img
-              src="/img/icons/followers.svg"
+              src="/img/icons/pokecrafter-followers.svg"
               alt="followers icon"
               className="icon"
             />

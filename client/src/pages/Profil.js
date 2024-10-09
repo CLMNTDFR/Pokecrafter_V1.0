@@ -20,7 +20,7 @@ const Profil = () => {
                     <div className="log-container">
                         <Log signin={false} signup={true} />
                         <div className="img-container">
-                            <img src="./img/log3.svg" alt="Pokeball" />
+                            <img src="./img/pokecrafter-log3.svg" alt="Pokeball" />
                         </div>
                     </div>
                 )}

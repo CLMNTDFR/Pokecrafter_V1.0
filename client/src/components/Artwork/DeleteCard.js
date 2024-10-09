@@ -19,7 +19,7 @@ const DeleteCard = (props) => {
         }
       }}
     >
-      <img src="./img/icons/trash.svg" alt="delete" className="delete-icon" />
+      <img src="./img/icons/pokecrafter-trash.svg" alt="delete" className="delete-icon" />
     </div>
   );
 };

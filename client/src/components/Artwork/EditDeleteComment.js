@@ -38,7 +38,7 @@ const EditDeleteComment = ({ comment, artworkId }) => {
     <div className="edit-comment">
       {isAuthor && (
         <span onClick={() => setEdit((prev) => !prev)}>
-          <img src="./img/icons/edit.svg" alt="edit-comment" />
+          <img src="./img/icons/pokecrafter-edit.svg" alt="edit-comment" />
         </span>
       )}
 

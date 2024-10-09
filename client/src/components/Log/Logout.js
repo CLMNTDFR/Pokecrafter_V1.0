@@ -23,7 +23,7 @@ const Logout = () => {
 
   return (
     <li onClick={logout}>
-      <img src="./img/icons/logout2.svg" alt="logout" />
+      <img src="./img/icons/pokecrafter-logout2.svg" alt="logout" />
     </li>
   );
 };

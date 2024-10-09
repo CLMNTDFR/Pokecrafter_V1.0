@@ -31,7 +31,7 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
     <div className="like-container">
       {uid === null && (
         <Popup
-          trigger={<img src="./img/icons/heart.svg" alt="like" />}
+          trigger={<img src="./img/icons/pokecrafter-heart.svg" alt="like" />}
           position={["bottom center", "bottom right", "bottom left"]}
           closeOnDocumentClick
         >
@@ -39,10 +39,10 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
         </Popup>
       )}
       {uid && !liked && (
-        <img src="./img/icons/heart.svg" onClick={like} alt="like" />
+        <img src="./img/icons/pokecrafter-heart.svg" onClick={like} alt="like" />
       )}
       {uid && liked && (
-        <img src="./img/icons/heart-filled.svg" onClick={unlike} alt="unlike" />
+        <img src="./img/icons/pokecrafter-heart-filled.svg" onClick={unlike} alt="unlike" />
       )}
       <span>{likersCount}</span>
     </div>

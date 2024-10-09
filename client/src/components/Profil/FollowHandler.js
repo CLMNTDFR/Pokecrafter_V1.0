@@ -35,7 +35,7 @@ const FollowHandler = ({ idToFollow, type }) => {
           {type === "suggestion" && (
             <button className="unfollow-btn">
               <img
-                src="/img/icons/followed.svg"
+                src="/img/icons/pokecrafter-followed.svg"
                 alt="Followed icon"
                 className="icon"
               />
@@ -44,7 +44,7 @@ const FollowHandler = ({ idToFollow, type }) => {
           )}
           {type === "card" && (
             <>
-              <img src="/img/icons/checked.svg" alt="Checked" />
+              <img src="/img/icons/pokecrafter-checked.svg" alt="Checked" />
               <div className="follow-text">Unfollow</div>
             </>
           )}
@@ -55,7 +55,7 @@ const FollowHandler = ({ idToFollow, type }) => {
           {type === "suggestion" && (
             <button className="follow-btn">
               <img
-                src="/img/icons/followback.svg"
+                src="/img/icons/pokecrafter-followback.svg"
                 alt="Follow back icon"
                 className="icon"
               />
@@ -64,7 +64,7 @@ const FollowHandler = ({ idToFollow, type }) => {
           )}
           {type === "card" && (
             <>
-              <img src="/img/icons/check.svg" alt="Check" />
+              <img src="/img/icons/pokecrafter-check.svg" alt="Check" />
               <div className="follow-text">Follow</div>
             </>
           )}

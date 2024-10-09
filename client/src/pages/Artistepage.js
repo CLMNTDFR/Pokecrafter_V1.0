@@ -97,7 +97,7 @@ const ArtistePage = () => {
                       <div className="artiste-right">
                         <h3 onClick={() => handleUserClick(user)}>
                           <img
-                            src="/img/icons/up4.svg"
+                            src="/img/icons/pokecrafter-up4.svg"
                             alt="toggle icon"
                             className={`toggle-icon ${
                               selectedUser && selectedUser._id === user._id
@@ -106,7 +106,7 @@ const ArtistePage = () => {
                             }`}
                           />
                           <img
-                            src="/img/icons/down4.svg"
+                            src="/img/icons/pokecrafter-down4.svg"
                             alt="toggle icon"
                             className={`toggle-icon ${
                               selectedUser && selectedUser._id === user._id
