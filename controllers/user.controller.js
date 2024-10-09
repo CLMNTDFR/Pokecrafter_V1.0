@@ -1,24 +1,31 @@
 const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
+const authController = require('../controllers/auth.controller');
+const authMiddleware = require('../middleware/auth.middleware'); // Assurez-vous que le chemin est correct
+
+
 
 module.exports.getAllUsers = async (req, res) => {
     const users = await UserModel.find().select("-password_hash");
     res.status(200).json(users);
   };
 
-module.exports.userInfo = async (req, res) => {
+  module.exports.userInfo = async (req, res) => {
     try {
-      const user = await UserModel.findById(req.params.id).select("-password_hash");
-      if (user) {
-        res.send(user);
-      } else {
-        res.status(404).send({ message: "User not found" });
-      }
+        const userId = req.params.id;
+        console.log("Fetching user with ID:", userId); // Ajout d'un log
+        const user = await UserModel.findById(userId).select("-password_hash");
+
+        if (user) {
+            res.send(user);
+        } else {
+            res.status(404).send({ message: "User not found" });
+        }
     } catch (err) {
-      console.error("ID unknown : " + err);
-      res.status(500).send({ message: "Server error" });
+        console.error("ID unknown : " + err);
+        res.status(500).send({ message: "Server error" });
     }
-  };
+};
 
 module.exports.updateUser = async (req, res) => {
     if (!ObjectID.isValid(req.params.id))
@@ -115,7 +122,4 @@ module.exports.unfollow = async (req, res) => {
       return res.status(500).json({ message: err.message });
     }
   };
-  
 
-
-  

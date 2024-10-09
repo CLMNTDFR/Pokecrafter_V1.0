@@ -9,7 +9,7 @@ router.post('/', artworkContestController.createArtworkContest);
 router.get('/:id', artworkContestController.getArtworkContestById);
 // Route pour obtenir tous les artworks d'un contest par l'ID du contest
 router.get('/contest/:contestID', artworkContestController.getArtworksByContestId);
-router.put('/:id', artworkContestController.updateArtworkContest);
+router.patch('/:id', artworkContestController.updateArtworkContest);
 router.delete('/:id', artworkContestController.deleteArtworkContest);
 
 // like and dislike

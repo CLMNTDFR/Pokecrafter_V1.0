@@ -19,6 +19,24 @@ module.exports.readArtwork = async (req, res) => {
         res.status(400).json({ message: err });
     }
 };
+
+module.exports.readArtworkById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+      const artwork = await ArtworkModel.findById(id).lean().exec();
+      if (!artwork) {
+          return res.status(404).json({ message: "Artwork not found" });
+      }
+
+      // Trier les commentaires par timestamp décroissant
+      artwork.comments = artwork.comments.sort((a, b) => b.timestamp - a.timestamp);
+
+      res.status(200).json(artwork);
+  } catch (err) {
+      res.status(400).json({ message: err.message });
+  }
+};
   
 module.exports.createArtwork = async (req, res) => {
     try {

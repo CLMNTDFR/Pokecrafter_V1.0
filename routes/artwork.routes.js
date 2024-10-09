@@ -4,6 +4,7 @@ const fileUpload = require('express-fileupload'); // Require express-fileupload
 const path = require('path');
 
 router.get('/', artworkController.readArtwork);
+router.get('/:id', artworkController.readArtworkById);
 router.post('/', artworkController.createArtwork);
 router.put('/:id', artworkController.updateArtwork);
 router.delete('/:id', artworkController.deleteArtwork);
