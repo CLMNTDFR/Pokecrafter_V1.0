@@ -90,17 +90,20 @@ module.exports.createArtworkContest = async (req, res) => {
 };
 
 module.exports.getArtworksByContestId = async (req, res) => {
-    const { contestId } = req.params;
+  const { contestID } = req.params; // "contestID" correspond à ce qui est dans la route
 
-    try {
-        const artworks = await ArtworkContest.find({ contestId });
-        if (!artworks.length) return res.status(404).json({ message: 'No artworks found for this contest' });
+  try {
+      const artworks = await ArtworkContest.find({ contestId: contestID }); // Utilise contestID
+      if (!artworks.length) {
+          return res.status(404).json({ message: 'No artworks found for this contest' });
+      }
 
-        res.status(200).json(artworks);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+      res.status(200).json(artworks);
+  } catch (err) {
+      res.status(400).json({ message: err.message });
+  }
 };
+
 
 module.exports.updateArtworkContest = async (req, res) => {
     const { id } = req.params;
