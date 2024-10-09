@@ -30,14 +30,11 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "img/uploads/profil/random-user.png"
         },
-          bio :{
+        bio :{
             type: String,
             max: 1024,
         },
         followers: {
-            type: [String]
-        },
-        likes: {
             type: [String]
         },
         following: {
@@ -48,13 +45,27 @@ const userSchema = new mongoose.Schema(
         },
         likes: {
             type: [String]
+        },
+        trophies: [{
+            type: {
+                type: String,
+                enum: ['gold-trophy', 'silver-trophy', 'bronze-trophy', 'black-trophy'],
+            },
+            dateReceived: {
+                type: Date,
+                default: Date.now,
+            }
+        }],
+        role: {
+            type: String,
+            enum: ['super-admin', 'admin', 'user'], // Définir les rôles possibles
+            default: 'user',  // Le rôle par défaut est "user"
         }
     },
-
     {
         timestamps: true,
     }
-)
+);
 
 userSchema.pre("save", async function(next) {
     if (this.isModified('password_hash')) {

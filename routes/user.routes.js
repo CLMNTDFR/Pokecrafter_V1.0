@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const authController = require('../controllers/auth.controller');
 const userController = require('../controllers/user.controller');
+const authController = require('../controllers/auth.controller');
 const uploadController = require('../controllers/upload.controller');
+const authMiddleware = require('../middleware/auth.middleware'); // Assurez-vous que le chemin est correct
 const fileUpload = require('express-fileupload');
 const path = require('path');
 
@@ -18,5 +19,6 @@ router.patch('/follow/:id', userController.follow);
 router.patch('/unfollow/:id', userController.unfollow);
 
 router.post("/upload", uploadController.uploadProfil);
+
 
 module.exports = router;

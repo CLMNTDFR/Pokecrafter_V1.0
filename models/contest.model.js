@@ -22,8 +22,20 @@ const contestSchema = new mongoose.Schema({
         required: true,
         maxlength: 240,
     },
-    artworks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ArtworkContest' }], // Ajout du tableau pour les artworks
+    artworks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ArtworkContest' }],
 
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+
+    creatorRole: {
+        type: String,
+        enum: ['user', 'admin', 'super-admin'],
+        required: true,
+    },
+    isCompleted: { type: Boolean, default: false },
 });
 
 const Contest = mongoose.model('Contest', contestSchema);

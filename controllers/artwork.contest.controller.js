@@ -10,6 +10,20 @@ module.exports.createArtworkContest = async (req, res) => {
         console.log('req.files:', req.files);  // Vérifie si les fichiers sont présents
         console.log('req.body:', req.body);    // Vérifie si les données du corps sont présentes
 
+        // Vérification si le contest existe
+        const contest = await Contest.findById(req.body.contestId);
+        if (!contest) {
+            console.error('Contest non trouvé:', req.body.contestId);
+            return res.status(404).json({ message: 'Contest not found' });
+        }
+
+        // Vérification de la date de fin du contest
+        const currentDate = new Date();
+        if (currentDate > contest.endDate) {
+            console.error('Le contest est terminé, la date de fin est dépassée');
+            return res.status(400).json({ message: "The contest has already ended. You cannot submit an artwork." });
+        }
+
         // Vérifie la présence de fichiers
         if (!req.files || Object.keys(req.files).length === 0) {
             console.error('Aucun fichier uploadé');
@@ -60,12 +74,6 @@ module.exports.createArtworkContest = async (req, res) => {
                 const artworkContest = await newArtworkContest.save();
 
                 // Ajouter cet artwork au contest
-                const contest = await Contest.findById(req.body.contestId);
-                if (!contest) {
-                    console.error('Contest non trouvé:', req.body.contestId);
-                    return res.status(404).json({ message: 'Contest not found' });
-                }
-
                 contest.artworks.push(artworkContest._id);  // Ajouter l'artwork au contest
                 await contest.save();
 
@@ -96,17 +104,39 @@ module.exports.getArtworksByContestId = async (req, res) => {
 
 module.exports.updateArtworkContest = async (req, res) => {
     const { id } = req.params;
-    const updateData = req.body;
-
-    try {
-        const updatedArtwork = await ArtworkContest.findByIdAndUpdate(id, updateData, { new: true });
-        if (!updatedArtwork) return res.status(404).json({ message: 'Artwork not found' });
-
-        res.status(200).json(updatedArtwork);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+  
+    // Vérifier si l'ID est valide
+    if (!ObjectID.isValid(id)) {
+      return res.status(400).send("ID unknown: " + id);
     }
-};
+  
+    // Définir les champs modifiables
+    const updatedRecord = {
+      title: req.body.title,
+      description: req.body.description,
+      photo: req.body.photo,  // Ici tu stockes directement le chemin ou l'URL de la photo
+    };
+  
+    try {
+      // Mise à jour du ArtworkContest
+      const updatedArtwork = await ArtworkContest.findByIdAndUpdate(
+        id,
+        { $set: updatedRecord },
+        { new: true }
+      );
+  
+      // Si l'ArtworkContest n'existe pas
+      if (!updatedArtwork) {
+        return res.status(404).send("Artwork contest not found");
+      }
+  
+      // Renvoie les données mises à jour
+      res.status(200).json(updatedArtwork);
+    } catch (err) {
+      console.log("Update error: " + err);
+      res.status(500).send(err);
+    }
+  };
 
 module.exports.deleteArtworkContest = async (req, res) => {
     const { id } = req.params;
