@@ -12,5 +12,5 @@ export default combineReducers({
     artworkReducer,
     errorReducer,
     contestReducer,
-    artworkContestReducer
+    artworkContestReducer,
 });

@@ -58,7 +58,7 @@ const ContestDisplay = ({ selectedContestType }) => {
 
   useEffect(() => {
     if (loadContests) {
-      setVisibleContests((prev) => prev + 1);
+      setVisibleContests((prev) => prev + 10);
       setLoadContests(false);
     }
 
@@ -94,10 +94,11 @@ const ContestDisplay = ({ selectedContestType }) => {
     <div className="contest-display">
       {!isEmpty(filteredContests) ? (
         filteredContests.slice(0, visibleContests).map((contest) => {
-          const sortedArtworks = (artworksContest[contest._id] || []).sort(
+          const sortedArtworks = (artworksContest[contest._id] || []).slice().sort(
             (a, b) => b.likers.length - a.likers.length
           );
-          const visibleCount = visibleArtworks[contest._id] || 5;
+          
+          const visibleCount = visibleArtworks[contest._id] || 3;
 
           return (
             <div key={contest._id} className="contest-card">
