@@ -15,7 +15,7 @@ export const DELETE_COMMENT_CONTEST_ARTWORK = "DELETE_COMMENT_CONTEST_ARTWORK";
 export const getArtworksContest = (contestId) => {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_API_URL}api/artwork-contest/contest/${contestId}`) // Correction ici
+      .get(`${process.env.REACT_APP_API_URL}api/artwork-contest/contest/${contestId}`)
       .then((res) => {
         dispatch({ type: GET_ARTWORKS_CONTEST, payload: { contestId, artworks: res.data } });
       })
@@ -28,22 +28,24 @@ export const likeContestArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/like-artwork/${artworkId}`, // Correction ici
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/like-artwork/${artworkId}`,
       data: { id: userId },
     })
       .then((res) => {
+        console.log("Like response:", res.data); // Ajout d'un log pour la réponse
         dispatch({ type: LIKE_CONTEST_ARTWORK, payload: { artworkId, userId } });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("Error liking artwork:", err));
   };
 };
+
 
 // Unliker une œuvre d'art d'un concours
 export const unlikeContestArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/unlike-artwork/${artworkId}`, // Correction ici
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/unlike-artwork/${artworkId}`,
       data: { id: userId },
     })
       .then((res) => {
@@ -58,7 +60,7 @@ export const updateContestArtwork = (artworkId, description) => {
   return (dispatch) => {
     return axios({
       method: "put",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/${artworkId}`, // Correction ici
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/${artworkId}`,
       data: { description },
     })
       .then((res) => {
@@ -73,7 +75,7 @@ export const deleteContestArtwork = (artworkId) => {
   return (dispatch) => {
     return axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/${artworkId}`, // Correction ici
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/${artworkId}`,
     })
       .then((res) => {
         dispatch({ type: DELETE_CONTEST_ARTWORK, payload: { artworkId } });
@@ -87,7 +89,7 @@ export const addCommentContestArtwork = (artworkId, commenterId, text, commenter
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/comment-artwork/${artworkId}`, // Correction ici
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/comment-artwork/${artworkId}`,
       data: { commenterId, text, commenterPseudo },
     })
       .then((res) => {
@@ -102,7 +104,7 @@ export const editCommentContestArtwork = (artworkId, commentId, text) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/edit-comment-artwork/${artworkId}`, // Correction ici
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/edit-comment-artwork/${artworkId}`,
       data: { commentId, text },
     })
       .then((res) => {
@@ -117,7 +119,7 @@ export const deleteCommentContestArtwork = (artworkId, commentId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/delete-comment-artwork/${artworkId}`, // Correction ici
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/delete-comment-artwork/${artworkId}`,
       data: { commentId },
     })
       .then((res) => {

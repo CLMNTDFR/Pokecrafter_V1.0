@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FilterContest = ({ setSelectedContestType }) => {
+const FilterContest = ({ setSelectedContestType, setCurrentPage }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleContestTypeSelect = (contestType) => {

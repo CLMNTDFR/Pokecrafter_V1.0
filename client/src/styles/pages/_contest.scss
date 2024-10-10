@@ -1,7 +1,70 @@
-.artwork-grid {
+.contest-card {
+    padding: 20px;
+    border-bottom: 2px solid #bbbbbb;
+    margin-bottom: 50px;
+  }
+  
+  .contest-header {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  h3 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .contest-dates {
+    font-size: 0.9em;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  
+  .contest-description {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+  
+  .artwork-grid {
+    display: flex;
     flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .artwork-user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .artwork-user-picture {
+    width: 15px;
+    height: 15px;
+    border-radius: 50px;
+    margin-right: 5px;
+  }
+  
+  .artwork-thumbnail p {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  
+  .artwork-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .contest-creator-picture,
+  .artwork-user-picture {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover; /* Pour s'assurer que l'image ne soit pas déformée */
+    margin-right: 10px;
   }
   
   .artwork-thumbnail {
@@ -9,6 +72,55 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 60px;
+    width: 250px;
+    height: 250px;
+  }
+  
+  .artwork-thumbnail img {
+    width: 175px;
+    height: 175px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .like-container img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  .see-more-btn,
+  .see-less-btn {
+    background-color: transparent;
+    color: rgb(43, 43, 43);
+    font-size: 2em;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .see-more-btn:hover,
+  .see-less-btn:hover {
+    background-color: transparent;
+    color: #da0000;
+  }
+  
+  
+  .fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fullscreen-image {
+    max-width: 90%;
+    max-height: 90%;
   }
   
