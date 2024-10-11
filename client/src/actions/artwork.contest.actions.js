@@ -28,7 +28,7 @@ export const likeContestArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/like-artwork/${artworkId}`,
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/like-artwork-contest/${artworkId}`,
       data: { id: userId },
     })
       .then((res) => {
@@ -45,7 +45,7 @@ export const unlikeContestArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/unlike-artwork/${artworkId}`,
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/unlike-artwork-contest/${artworkId}`,
       data: { id: userId },
     })
       .then((res) => {
@@ -89,7 +89,7 @@ export const addCommentContestArtwork = (artworkId, commenterId, text, commenter
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/comment-artwork/${artworkId}`,
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/comment-artwork-contest/${artworkId}`,
       data: { commenterId, text, commenterPseudo },
     })
       .then((res) => {
@@ -104,7 +104,7 @@ export const editCommentContestArtwork = (artworkId, commentId, text) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/edit-comment-artwork/${artworkId}`,
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/edit-comment-artwork-contest/${artworkId}`,
       data: { commentId, text },
     })
       .then((res) => {
@@ -119,7 +119,7 @@ export const deleteCommentContestArtwork = (artworkId, commentId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/delete-comment-artwork/${artworkId}`,
+      url: `${process.env.REACT_APP_API_URL}api/artwork-contest/delete-comment-artwork-contest/${artworkId}`,
       data: { commentId },
     })
       .then((res) => {

@@ -17,54 +17,54 @@ import {
       case GET_CONTEST_ARTWORKS:
         return {
           ...state,
-          [action.payload.contestId]: action.payload.artworks,
+          [action.payload.contestId]: action.payload.artworks || [], // S'assure que artworks est un tableau
         };
   
       case LIKE_CONTEST_ARTWORK:
         return {
           ...state,
-          [action.payload.contestId]: state[action.payload.contestId].map((artwork) =>
+          [action.payload.contestId]: state[action.payload.contestId]?.map((artwork) =>
             artwork._id === action.payload.artworkId
               ? { ...artwork, likers: [...artwork.likers, action.payload.userId] }
               : artwork
-          ),
+          ) || [], // Gère le cas où le concours n'existe pas encore dans l'état
         };
   
       case UNLIKE_CONTEST_ARTWORK:
         return {
           ...state,
-          [action.payload.contestId]: state[action.payload.contestId].map((artwork) =>
+          [action.payload.contestId]: state[action.payload.contestId]?.map((artwork) =>
             artwork._id === action.payload.artworkId
               ? {
                   ...artwork,
                   likers: artwork.likers.filter((id) => id !== action.payload.userId),
                 }
               : artwork
-          ),
+          ) || [], // Gère le cas où le concours n'existe pas encore dans l'état
         };
   
       case UPDATE_CONTEST_ARTWORK:
         return {
           ...state,
-          [action.payload.contestId]: state[action.payload.contestId].map((artwork) =>
+          [action.payload.contestId]: state[action.payload.contestId]?.map((artwork) =>
             artwork._id === action.payload.artworkId
               ? { ...artwork, description: action.payload.description }
               : artwork
-          ),
+          ) || [], // Gère le cas où le concours n'existe pas encore dans l'état
         };
   
       case DELETE_CONTEST_ARTWORK:
         return {
           ...state,
-          [action.payload.contestId]: state[action.payload.contestId].filter(
+          [action.payload.contestId]: state[action.payload.contestId]?.filter(
             (artwork) => artwork._id !== action.payload.artworkId
-          ),
+          ) || [], // Gère le cas où le concours n'existe pas encore dans l'état
         };
   
       case ADD_COMMENT_CONTEST_ARTWORK:
         return {
           ...state,
-          [action.payload.contestId]: state[action.payload.contestId].map((artwork) => {
+          [action.payload.contestId]: state[action.payload.contestId]?.map((artwork) => {
             if (artwork._id === action.payload.artworkId) {
               return {
                 ...artwork,
@@ -81,13 +81,13 @@ import {
               };
             }
             return artwork;
-          }),
+          }) || [], // Gère le cas où le concours n'existe pas encore dans l'état
         };
   
       case EDIT_COMMENT_CONTEST_ARTWORK:
         return {
           ...state,
-          [action.payload.contestId]: state[action.payload.contestId].map((artwork) => {
+          [action.payload.contestId]: state[action.payload.contestId]?.map((artwork) => {
             if (artwork._id === action.payload.artworkId) {
               return {
                 ...artwork,
@@ -100,13 +100,13 @@ import {
               };
             }
             return artwork;
-          }),
+          }) || [], // Gère le cas où le concours n'existe pas encore dans l'état
         };
   
       case DELETE_COMMENT_CONTEST_ARTWORK:
         return {
           ...state,
-          [action.payload.contestId]: state[action.payload.contestId].map((artwork) => {
+          [action.payload.contestId]: state[action.payload.contestId]?.map((artwork) => {
             if (artwork._id === action.payload.artworkId) {
               return {
                 ...artwork,
@@ -116,13 +116,13 @@ import {
               };
             }
             return artwork;
-          }),
+          }) || [], // Gère le cas où le concours n'existe pas encore dans l'état
         };
   
       case GET_ARTWORKS_CONTEST:
         return {
           ...state,
-          [action.payload.contestId]: action.payload.artworks,
+          [action.payload.contestId]: action.payload.artworks || [], // S'assure que artworks est un tableau
         };
   
       default:

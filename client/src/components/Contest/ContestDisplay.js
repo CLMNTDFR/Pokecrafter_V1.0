@@ -9,10 +9,11 @@ const ContestDisplay = ({ selectedContestType }) => {
   const dispatch = useDispatch();
   const contests = useSelector((state) => state.contestReducer);
   const artworksContest = useSelector((state) => state.artworkContestReducer);
-  const usersData = useSelector((state) => state.usersReducer); // Utilisateurs
+  const usersData = useSelector((state) => state.usersReducer);
   const [visibleContests, setVisibleContests] = useState(1);
   const [loadContests, setLoadContests] = useState(true);
   const [fullscreenImage, setFullscreenImage] = useState(null);
+  const [likersCountByArtwork, setLikersCountByArtwork] = useState({}); // Nouvel état
 
   useEffect(() => {
     dispatch(getAllContests());
@@ -44,14 +45,11 @@ const ContestDisplay = ({ selectedContestType }) => {
 
   const getUserProfilePicture = (userId) => {
     const user = usersData.find((user) => String(user._id) === String(userId));
-    return user ? user.picture : "/img/default-profile.png"; // Par défaut si l'utilisateur n'est pas trouvé
+    return user ? user.picture : "/img/default-profile.png";
   };
 
   const loadMoreContests = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >
-      document.documentElement.offsetHeight
-    ) {
+    if (window.innerHeight + document.documentElement.scrollTop + 1 > document.documentElement.offsetHeight) {
       setLoadContests(true);
     }
   };
@@ -90,6 +88,13 @@ const ContestDisplay = ({ selectedContestType }) => {
     setFullscreenImage(null);
   };
 
+  const handleLikersCountChange = (artworkId, newCount) => {
+    setLikersCountByArtwork((prev) => ({
+      ...prev,
+      [artworkId]: newCount,
+    }));
+  };
+
   return (
     <div className="contest-display">
       {!isEmpty(filteredContests) ? (
@@ -97,15 +102,13 @@ const ContestDisplay = ({ selectedContestType }) => {
           const sortedArtworks = (artworksContest[contest._id] || []).slice().sort(
             (a, b) => b.likers.length - a.likers.length
           );
-          
           const visibleCount = visibleArtworks[contest._id] || 3;
 
           return (
             <div key={contest._id} className="contest-card">
-              {/* Contest creator's profile picture */}
               <div className="contest-header">
                 <img
-                  src={getUserProfilePicture(contest.creatorId)} // Utilisation de la fonction correcte
+                  src={getUserProfilePicture(contest.creatorId)}
                   alt="Creator"
                   className="contest-creator-picture"
                 />
@@ -122,23 +125,21 @@ const ContestDisplay = ({ selectedContestType }) => {
                   sortedArtworks.slice(0, visibleCount).map((artwork) => (
                     <div key={artwork._id} className="artwork-thumbnail">
                       <div className="artwork-user-info">
-
                         <p>{getUserPseudo(artwork.posterId)}</p>
                       </div>
                       <img
                         src={artwork.picture}
                         alt={artwork.title}
-                        onClick={() => handleImageClick(artwork.picture)} // Click pour afficher en plein écran
+                        onClick={() => handleImageClick(artwork.picture)}
                       />
-                      <br /><br />
                       <LikeArtworkContestButton
                         artwork={artwork}
-                        likersCount={artwork.likers.length} // Passer le nombre de likes pour chaque artwork
+                        likersCount={likersCountByArtwork[artwork._id] || artwork.likers.length}
+                        setLikersCount={(newCount) => handleLikersCountChange(artwork._id, newCount)} // Passe la fonction ici
                       />
                     </div>
                   ))}
               </div>
-
               <div className="artwork-buttons">
                 {visibleCount < sortedArtworks.length && (
                   <button
