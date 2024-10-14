@@ -1,13 +1,13 @@
 import {
   GET_ARTWORKS,
-  GET_ALL_ARTWORKS, // Ajoutée
+  GET_ALL_ARTWORKS,
   LIKE_ARTWORK,
   UNLIKE_ARTWORK,
   UPDATE_ARTWORK,
   DELETE_ARTWORK,
   ADD_COMMENT,
   EDIT_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
 } from "../actions/artwork.actions";
 
 const initialState = [];
@@ -17,7 +17,7 @@ export default function artworkReducer(state = initialState, action) {
     case GET_ARTWORKS:
       return action.payload;
 
-    case GET_ALL_ARTWORKS: // Nouveau case pour gérer tous les artworks
+    case GET_ALL_ARTWORKS:
       return action.payload;
 
     case LIKE_ARTWORK:
@@ -32,7 +32,9 @@ export default function artworkReducer(state = initialState, action) {
         artwork._id === action.payload.artworkId
           ? {
               ...artwork,
-              likers: artwork.likers.filter((id) => id !== action.payload.userId),
+              likers: artwork.likers.filter(
+                (id) => id !== action.payload.userId
+              ),
             }
           : artwork
       );
@@ -45,7 +47,9 @@ export default function artworkReducer(state = initialState, action) {
       );
 
     case DELETE_ARTWORK:
-      return state.filter((artwork) => artwork._id !== action.payload.artworkId);
+      return state.filter(
+        (artwork) => artwork._id !== action.payload.artworkId
+      );
 
     case ADD_COMMENT:
       return state.map((artwork) => {

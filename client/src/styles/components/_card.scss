@@ -1,24 +1,21 @@
 .card-container {
-  max-width: 100%; // Assurer que la carte ne dépasse jamais 100% de la largeur de son conteneur
+  max-width: 100%;
   width: 100%;
   display: grid;
   grid-template-columns: 80px 1fr;
   margin: 10px auto;
   padding: 16px;
-  padding-bottom: 50px; // Ajouter de l'espace en bas
-  padding-top: 50px; // Ajouter de l'espace en haut
-  border-bottom: 2px solid #ababab; // Bordure en bas
-
-
+  padding-bottom: 50px;
+  padding-top: 50px;
+  border-bottom: 2px solid #ababab;
 
   @media screen and (min-width: 930px) {
-    max-width: 200vh; // Limiter la largeur des cartes sur grands écrans
+    max-width: 200vh;
   }
 
   @media screen and (max-width: 590px) {
     grid-template-columns: 1fr;
   }
-
 
   .fa-spinner {
     position: center;
@@ -55,8 +52,8 @@
     }
     .card-header {
       display: flex;
-      flex-direction: column; // Modifier pour empiler les éléments
-      justify-content: flex-start; // Aligner les éléments au début
+      flex-direction: column;
+      justify-content: flex-start;
       margin: 2px 0 4px;
       min-height: 35px;
 
@@ -75,7 +72,6 @@
           transform: translate(50px, -20px);
         }
       }
-
 
       @media screen and (max-width: 590px) {
         display: flex;
@@ -101,7 +97,7 @@
 
         span {
           transform: translate(0px, -5px);
-          
+
           @media screen and (max-width: 440px) {
             margin: 0px 0 -10px;
             padding: 0;
@@ -127,7 +123,7 @@
             color: $color-2;
           }
         }
-      } 
+      }
 
       span {
         font-family: $font-1;
@@ -147,10 +143,10 @@
     }
     .follow-text {
       display: inline-block;
-      margin-left: 0px; // Adjust the space between the icon and the text
+      margin-left: 0px;
       font-size: 0.85rem;
       font-weight: lighter;
-      color: $color-3; // Customize the color as needed
+      color: $color-3;
       transform: translateY(-8px);
     }
     .update-post {
@@ -178,10 +174,10 @@
       }
 
       .button-container-validate {
-        display: flex; /* Active Flexbox */
-        justify-content: center; /* Centre horizontalement les éléments */
+        display: flex;
+        justify-content: center;
         margin-top: -10px;
-        
+
         .btn-validate {
           text-align: center !important;
           border-radius: 5px !important;
@@ -190,32 +186,31 @@
     }
     .card-pic {
       width: 100%;
-      height: auto; // Assurez-vous que ça reste auto pour les petits écrans
+      height: auto;
       cursor: pointer;
       margin-top: 12px;
       transform: translateX(-10px);
-    
+
       @media screen and (min-width: 930px) {
-        height: 75vh; // Hauteur de 70% de l'écran
-        width: auto; // Laisse la largeur auto pour maintenir le ratio
-        margin: 0 auto; // Centrage horizontal
-        display: block; // Assure que l'image est traitée comme un bloc
+        height: 75vh;
+        width: auto;
+        margin: 0 auto;
+        display: block;
         padding-bottom: 10px;
       }
-    
+
       @media screen and (max-width: 930px) {
         width: 100%;
         margin-top: 12px;
       }
-    
-      // Ajout pour téléphone (par exemple, moins de 590px)
+
       @media screen and (max-width: 590px) {
-        width: 120%; // 110% de la largeur du conteneur
-        transform: translateX(-11%); // Décaler de 5% pour centrer l'image sur l'écran
-        margin: 0; // Supprimer les marges pour aligner avec le bord de l'écran
+        width: 120%;
+        transform: translateX(-11%);
+        margin: 0;
       }
     }
-    
+
     .heart-margin-top {
       transform: translateY(-0px);
       .img {
@@ -223,20 +218,17 @@
         width: 20px !important;
       }
       .heart-icon {
-        width: 23px; /* Réduire la taille de 2 pixels */
-        height: 23px; /* Conserver le ratio de l'image */
-        transform: translateY(3px); /* Déplacer l'icône de 2 pixels vers le haut */
+        width: 23px;
+        height: 23px;
+        transform: translateY(3px);
 
         @media screen and (max-width: 930px) {
           width: 21px !important;
           height: 21px !important;
           transform: translateY(8px) !important;
-          
         }
       }
-      
     }
-    
 
     .description {
       margin-top: 15px;
@@ -248,30 +240,26 @@
       justify-content: space-between;
       padding-top: 12px;
       .comment-icon,
-        .like-container {
-          margin-right: 15px;
-          @media screen and (min-width: 930px) {
-            .like-card-counter {
-              transform: translate(0px, 2px);
-            }
+      .like-container {
+        margin-right: 15px;
+        @media screen and (min-width: 930px) {
+          .like-card-counter {
+            transform: translate(0px, 2px);
           }
-          @media screen and (max-width: 930px) {
-            .like-card-counter {
-              transform: translate(0px, 7px);
-            }
-            
+        }
+        @media screen and (max-width: 930px) {
+          .like-card-counter {
+            transform: translate(0px, 7px);
           }
-          
         }
-        .share-icon {
-          margin-right: 20px;
-        }
+      }
+      .share-icon {
+        margin-right: 20px;
+      }
 
       @media screen and (min-width: 930px) {
         justify-content: flex-end;
         align-items: center;
-
-        
       }
     }
 
@@ -317,7 +305,6 @@
       align-items: center;
       justify-content: space-between;
       padding: 12px 0 15px;
-      
 
       img {
         height: 22px;
@@ -352,22 +339,21 @@
       padding: 15px;
       margin: 5px 0;
       border-radius: 20px 20px 20px 6px;
-      background-color: darken($color-4, 10%); /* Fond légèrement plus foncé */
+      background-color: darken($color-4, 10%);
     }
-    
+
     .comment-container.client img {
       height: 40px;
       width: 40px;
       border-radius: 50px;
       box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.192);
       object-fit: cover;
-    
+
       @media screen and (max-width: 930px) {
         height: 37px;
         width: 37px;
       }
     }
-    
 
     .comment-container {
       display: grid;
@@ -375,7 +361,7 @@
       border-top: 1px solid $color-2;
       padding: 15px;
       margin: 5px 0;
-    
+
       img {
         height: 40px;
         width: 40px;
@@ -383,33 +369,33 @@
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.192);
         object-fit: cover;
         transform: translateY(5px);
-    
+
         @media screen and (max-width: 930px) {
           height: 37px;
           width: 37px;
         }
       }
-    
+
       .comment-header {
         display: flex;
         justify-content: space-between;
-    
+
         @media screen and (max-width: 930px) {
           flex-direction: column;
         }
-    
+
         .pseudo {
           display: flex;
-    
+
           h3 {
             font-family: $font-1;
             font-size: 1em !important;
           }
-    
+
           span {
             transform: translate(6px, 4px);
             cursor: pointer;
-    
+
             img {
               box-shadow: none;
               height: 15px;
@@ -418,29 +404,29 @@
             }
           }
         }
-    
+
         span {
           font-size: 0.8rem;
           font-family: $font-1;
           color: #4c4c4c;
-    
+
           @media screen and (max-width: 930px) {
             font-size: 0.7em;
           }
-    
+
           @media screen and (min-width: 930px) {
             transform: translateX(-10px);
           }
         }
       }
-    
+
       p {
         margin-top: 8px;
       }
-    
+
       .edit-comment {
         color: $color-3;
-      
+
         img {
           float: right;
           margin-left: 10px;
@@ -449,18 +435,18 @@
           box-shadow: none;
           height: 20px;
           width: 20px;
-      
+
           &:hover {
             transform: scale(1.1);
           }
         }
-      
+
         .edit-comment-form {
           margin-top: 14px;
           display: flex;
-          flex-direction: column; // S'assure que le bouton soit en dessous du champ texte
+          flex-direction: column;
           align-items: center;
-      
+
           input[type="text"] {
             width: 100%;
             background: #dfdfdf;
@@ -469,22 +455,22 @@
             border: 1px solid #8e8e8e;
             padding: 20px;
             font-size: 1rem;
-      
+
             &:focus {
               box-shadow: 0 0 2px rgba(51, 51, 51, 0.5);
             }
           }
-      
+
           .button-container {
             display: flex;
-            justify-content: space-between; // Ajoute de l'espace entre les boutons
-            width: 100%; // Assurez-vous que le conteneur occupe toute la largeur disponible
-            margin-top: 10px; // Ajustez si nécessaire
-      
-            input[type="submit"], // Pour le bouton "Change"
-            .delete-button { // Pour le bouton "Delete"
-              width: 45%; // Chaque bouton occupera 40% de la largeur du conteneur
-              padding: 5px 0; // Ajustez le padding pour les rendre plus petits
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+
+            input[type="submit"],
+            .delete-button {
+              width: 45%;
+              padding: 5px 0;
               border-radius: 10px;
               background: $color-4;
               color: rgb(0, 0, 0);
@@ -492,25 +478,23 @@
               border: none;
               transition: 0.2s;
               box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-              white-space: nowrap; // Empêche le texte de passer à la ligne
-      
+              white-space: nowrap;
+
               &:hover {
-                background: $color-4; // Changez la couleur au survol si nécessaire
+                background: $color-4;
               }
             }
           }
-    
         }
-      }      
+      }
     }
-    
 
     .comment-form {
       margin-top: 6px;
       display: flex;
-      flex-direction: column; // S'assure que le bouton soit en dessous du champ texte
-      align-items: center; // Centre les éléments horizontalement
-    
+      flex-direction: column;
+      align-items: center;
+
       input[type="text"] {
         width: 100%;
         background: #dfdfdf;
@@ -519,12 +503,12 @@
         border: 1px solid #8e8e8e;
         padding: 20px;
         font-size: 1rem;
-    
+
         &:focus {
           box-shadow: 0 0 2px rgba(51, 51, 51, 0.5);
         }
       }
-    
+
       input[type="submit"] {
         margin-top: 5px;
         padding: 5px 30px;
@@ -536,7 +520,7 @@
         transition: 0.2s;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
       }
-    }    
+    }
   }
 }
 
@@ -552,8 +536,8 @@
   align-items: center;
   z-index: 1000;
   cursor: pointer;
-  margin: 0;  /* Assurez-vous qu'il n'y a pas de marge */
-  padding: 0; /* Assurez-vous qu'il n'y a pas de padding */
+  margin: 0;
+  padding: 0;
 }
 
 .fullscreen-image {
@@ -562,11 +546,10 @@
   object-fit: contain;
 }
 
-
 .toast {
   visibility: hidden;
   min-width: 250px;
-  margin-left: -125px; /* Centre horizontalement */
+  margin-left: -125px;
   background-color: #333;
   color: #fff;
   text-align: center;
@@ -590,36 +573,38 @@
 
 .user-artworks {
   max-width: 80%;
-  margin: 0 auto; /* Centre horizontalement */
+  margin: 0 auto;
 }
 
-@media (max-width: 768px) { /* Pour les tablettes et téléphones */
+@media (max-width: 768px) {
   .user-artworks {
-      max-width: 100%; /* 100% de largeur sur petits écrans */
+    max-width: 100%;
   }
 }
 
 .edit-button {
   display: flex;
-  justify-content: left; /* Centrer le bouton horizontalement */
-  margin-top: 10px; /* Espacement au-dessus du bouton */
+  justify-content: left;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.edit-icon, .delete-icon {
-  width: 25px; /* Largeur de l'image */
-  height: 25px; /* Hauteur de l'image */
+.edit-icon,
+.delete-icon {
+  width: 25px;
+  height: 25px;
 }
 
 .update-textarea {
-  width: 100%; /* Prend 80% de la largeur de son conteneur */
-  font-size: 1em !important; /* Taille du texte à l'intérieur */
-  margin: 10px auto; /* Centrer le textarea */
-  display: block; /* Permet d'utiliser margin auto pour centrer */
+  width: 100%;
+  font-size: 1em !important;
+  margin: 10px auto;
+  display: block;
   border-radius: 5px !important;
 }
 
-.text-edit-btn, .text-delete-btn {
+.text-edit-btn,
+.text-delete-btn {
   transform: translateX(7px);
   transform: translateY(3px);
 }

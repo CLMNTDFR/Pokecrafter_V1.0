@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllContests } from "../../actions/contest.actions";
 import { getArtworksContest } from "../../actions/artwork.contest.actions";
 import { isEmpty } from "../Utils";
-import LikeArtworkContestButton from "./LikeArtworkContestButton"; // Importation du bouton de like
+import LikeArtworkContestButton from "./LikeArtworkContestButton";
 
 const ContestDisplay = ({ selectedContestType }) => {
   const dispatch = useDispatch();
@@ -13,10 +13,10 @@ const ContestDisplay = ({ selectedContestType }) => {
   const [visibleContests, setVisibleContests] = useState(1);
   const [loadContests, setLoadContests] = useState(true);
   const [fullscreenImage, setFullscreenImage] = useState(null);
-  const [likersCountByArtwork, setLikersCountByArtwork] = useState({}); // Nouvel état
-  const [showFullDescription, setShowFullDescription] = useState({}); // État pour gérer l'affichage complet ou tronqué de la description
+  const [likersCountByArtwork, setLikersCountByArtwork] = useState({});
+  const [showFullDescription, setShowFullDescription] = useState({});
   const [hoveredContest, setHoveredContest] = useState(null);
-  const [hoveredArtworkUser, setHoveredArtworkUser] = useState(null); // État pour gérer le survol
+  const [hoveredArtworkUser, setHoveredArtworkUser] = useState(null);
 
   useEffect(() => {
     dispatch(getAllContests());
@@ -103,7 +103,6 @@ const ContestDisplay = ({ selectedContestType }) => {
     }));
   };
 
-  // Calculer le nombre de jours restants avant la fin du concours
   const getDaysRemaining = (endDate) => {
     const now = new Date();
     const end = new Date(endDate);
@@ -112,7 +111,6 @@ const ContestDisplay = ({ selectedContestType }) => {
     return daysRemaining;
   };
 
-  // Retourner la classe CSS correspondante en fonction des jours restants
   const getRemainingDaysClass = (days) => {
     if (days > 10) {
       return "contest-days-green";
@@ -123,7 +121,6 @@ const ContestDisplay = ({ selectedContestType }) => {
     }
   };
 
-  // Fonction pour gérer le texte tronqué ou complet
   const toggleDescription = (contestId) => {
     setShowFullDescription((prevState) => ({
       ...prevState,
@@ -140,7 +137,7 @@ const ContestDisplay = ({ selectedContestType }) => {
             .sort((a, b) => b.likers.length - a.likers.length);
           const visibleCount = visibleArtworks[contest._id] || 3;
 
-          const daysRemaining = getDaysRemaining(contest.endDate); // Calcul des jours restants
+          const daysRemaining = getDaysRemaining(contest.endDate);
 
           const descriptionToShow =
             showFullDescription[contest._id] ||
@@ -152,19 +149,18 @@ const ContestDisplay = ({ selectedContestType }) => {
             <div key={contest._id} className="contest-card">
               <div className="contest-header">
                 <img
-                  src={getUserProfilePicture(contest.createdBy)} // Utilisation de createdBy pour récupérer la photo de profil
+                  src={getUserProfilePicture(contest.createdBy)}
                   alt="Creator"
                   className="contest-creator-picture"
                 />
 
                 <h3>
                   {contest.name}
-                  {/* Afficher l'icône si c'est un concours officiel */}
                   {contest.creatorRole === "super-admin" && (
                     <div
                       className="official-contest-icon-container"
-                      onMouseEnter={() => setHoveredContest(contest._id)} // Définir l'ID du concours lors du hover
-                      onMouseLeave={() => setHoveredContest(null)} // Réinitialiser l'ID du concours lors de la sortie du hover
+                      onMouseEnter={() => setHoveredContest(contest._id)}
+                      onMouseLeave={() => setHoveredContest(null)}
                     >
                       <img
                         src="/img/icons/pokecrafter-official-contest.svg"
@@ -215,7 +211,6 @@ const ContestDisplay = ({ selectedContestType }) => {
                 {!isEmpty(sortedArtworks) &&
                   sortedArtworks.slice(0, visibleCount).map((artwork) => (
                     <div key={artwork._id} className="artwork-thumbnail">
-                      {/* Conteneur pour l'œuvre et la photo de profil */}
                       <div className="artwork-image-container">
                         <img
                           src={artwork.picture}
@@ -223,17 +218,15 @@ const ContestDisplay = ({ selectedContestType }) => {
                           onClick={() => handleImageClick(artwork.picture)}
                           className="artwork-image"
                         />
-                        {/* Photo de profil superposée à l'œuvre d'art */}
                         <img
-                          src={getUserProfilePicture(artwork.posterId)} // Récupération de la photo de profil
+                          src={getUserProfilePicture(artwork.posterId)}
                           alt="Artwork Author"
-                          className="artwork-user-picture-overlay" // Nouvelle classe CSS pour la photo de profil
+                          className="artwork-user-picture-overlay"
                           onMouseEnter={() =>
                             setHoveredArtworkUser(artwork.posterId)
-                          } // Définir l'ID de l'auteur lors du hover
-                          onMouseLeave={() => setHoveredArtworkUser(null)} // Réinitialiser l'ID de l'auteur lors de la sortie du hover
+                          }
+                          onMouseLeave={() => setHoveredArtworkUser(null)}
                         />
-                        {/* Afficher la pop-up avec le nom de l'auteur */}
                         {hoveredArtworkUser === artwork.posterId && (
                           <div className="artwork-author-popup">
                             {getUserPseudo(artwork.posterId)}
@@ -248,7 +241,7 @@ const ContestDisplay = ({ selectedContestType }) => {
                         }
                         setLikersCount={(newCount) =>
                           handleLikersCountChange(artwork._id, newCount)
-                        } // Passe la fonction ici
+                        }
                       />
                     </div>
                   ))}

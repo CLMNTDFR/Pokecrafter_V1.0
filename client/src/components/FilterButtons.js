@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const FilterButtons = ({ setSelectedCategory }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,28 +10,27 @@ const FilterButtons = ({ setSelectedCategory }) => {
 
   return (
     <nav className="dropdown">
-      {/* Déclencheur du menu */}
-      <label 
-        className={`dropdown-trigger ${isOpen ? 'open' : ''}`} // Ajoutez la classe open ici
+      <label
+        className={`dropdown-trigger ${isOpen ? "open" : ""}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        Select Category 
-        <span className="dropdown-icon">{isOpen ? '' : ''}</span> {/* Affiche le symbole approprié */}
+        Select Category
+        <span className="dropdown-icon">{isOpen ? "" : ""}</span>
       </label>
 
-      {/* Menu déroulant */}
-      <ul className={`dropdown-menu ${isOpen ? 'open' : ''}`}>
-        {['All', 'AI', '3D', 'DigitalArt', 'Handcraft', 'Other'].map((category) => (
-          <li key={category}>
-            {/* Utilisation d'un bouton au lieu d'un lien */}
-            <button
-              className="dropdown-item"
-              onClick={() => handleCategorySelect(category)}
-            >
-              {category}
-            </button>
-          </li>
-        ))}
+      <ul className={`dropdown-menu ${isOpen ? "open" : ""}`}>
+        {["All", "AI", "3D", "DigitalArt", "Handcraft", "Other"].map(
+          (category) => (
+            <li key={category}>
+              <button
+                className="dropdown-item"
+                onClick={() => handleCategorySelect(category)}
+              >
+                {category}
+              </button>
+            </li>
+          )
+        )}
       </ul>
     </nav>
   );

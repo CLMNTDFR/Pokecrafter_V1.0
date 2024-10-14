@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// Actions pour les œuvres de concours
 export const GET_CONTEST_ARTWORKS = "GET_CONTEST_ARTWORKS";
 export const LIKE_CONTEST_ARTWORK = "LIKE_CONTEST_ARTWORK";
 export const UNLIKE_CONTEST_ARTWORK = "UNLIKE_CONTEST_ARTWORK";
@@ -11,19 +10,22 @@ export const ADD_COMMENT_CONTEST_ARTWORK = "ADD_COMMENT_CONTEST_ARTWORK";
 export const EDIT_COMMENT_CONTEST_ARTWORK = "EDIT_COMMENT_CONTEST_ARTWORK";
 export const DELETE_COMMENT_CONTEST_ARTWORK = "DELETE_COMMENT_CONTEST_ARTWORK";
 
-// Obtenir les œuvres d'art pour un concours
 export const getArtworksContest = (contestId) => {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_API_URL}api/artwork-contest/contest/${contestId}`)
+      .get(
+        `${process.env.REACT_APP_API_URL}api/artwork-contest/contest/${contestId}`
+      )
       .then((res) => {
-        dispatch({ type: GET_ARTWORKS_CONTEST, payload: { contestId, artworks: res.data } });
+        dispatch({
+          type: GET_ARTWORKS_CONTEST,
+          payload: { contestId, artworks: res.data },
+        });
       })
       .catch((err) => console.log(err));
   };
 };
 
-// Liker une œuvre d'art d'un concours
 export const likeContestArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
@@ -32,15 +34,16 @@ export const likeContestArtwork = (artworkId, userId) => {
       data: { id: userId },
     })
       .then((res) => {
-        console.log("Like response:", res.data); // Ajout d'un log pour la réponse
-        dispatch({ type: LIKE_CONTEST_ARTWORK, payload: { artworkId, userId } });
+        console.log("Like response:", res.data);
+        dispatch({
+          type: LIKE_CONTEST_ARTWORK,
+          payload: { artworkId, userId },
+        });
       })
       .catch((err) => console.log("Error liking artwork:", err));
   };
 };
 
-
-// Unliker une œuvre d'art d'un concours
 export const unlikeContestArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
@@ -49,13 +52,15 @@ export const unlikeContestArtwork = (artworkId, userId) => {
       data: { id: userId },
     })
       .then((res) => {
-        dispatch({ type: UNLIKE_CONTEST_ARTWORK, payload: { artworkId, userId } });
+        dispatch({
+          type: UNLIKE_CONTEST_ARTWORK,
+          payload: { artworkId, userId },
+        });
       })
       .catch((err) => console.log(err));
   };
 };
 
-// Mettre à jour une œuvre d'art de concours
 export const updateContestArtwork = (artworkId, description) => {
   return (dispatch) => {
     return axios({
@@ -64,13 +69,15 @@ export const updateContestArtwork = (artworkId, description) => {
       data: { description },
     })
       .then((res) => {
-        dispatch({ type: UPDATE_CONTEST_ARTWORK, payload: { description, artworkId } });
+        dispatch({
+          type: UPDATE_CONTEST_ARTWORK,
+          payload: { description, artworkId },
+        });
       })
       .catch((err) => console.log(err));
   };
 };
 
-// Supprimer une œuvre d'art de concours
 export const deleteContestArtwork = (artworkId) => {
   return (dispatch) => {
     return axios({
@@ -84,8 +91,12 @@ export const deleteContestArtwork = (artworkId) => {
   };
 };
 
-// Ajouter un commentaire sur une œuvre d'art de concours
-export const addCommentContestArtwork = (artworkId, commenterId, text, commenterPseudo) => {
+export const addCommentContestArtwork = (
+  artworkId,
+  commenterId,
+  text,
+  commenterPseudo
+) => {
   return (dispatch) => {
     return axios({
       method: "patch",
@@ -99,7 +110,6 @@ export const addCommentContestArtwork = (artworkId, commenterId, text, commenter
   };
 };
 
-// Modifier un commentaire sur une œuvre d'art de concours
 export const editCommentContestArtwork = (artworkId, commentId, text) => {
   return (dispatch) => {
     return axios({
@@ -108,13 +118,15 @@ export const editCommentContestArtwork = (artworkId, commentId, text) => {
       data: { commentId, text },
     })
       .then((res) => {
-        dispatch({ type: EDIT_COMMENT_CONTEST_ARTWORK, payload: { artworkId, commentId, text } });
+        dispatch({
+          type: EDIT_COMMENT_CONTEST_ARTWORK,
+          payload: { artworkId, commentId, text },
+        });
       })
       .catch((err) => console.log(err));
   };
 };
 
-// Supprimer un commentaire sur une œuvre d'art de concours
 export const deleteCommentContestArtwork = (artworkId, commentId) => {
   return (dispatch) => {
     return axios({
@@ -123,7 +135,10 @@ export const deleteCommentContestArtwork = (artworkId, commentId) => {
       data: { commentId },
     })
       .then((res) => {
-        dispatch({ type: DELETE_COMMENT_CONTEST_ARTWORK, payload: { artworkId, commentId } });
+        dispatch({
+          type: DELETE_COMMENT_CONTEST_ARTWORK,
+          payload: { artworkId, commentId },
+        });
       })
       .catch((err) => console.log(err));
   };

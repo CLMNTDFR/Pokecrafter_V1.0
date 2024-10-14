@@ -127,7 +127,6 @@ const ArtistePage = () => {
 
                     {selectedUser && selectedUser._id === user._id && (
                       <div className="artiste-user-details">
-                        {/* Abonnements et Followers */}
                         <div className="artiste-data-artist">
                           <p>
                             <span>
@@ -142,7 +141,9 @@ const ArtistePage = () => {
                             Follower
                             {user.followers && user.followers.length > 1 && "s"}
                           </p>
-                          <br /><br /><br />
+                          <br />
+                          <br />
+                          <br />
                         </div>
                         <br />
                         <p>{user.bio}</p>
@@ -166,11 +167,13 @@ const ArtistePage = () => {
                             />
                           ))}
                         </div>
-                          <br />
-                          <Trophy userTrophies={user.trophies} />
-                          <br /><br />
+                        <br />
+                        <Trophy userTrophies={user.trophies} />
+                        <br />
+                        <br />
                         <button className="message-button">Message</button>
-                        <br /><br />
+                        <br />
+                        <br />
                       </div>
                     )}
                   </li>

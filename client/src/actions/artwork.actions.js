@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// Actions pour les artworks
 export const GET_ARTWORKS = "GET_ARTWORKS";
 export const GET_ALL_ARTWORKS = "GET_ALL_ARTWORKS";
 export const ADD_ARTWORK = "ADD_ARTWORK";
@@ -9,19 +8,14 @@ export const UNLIKE_ARTWORK = "UNLIKE_ARTWORK";
 export const UPDATE_ARTWORK = "UPDATE_ARTWORK";
 export const DELETE_ARTWORK = "DELETE_ARTWORK";
 
-// Comments (ajoutées)
 export const ADD_COMMENT = "ADD_COMMENT";
 export const EDIT_COMMENT = "EDIT_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 
-// Errors
 export const GET_ARTWORK_ERRORS = "GET_ARTWORK_ERRORS";
 
-
-// Trends (ajoutée)
 export const GET_TRENDS = "GET_TRENDS";
 
-// Obtenir les artworks (limités à un nombre spécifique si besoin)
 export const getArtworks = (num) => {
   return (dispatch) => {
     return axios
@@ -34,7 +28,6 @@ export const getArtworks = (num) => {
   };
 };
 
-// Obtenir tous les artworks sans limitation
 export const getAllArtworks = () => {
   return (dispatch) => {
     return axios
@@ -46,7 +39,6 @@ export const getAllArtworks = () => {
   };
 };
 
-// Ajouter un artwork
 export const addArtwork = (data) => {
   return (dispatch) => {
     return axios
@@ -61,12 +53,12 @@ export const addArtwork = (data) => {
   };
 };
 
-// Liker un artwork
 export const likeArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork/like-artwork/` + artworkId,
+      url:
+        `${process.env.REACT_APP_API_URL}api/artwork/like-artwork/` + artworkId,
       data: { id: userId },
     })
       .then((res) => {
@@ -76,12 +68,13 @@ export const likeArtwork = (artworkId, userId) => {
   };
 };
 
-// Unliker un artwork
 export const unlikeArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork/unlike-artwork/` + artworkId,
+      url:
+        `${process.env.REACT_APP_API_URL}api/artwork/unlike-artwork/` +
+        artworkId,
       data: { id: userId },
     })
       .then((res) => {
@@ -91,7 +84,6 @@ export const unlikeArtwork = (artworkId, userId) => {
   };
 };
 
-// Mettre à jour un artwork
 export const updateArtwork = (artworkId, description) => {
   return (dispatch) => {
     return axios({
@@ -106,7 +98,6 @@ export const updateArtwork = (artworkId, description) => {
   };
 };
 
-// Supprimer un artwork
 export const deleteArtwork = (artworkId) => {
   return (dispatch) => {
     console.log(`Sending DELETE request for artwork ID: ${artworkId}`);
@@ -124,12 +115,13 @@ export const deleteArtwork = (artworkId) => {
   };
 };
 
-// Ajouter un commentaire sur un artwork (ajoutée)
 export const addComment = (artworkId, commenterId, text, commenterPseudo) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork/comment-artwork/` + artworkId,
+      url:
+        `${process.env.REACT_APP_API_URL}api/artwork/comment-artwork/` +
+        artworkId,
       data: { commenterId, text, commenterPseudo },
     })
       .then((res) => {
@@ -139,27 +131,32 @@ export const addComment = (artworkId, commenterId, text, commenterPseudo) => {
   };
 };
 
-// Modifier un commentaire sur un artwork (ajoutée)
 export const editComment = (artworkId, commentId, text) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork/edit-comment-artwork/` + artworkId,
+      url:
+        `${process.env.REACT_APP_API_URL}api/artwork/edit-comment-artwork/` +
+        artworkId,
       data: { commentId, text },
     })
       .then((res) => {
-        dispatch({ type: EDIT_COMMENT, payload: { artworkId, commentId, text } });
+        dispatch({
+          type: EDIT_COMMENT,
+          payload: { artworkId, commentId, text },
+        });
       })
       .catch((err) => console.log(err));
   };
 };
 
-// Supprimer un commentaire sur un artwork (ajoutée)
 export const deleteComment = (artworkId, commentId) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/artwork/delete-comment-artwork/` + artworkId,
+      url:
+        `${process.env.REACT_APP_API_URL}api/artwork/delete-comment-artwork/` +
+        artworkId,
       data: { commentId },
     })
       .then((res) => {
@@ -169,7 +166,6 @@ export const deleteComment = (artworkId, commentId) => {
   };
 };
 
-// Obtenir les tendances (ajoutée)
 export const getTrends = (sortedArray) => {
   return (dispatch) => {
     dispatch({ type: GET_TRENDS, payload: sortedArray });

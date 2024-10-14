@@ -4,6 +4,7 @@ import {
   GET_USER,
   UPDATE_BIO,
   UPLOAD_PICTURE,
+  DELETE_USER,
 } from "../actions/user.actions";
 
 const initialState = {};
@@ -34,6 +35,8 @@ export default function userReducer(state = initialState, action) {
           (id) => id !== action.payload.idToUnfollow
         ),
       };
+    case DELETE_USER:
+      return initialState;
     default:
       return state;
   }

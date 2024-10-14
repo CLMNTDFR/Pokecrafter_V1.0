@@ -1,420 +1,404 @@
 .contest-card {
-    padding: 20px;
-    border-bottom: 2px solid #bbbbbb;
-    margin-bottom: 50px;
+  padding: 20px;
+  border-bottom: 2px solid #bbbbbb;
+  margin-bottom: 50px;
 }
 
 .contest-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 h3 {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
 }
 
 .contest-dates {
-    font-size: 0.9em;
-    color: #555;
-    margin-bottom: 20px;
-    margin-left: 50px;
-    @media screen and (max-width: 930px) {
-        max-width: 70vw;
-    }
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 20px;
+  margin-left: 50px;
+  @media screen and (max-width: 930px) {
+    max-width: 70vw;
+  }
 }
 
 .contest-description {
-    font-size: 1em;
-    margin-bottom: 10px;
+  font-size: 1em;
+  margin-bottom: 10px;
 }
 
-/* Grille pour afficher les artworks */
 .artwork-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 artworks par ligne */
-    gap: 20px; /* Espacement entre les artworks */
-    justify-items: center; /* Centrer les vignettes */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-items: center;
 
-    @media screen and (max-width: 930px) {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
+  @media screen and (max-width: 930px) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }
 
 .artwork-user-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-    z-index: 1000;
-    transform: translateX(-70px);
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  z-index: 1000;
+  transform: translateX(-70px);
 
-    @media screen and (max-width: 930px) {
-        transform: translateX(-10px);
-        
-    }
+  @media screen and (max-width: 930px) {
+    transform: translateX(-10px);
+  }
 }
 
 .artwork-user-picture {
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
-    margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  margin-right: 5px;
 }
 
 .artwork-thumbnail p {
-    font-size: 14px;
-    margin-top: 8px;
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 .artwork-buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .contest-creator-picture {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover; /* Pour s'assurer que l'image ne soit pas déformée */
-    margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
 .artwork-thumbnail {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 250px;
-    height: 250px;
-    margin-bottom: 100px; /* Ajoute un espacement sous chaque vignette pour éviter le chevauchement */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 250px;
+  height: 250px;
+  margin-bottom: 100px;
 }
 
 .artwork-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Rognage automatique pour garder des vignettes carrées */
-    aspect-ratio: 1/1; /* Force les vignettes à être carrées */
-    margin-bottom: 10px; /* Espacement entre l'image et le bouton "like" */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  margin-bottom: 10px;
 }
 
 .artwork-user-picture {
-    width: 30px; /* Taille de la photo de profil */
-    height: 30px; /* Taille de la photo de profil */
-    border-radius: 50%; /* Arrondi pour créer un cercle */
-    margin-right: 10px; /* Espace entre l'image et le pseudo */
-    object-fit: cover; /* Assure que l'image ne déforme pas le cercle */
-    z-index: 1000;
-  }
-
-@media screen and (min-width: 930px) {
-    .artwork-thumbnail {
-        width: 100%; /* Chaque vignette prendra toute la largeur de sa cellule dans la grille */
-        height: 0;
-        padding-bottom: 100%; /* Maintient le ratio 1:1 (carré) */
-        position: relative;
-        margin-bottom: 50px; /* Espacement sous chaque vignette */
-    }
-
-    .artwork-thumbnail img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-}
-
-/* Conteneur pour le like et le compteur */
-.like-container {
-    display: flex;
-    justify-content: center; /* Centrer le bouton like et le compteur */
-    align-items: center;
-    position: relative; /* Pour garder les éléments relatifs à ce conteneur */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+  z-index: 1000;
 }
 
 @media screen and (min-width: 930px) {
-    .like-margin-top-contest {
-        margin-top: 375px;
-    }
-    
-    .like-margin-top-contest img {
-        margin-top: 375px;
-    }
-    
-}
-
-
-.like-container img {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-
-    @media screen and (max-width: 930px) {
-        width: 25px!important;
-        height: 25px!important;
-        transform: translateY(5px);
-        
-    }
-}
-
-.like-container .like-count {
-    padding-left: 5px; /* Espacement entre le bouton like et le compteur */
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-
-    @media screen and (min-width: 930px) {
-        padding-left: 25px; /* Espacement augmenté pour les grands écrans */
-        
-    }
-}
-
-
-
-.like-flex-container {
-    display: flex; /* Pour aligner les éléments en ligne */
-    align-items: center; /* Pour centrer verticalement */
-  }
-  
-  .like-img-contest {
-    margin-right: 5px; /* Ajouter un espacement entre le cœur et le compteur */
-  }
-  
-  @media screen and (max-width: 930px) {
-    .like-flex-container {
-      flex-direction: row; /* Assurez-vous que les éléments restent en ligne sur les petits écrans */
-    }
-  }
-  
-
-/* Pour les écrans inférieurs à 930px */
-@media screen and (max-width: 930px) {
-    .artwork-thumbnail {
-        width: 90vw;
-        height: auto; /* Ajuste automatiquement la hauteur pour mobile */
-        margin-bottom: 20px; /* Toujours un espacement sous chaque vignette */
-    }
-
-    .artwork-thumbnail img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        margin-bottom: 15px; /* Espacement augmenté sur mobile */
-    }
-
-    .like-container {
-        margin-top: -10px; /* Ajustement de l'espacement sur mobile */
-    }
-}
-
-/* Mobile très petit écran */
-@media screen and (max-width: 361px) {
-    .artwork-thumbnail {
-        width: 90vw;
-        height: auto;
-        margin-bottom: 20px;
-        transform: translateX(-10px);
-    }
-
-    .artwork-thumbnail img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        margin-bottom: 15px;
-    }
-}
-
-@media screen and ((min-width: 362px) and (max-width: 391px)) {
-    .artwork-thumbnail {
-        width: 90vw;
-        height: auto;
-        margin-bottom: 20px;
-        transform: translateX(-8px);
-    }
-
-    .artwork-thumbnail img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        margin-bottom: 15px;
-    }
-}
-
-@media screen and ((min-width: 392px) and (max-width: 429px)) {
-    .artwork-thumbnail {
-        width: 90vw;
-        height: auto;
-        margin-bottom: 20px;
-        transform: translateX(-5px);
-    }
-
-    .artwork-thumbnail img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        margin-bottom: 15px;
-    }
-}
-
-
-.artwork-user-picture-overlay {
-    width: 50px !important; /* Taille de la photo de profil */
-    height: 50px !important; /* Taille de la photo de profil */
-    border-radius: 50%; /* Arrondi pour créer un cercle */
-    object-fit: cover; /* Assure que l'image ne déforme pas le cercle */
-    z-index: 5; /* S'assurer que la photo de profil est au-dessus de l'œuvre */
-    margin-left: 10px;
-    transform: translateY(-20px);
-    border: 4px solid white; /* Bordure blanche pour la photo de profil */
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.666);
+  .artwork-thumbnail {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    margin-bottom: 50px;
   }
 
-@media screen and (max-width: 930px) {
-    .artwork-image-container {
-        position: relative; /* Pour pouvoir positionner la photo de profil par rapport à l'œuvre */
-      }
-      
-      .artwork-user-picture-overlay {
-        position: absolute; /* Positionnement absolu pour superposer la photo */
-        top: 5px; /* Ajustez selon vos besoins */
-        left: 5px; /* Ajustez selon vos besoins */
-        width: 50px !important; /* Taille de la photo de profil */
-        height: 50px !important; /* Taille de la photo de profil */
-        border-radius: 50%; /* Arrondi pour créer un cercle */
-        object-fit: cover; /* Assure que l'image ne déforme pas le cercle */
-        z-index: 5; /* S'assurer que la photo de profil est au-dessus de l'œuvre */
-        border: 4px solid white; /* Bordure blanche pour la photo de profil */
-        margin-left: 0px;
-      }
-      
-    
-}
-
-.see-more-btn,
-.see-less-btn {
-    font-size: 0.9em !important;
-    margin-top: 5px;
-    padding: 5px 30px;
-    border-radius: 10px;
-    background: transparent;
-    color: rgb(0, 0, 0);
-    border: none;
-    transition: 0.2s;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.viewfulldescription-btn {
-    font-size: 0.7em !important;
-    margin: 5px auto; /* Centre horizontalement avec auto */
-    padding: 5px 30px;
-    border-radius: 10px;
-    background: transparent;
-    color: rgb(0, 0, 0);
-    border: none;
-    transition: 0.2s;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    display: block; /* Pour que margin auto fonctionne */
-    width: fit-content;
-}
-
-.fullscreen-modal {
-    position: fixed;
+  .artwork-thumbnail img {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    object-fit: cover;
+  }
+}
+
+.like-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+@media screen and (min-width: 930px) {
+  .like-margin-top-contest {
+    margin-top: 375px;
+  }
+
+  .like-margin-top-contest img {
+    margin-top: 375px;
+  }
+}
+
+.like-container img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  @media screen and (max-width: 930px) {
+    width: 25px !important;
+    height: 25px !important;
+    transform: translateY(5px);
+  }
+}
+
+.like-container .like-count {
+  padding-left: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+
+  @media screen and (min-width: 930px) {
+    padding-left: 25px;
+  }
+}
+
+.like-flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.like-img-contest {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 930px) {
+  .like-flex-container {
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .artwork-thumbnail {
+    width: 90vw;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .artwork-thumbnail img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+  .like-container {
+    margin-top: -10px;
+  }
+}
+
+@media screen and (max-width: 361px) {
+  .artwork-thumbnail {
+    width: 90vw;
+    height: auto;
+    margin-bottom: 20px;
+    transform: translateX(-10px);
+  }
+
+  .artwork-thumbnail img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and ((min-width: 362px) and (max-width: 391px)) {
+  .artwork-thumbnail {
+    width: 90vw;
+    height: auto;
+    margin-bottom: 20px;
+    transform: translateX(-8px);
+  }
+
+  .artwork-thumbnail img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and ((min-width: 392px) and (max-width: 429px)) {
+  .artwork-thumbnail {
+    width: 90vw;
+    height: auto;
+    margin-bottom: 20px;
+    transform: translateX(-5px);
+  }
+
+  .artwork-thumbnail img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+}
+
+.artwork-user-picture-overlay {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 5;
+  margin-left: 10px;
+  transform: translateY(-20px);
+  border: 4px solid white;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.666);
+}
+
+@media screen and (max-width: 930px) {
+  .artwork-image-container {
+    position: relative;
+  }
+
+  .artwork-user-picture-overlay {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 5;
+    border: 4px solid white;
+    margin-left: 0px;
+  }
+}
+
+.see-more-btn,
+.see-less-btn {
+  font-size: 0.9em !important;
+  margin-top: 5px;
+  padding: 5px 30px;
+  border-radius: 10px;
+  background: transparent;
+  color: rgb(0, 0, 0);
+  border: none;
+  transition: 0.2s;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.viewfulldescription-btn {
+  font-size: 0.7em !important;
+  margin: 5px auto;
+  padding: 5px 30px;
+  border-radius: 10px;
+  background: transparent;
+  color: rgb(0, 0, 0);
+  border: none;
+  transition: 0.2s;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  display: block;
+  width: fit-content;
+}
+
+.fullscreen-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .fullscreen-image {
-    max-width: 90%;
-    max-height: 90%;
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .contest-dates {
-    font-size: 1em;
-    font-weight: bold;
-  }
-  
-  .contest-days-green {
-    color: green;
-  }
-  
-  .contest-days-orange {
-    color: orange;
-  }
-  
-  .contest-days-red {
-    color: red;
-  }
+  font-size: 1em;
+  font-weight: bold;
+}
 
-  .winner-display {
-    color: black;
-    font-weight: bold;
-  }
-  
-  .description-contest {
-    color: black;
-    padding-bottom: 30px;
-    font-weight: 500;
-  }
-  
-  .official-contest-icon {
-    width: 17px;
-    height: 17px;
-    margin-left: 5px;
-  }
+.contest-days-green {
+  color: green;
+}
 
-  .official-contest-icon-container {
-    display: inline-block; /* Assurez-vous que l'icône et la pop-up sont alignées */
-    position: relative; /* Nécessaire pour positionner la pop-up */
-    margin-left: 5px; /* Espace entre le titre et l'icône */
-  }
-  
-  .popup-description-official {
-    font-size: 0.5em;
-    position: absolute; /* Positionnement absolu par rapport au conteneur parent */
-    bottom: 33px; /* Positionnez la pop-up au-dessus de l'icône */
-    left: 50%; /* Centrer horizontalement par rapport au conteneur */
-    transform: translateX(-50%); /* Ajuster la position pour centrer */
-    background-color: white; /* Couleur de fond blanche */
-    border: 1px solid #ccc; /* Bordure pour la pop-up */
-    border-radius: 5px; /* Arrondir les bords de la pop-up */
-    padding: 10px; /* Espacement interne */
-    z-index: 100; /* Assurez-vous que la pop-up est au-dessus des autres éléments */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre pour la pop-up */
-    white-space: nowrap; /* Empêcher le texte de se répartir sur plusieurs lignes */
-  }
+.contest-days-orange {
+  color: orange;
+}
 
-  .artwork-author-popup {
-    font-size: 0.8em;
-    font-weight: bold;
-    position: absolute; /* Positionnement absolu par rapport au conteneur parent */
-    transform: translate(-50%, -50%); /* Ajuster la position pour centrer */
-    background-color: white; /* Couleur de fond blanche */
-    border: 1px solid #ccc; /* Bordure pour la pop-up */
-    border-radius: 5px; /* Arrondir les bords de la pop-up */
-    padding: 10px; /* Espacement interne */
-    z-index: 100; /* Assurez-vous que la pop-up est au-dessus des autres éléments */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre pour la pop-up */
-    white-space: nowrap; /* Empêcher le texte de se répartir sur plusieurs lignes */
+.contest-days-red {
+  color: red;
+}
 
-    @media screen and (max-width: 930px) {
-        font-size: 0.7em; /* Réduire la taille de la police pour mobile */
-        padding: 8px; /* Réduire l'espacement interne */
-        width: 120px; /* Limiter la largeur de la pop-up pour mobile */
-        left: 70px; /* Positionner à gauche */
-        top: -10px; /* Ajuster la position verticale si nécessaire */
-        transform: translate(0, 0);
-    }
+.winner-display {
+  color: black;
+  font-weight: bold;
+}
+
+.description-contest {
+  color: black;
+  padding-bottom: 30px;
+  font-weight: 500;
+}
+
+.official-contest-icon {
+  width: 17px;
+  height: 17px;
+  margin-left: 5px;
+}
+
+.official-contest-icon-container {
+  display: inline-block;
+  position: relative;
+  margin-left: 5px;
+}
+
+.popup-description-official {
+  font-size: 0.5em;
+  position: absolute;
+  bottom: 33px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+.artwork-author-popup {
+  font-size: 0.8em;
+  font-weight: bold;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+
+  @media screen and (max-width: 930px) {
+    font-size: 0.7em;
+    padding: 8px;
+    width: 120px;
+    left: 70px;
+    top: -10px;
+    transform: translate(0, 0);
   }
-  
+}

@@ -10,13 +10,11 @@ const Home = () => {
     <div className="home">
       <LeftNav />
       <div className="main">
-        {/* Conteneur pour le header */}
         <div className="header-container">
           <h3>{selectedCategory}</h3>
           <FilterButtons setSelectedCategory={setSelectedCategory} />
         </div>
         <hr />
-        {/* La mosaïque sera gérée par le Thread */}
         <Thread selectedCategory={selectedCategory} />
       </div>
     </div>

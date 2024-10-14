@@ -26,13 +26,11 @@ const Trophy = ({ userTrophies }) => {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  // Utiliser les trophées de l'utilisateur si fournis, sinon utiliser un tableau vide par défaut
   const trophiesToDisplay = userTrophies || [];
 
   return (
     <div className="trophy-container">
       {trophies.map((trophy, index) => {
-        // Compter les trophées de l'utilisateur correspondant au type de trophée
         const trophyCount = trophiesToDisplay.filter(
           (userTrophy) => userTrophy.type === trophy.type
         ).length;

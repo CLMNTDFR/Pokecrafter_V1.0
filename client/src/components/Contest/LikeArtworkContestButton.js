@@ -3,7 +3,10 @@ import { UidContext } from "../AppContext";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useDispatch } from "react-redux";
-import { likeContestArtwork, unlikeContestArtwork } from "../../actions/artwork.contest.actions";
+import {
+  likeContestArtwork,
+  unlikeContestArtwork,
+} from "../../actions/artwork.contest.actions";
 
 const LikeArtworkContestButton = ({ artwork, likersCount, setLikersCount }) => {
   const [liked, setLiked] = useState(false);
@@ -30,7 +33,7 @@ const LikeArtworkContestButton = ({ artwork, likersCount, setLikersCount }) => {
   return (
     <div className="like-container">
       <div className="like-margin-top-contest">
-        <div className="like-flex-container"> {/* Ajoutez ce conteneur flex */}
+        <div className="like-flex-container">
           {uid === null && (
             <Popup
               trigger={<img src="/img/icons/heart-empty.svg" alt="like" />}
@@ -60,7 +63,7 @@ const LikeArtworkContestButton = ({ artwork, likersCount, setLikersCount }) => {
         </div>
       </div>
     </div>
-  );  
+  );
 };
 
 export default LikeArtworkContestButton;

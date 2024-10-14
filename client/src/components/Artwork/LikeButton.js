@@ -42,7 +42,7 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
     position={["bottom center", "bottom right", "bottom left"]}
     closeOnDocumentClick
   >
-    <div>Connectez-vous pour aimer un artwork !</div>
+    <div>Log in to like an artwork!</div>
   </Popup>
 )}
 {uid && !liked && (

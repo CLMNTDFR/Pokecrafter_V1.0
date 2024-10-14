@@ -5,8 +5,10 @@ import { updateBio } from "../../actions/user.actions";
 import { dateParser } from "../Utils";
 import FollowHandler from "./FollowHandler";
 import Trophy from "./Trophy";
+import DeleteAccountButton from "./DeleteAccountButton";
 import CardUser from "../Artwork/CardUser";
 import { getArtworks } from "../../actions/artwork.actions";
+import { Link } from "react-router-dom";
 
 const UpdateProfil = () => {
   const [bio, setBio] = useState("");
@@ -17,7 +19,6 @@ const UpdateProfil = () => {
   const dispatch = useDispatch();
   const [followingPopup, setFollowingPopup] = useState(false);
   const [followersPopup, setFollowersPopup] = useState(false);
-  const user = useSelector((state) => state.userReducer);
 
   const handleUpdate = () => {
     dispatch(updateBio(userData._id, bio));
@@ -27,10 +28,10 @@ const UpdateProfil = () => {
   useEffect(() => {
     dispatch(getArtworks());
 
-    if (userData.bio) {
+    if (userData && userData.bio) {
       setBio(userData.bio);
     }
-  }, [dispatch, userData.bio]);
+  }, [dispatch, userData]);
 
   return (
     <div className="profil-container">
@@ -44,21 +45,20 @@ const UpdateProfil = () => {
         <div className="right-part">
           <div className="bio-update">
             <h3>About you</h3>
-            {updateForm === false && (
+            {!updateForm ? (
               <>
                 <p onClick={() => setUpdateForm(!updateForm)}>{userData.bio}</p>
                 <button onClick={() => setUpdateForm(!updateForm)}>
                   Update bio
                 </button>
               </>
-            )}
-            {updateForm && (
+            ) : (
               <>
                 <textarea
                   type="text"
                   defaultValue={userData.bio}
                   onChange={(e) => setBio(e.target.value)}
-                ></textarea>
+                />
                 <button onClick={handleUpdate}>Validate update</button>
               </>
             )}
@@ -86,24 +86,41 @@ const UpdateProfil = () => {
         </div>
       </div>
       <br />
-      <Trophy userTrophies={user.trophies} />
+      <Trophy userTrophies={userData.trophies} />
+      <br />
+      <br />
+      <br />
+      <DeleteAccountButton userId={userData._id} />
       <br />
       <br />
       <br />
 
       <div className="user-artworks">
         <br />
-        <h3 style={{ textAlign: "center", marginBottom: "-80px" }}>
-          Your Artworks
-        </h3>
+        {artworks &&
+          artworks.some((artwork) => artwork.posterId === userData._id) && (
+            <h3 style={{ textAlign: "center", marginBottom: "-80px" }}>
+              Your Artworks
+            </h3>
+          )}
 
         <ul>
           {artworks &&
+          artworks.some((artwork) => artwork.posterId === userData._id) ? (
             artworks
               .filter((artwork) => artwork.posterId === userData._id)
               .map((artwork) => (
                 <CardUser key={artwork._id} artwork={artwork} />
-              ))}
+              ))
+          ) : (
+            <p className="centered-message">
+              You haven't posted an artwork yet, add one{" "}
+              <Link to="/add" className="here-link-style">
+                here
+              </Link>{" "}
+              and become a real Crafter.
+            </p>
+          )}
         </ul>
         <br />
         <br />

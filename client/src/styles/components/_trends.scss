@@ -11,7 +11,6 @@
     margin-bottom: 12px;
   }
   ul {
-
     li {
       margin: 5px 0;
       display: grid;
@@ -21,7 +20,7 @@
       border-radius: 20px;
       padding: 16px;
       box-shadow: 5px 7px 20px 9px #ff7c7732;
-      transition: .2s;
+      transition: 0.2s;
 
       &:hover {
         box-shadow: none;
@@ -48,7 +47,7 @@
           -webkit-box-orient: vertical;
           line-clamp: 2;
           overflow: hidden;
-          font-size: .9rem;
+          font-size: 0.9rem;
         }
         span {
           color: $color-1;

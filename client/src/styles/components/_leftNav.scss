@@ -11,72 +11,66 @@
       margin-left: -8px;
     }
 
-    // Styles pour les grands écrans (ordinateur)
     @media screen and (min-width: 1025px) {
       top: 20vh;
       left: 5vh;
       bottom: 10vh;
-      height: 70vh; // Utiliser toute la hauteur de l'écran
+      height: 70vh;
       display: flex;
-      flex-direction: column; // Colonne pour les icônes
-      justify-content: space-between; // Espacement égal entre les icônes
-      align-items: center; // Centrer horizontalement
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
       padding: 0;
     }
 
-    // Styles pour les petits écrans (tablette et téléphone)
     @media screen and (max-width: 1024px) {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       display: flex;
-      justify-content: space-between; // Espace égal entre les icônes
-      background-color: #fff; // Couleur de fond de la navbar
+      justify-content: space-between;
+      background-color: #fff;
       padding: 10px 0;
-      box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1); // Ombre vers le haut
+      box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
     }
 
     .icons-bis {
       position: absolute;
 
-      // Styles pour les grands écrans (ordinateur)
       @media screen and (min-width: 1025px) {
-        position: static; // Réinitialiser la position absolue
+        position: static;
         display: flex;
-        flex-direction: column; // Colonne pour les icônes
-        justify-content: space-around; // Distribution verticale égale
+        flex-direction: column;
+        justify-content: space-around;
         width: 100%;
-        height: 100%; // Assurer que les icônes occupent toute la hauteur
+        height: 100%;
       }
 
-      // Styles pour les petits écrans (tablette et téléphone)
       @media screen and (max-width: 1024px) {
         position: static;
         display: flex;
-        justify-content: space-around; // Distribution égale des icônes
-        width: 100%; // Prend toute la largeur de la barre
+        justify-content: space-around;
+        width: 100%;
       }
 
       a {
-        transition: 0.2s ease; // Applique la transition fluide pour les transformations
+        transition: 0.2s ease;
         display: inline-block;
         margin-bottom: 70px;
-      
-        // Styles pour les grands écrans (ordinateur)
+
         @media screen and (min-width: 1025px) {
           margin-bottom: 0;
           flex: none;
         }
-      
-        // Styles pour les petits écrans (tablette et téléphone)
+
         @media screen and (max-width: 1024px) {
-          margin-bottom: 0; // Supprime le margin inférieur
-          flex: 1; // Chaque icône prend une part égale
+          margin-bottom: 0;
+          flex: 1;
           display: flex;
-          justify-content: center; // Centre chaque icône
+          justify-content: center;
         }
-      
+
         &:before {
           transition: 0.15s ease;
           transform: scale(0);
@@ -88,29 +82,26 @@
           position: absolute;
           background: $color-4;
           border-radius: 50px;
-      
-          // Désactiver cet effet sur mobile
+
           @media screen and (max-width: 1024px) {
             display: none;
           }
         }
-      
+
         &:hover {
-          transform: translateX(4px); // Décale de 10px vers la droite au survol
+          transform: translateX(4px);
         }
-      
+
         img {
           height: 25px;
           width: 25px;
-      
-          // Réduction pour mobile
+
           @media screen and (max-width: 1024px) {
             height: 22px;
             width: 22px;
           }
         }
       }
-      
 
       .active-left-nav {
         position: relative;
@@ -125,9 +116,9 @@
           width: 50px;
           border-radius: 50%;
           background-color: #ffffff14;
-          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.319); /* Ajoute une ombre douce vers le bas à droite */
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.319);
           z-index: -1;
-        }              
+        }
 
         img {
           position: relative;

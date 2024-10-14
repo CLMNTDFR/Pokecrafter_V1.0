@@ -2,7 +2,7 @@ const router = require('express').Router();
 const userController = require('../controllers/user.controller');
 const authController = require('../controllers/auth.controller');
 const uploadController = require('../controllers/upload.controller');
-const authMiddleware = require('../middleware/auth.middleware'); // Assurez-vous que le chemin est correct
+const authMiddleware = require('../middleware/auth.middleware');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 

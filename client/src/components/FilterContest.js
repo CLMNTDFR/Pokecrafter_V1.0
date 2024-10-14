@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const FilterContest = ({ setSelectedContestType, setCurrentPage }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,18 +10,16 @@ const FilterContest = ({ setSelectedContestType, setCurrentPage }) => {
 
   return (
     <nav className="dropdown">
-      {/* Déclencheur du menu */}
-      <label 
-        className={`dropdown-trigger ${isOpen ? 'open' : ''}`}
+      <label
+        className={`dropdown-trigger ${isOpen ? "open" : ""}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         Current or Past
-        <span className="dropdown-icon">{isOpen ? '' : ''}</span>
+        <span className="dropdown-icon">{isOpen ? "" : ""}</span>
       </label>
 
-      {/* Menu déroulant */}
-      <ul className={`dropdown-menu ${isOpen ? 'open' : ''}`}>
-        {['Current Contests', 'Past Contests'].map((contestType) => (
+      <ul className={`dropdown-menu ${isOpen ? "open" : ""}`}>
+        {["Current Contests", "Past Contests"].map((contestType) => (
           <li key={contestType}>
             <button
               className="dropdown-item"

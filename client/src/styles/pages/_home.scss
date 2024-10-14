@@ -1,5 +1,5 @@
 * {
-  box-sizing: border-box; /* Pour s'assurer que tous les éléments respectent cette règle */
+  box-sizing: border-box;
 }
 
 .home {
@@ -10,12 +10,12 @@
   position: relative;
 
   @media screen and (max-width: 990px) {
-    grid-template-columns: 0px 1fr; /* Cache la colonne de gauche sur petits écrans */
-    margin: 58px 20px; /* Ajoute une marge sur les côtés */
+    grid-template-columns: 0px 1fr;
+    margin: 58px 20px;
   }
 
   @media screen and (max-width: 590px) {
-    grid-template-columns: 1fr; /* Une seule colonne pour les très petits écrans */
+    grid-template-columns: 1fr;
     margin: 58px 8px;
   }
 
@@ -41,28 +41,25 @@
   }
 }
 
-/* Style pour le conteneur de la mosaïque */
 .thread-container {
-    grid-template-columns: 1fr; /* Une seule colonne pour les petits écrans */
-    padding: 0;
-  
+  grid-template-columns: 1fr;
+  padding: 0;
 
   .artwork-grid {
-    list-style-type: none; /* Supprime les puces */
+    list-style-type: none;
     padding: 0;
     margin: 0;
     display: contents;
 
     li {
-      /* Pour les grands écrans */
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%; /* Prend toute la largeur de la colonne */
-      padding-top: 100%; /* Crée une boîte carrée en fonction de la largeur */
+      width: 100%;
+      padding-top: 100%;
       position: relative;
-      transition: transform 0.3s ease; /* Transition pour l'agrandissement */
+      transition: transform 0.3s ease;
 
       img {
         position: absolute;
@@ -70,22 +67,20 @@
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Couvre entièrement l'espace, rognant les parties inutiles */
-        transition: transform 0.3s ease; /* Transition pour l'agrandissement */
+        object-fit: cover;
+        transition: transform 0.3s ease;
       }
 
-      /* Effet de survol pour les écrans d'ordinateur */
       @media screen and (min-width: 991px) {
         &:hover {
-          transform: scale(1.05); /* Agrandit légèrement l'élément au survol */
+          transform: scale(1.05);
         }
 
         img:hover {
-          transform: scale(1.03); /* Agrandit légèrement l'image au survol */
+          transform: scale(1.03);
         }
       }
 
-      /* Pour les tablettes et téléphones */
       @media screen and (max-width: 990px) {
         padding-top: 0px;
         position: relative;
@@ -96,7 +91,7 @@
           position: relative;
           width: 100%;
           height: auto;
-          object-fit: contain; /* Conserve les proportions d'origine sans rognage */
+          object-fit: contain;
         }
       }
 
@@ -110,15 +105,13 @@
           position: relative;
           width: 100%;
           height: auto;
-          object-fit: contain; /* Conserve les proportions d'origine sans rognage */
+          object-fit: contain;
         }
       }
     }
   }
 }
 
-
-/* Style du menu déroulant */
 .dropdown {
   position: relative;
   width: auto;
@@ -136,7 +129,7 @@
   .dropdown-trigger {
     background-color: #2d2f31;
     color: white;
-    font-family: $font-2; /* Utilise Roboto Regular */
+    font-family: $font-2;
     padding: 12px 40px;
     padding-left: 15px;
     font-size: 0.9em;
@@ -192,14 +185,13 @@
         text-decoration: none;
 
         &:hover {
-          color: #ff5733; /* Remplacer par $color-3 si défini */
+          color: #ff5733;
         }
       }
     }
   }
 }
 
-/* styles.css */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -211,13 +203,13 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  opacity: 0; /* Initialement invisible */
-  animation: popup 0.3s ease-out forwards; /* Animation pour le fade-in */
+  opacity: 0;
+  animation: popup 0.3s ease-out forwards;
 
   @keyframes popup {
     to {
       opacity: 0.95;
-      backdrop-filter: blur(2px); /* Effet de flou */
+      backdrop-filter: blur(2px);
     }
   }
 }
@@ -241,7 +233,7 @@
   &::-webkit-scrollbar-thumb {
     background: #7f7f7f;
     border-radius: 10px;
-    border: 2px solid #ddd; /* Ajuster selon la couleur utilisée pour $color-2 */
+    border: 2px solid #ddd;
   }
 
   &::-webkit-scrollbar-thumb:hover {
@@ -264,6 +256,6 @@
   z-index: 1100;
 
   &:hover {
-    background: transparent !important; /* Assurez-vous que le fond reste transparent au survol */
+    background: transparent !important;
   }
 }

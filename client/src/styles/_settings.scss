@@ -1,12 +1,9 @@
-/* Importation de la police Roboto avec différents font-weight */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap");
 
-/* Définition des polices */
 $font-1: "Roboto", sans-serif; /* Extra Light (100) */
 $font-2: "Roboto", sans-serif; /* Regular (400) */
 $font-3: "Roboto", sans-serif; /* Bold (700) */
 
-/* Couleurs */
 $color-1: #bdbdbd;
 $color-2: #bdbdbd;
 $color-3: rgb(0, 22, 44);
@@ -33,8 +30,8 @@ $shadow: rgb(219, 218, 218);
 a,
 a:visited {
   color: $color-3;
-  font-size: 0.9rem; /* Ajustez la taille de police pour les liens */
-  font-family: $font-2; /* Utilise Roboto Regular */
+  font-size: 0.9rem;
+  font-family: $font-2;
 }
 
 input,
@@ -42,9 +39,9 @@ textarea {
   resize: none;
   border-radius: 10px;
   width: 270px;
-  font-family: $font-2; /* Utilise Roboto Regular */
+  font-family: $font-2;
   background: #ffffff;
-  font-size: 1rem; /* Ajustez la taille de police pour les inputs et textareas */
+  font-size: 1rem;
 }
 
 textarea {
@@ -57,14 +54,14 @@ button,
 input[type="submit"] {
   background: $color-2;
   color: black;
-  font-family: $font-2; /* Utilise Roboto Regular */
+  font-family: $font-2;
   font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
   margin: 0;
   padding: 10px 20px;
   cursor: pointer;
-  font-size: 0.9rem; /* Ajustez la taille de police pour les boutons */
+  font-size: 0.9rem;
   border-radius: 10px;
 
   &:hover {
@@ -89,23 +86,23 @@ i {
 }
 
 body {
-  font-family: $font-2; /* Utilise Roboto Regular pour le corps */
+  font-family: $font-2;
   line-height: 1.4rem;
   background: $white;
   color: $color-3;
-  font-size: 0.9rem; /* Ajustez la taille de police par défaut pour le corps du document */
+  font-size: 0.9rem;
 }
 
 .error {
   color: red;
   font-weight: bold;
-  font-size: 0.9rem; /* Ajustez la taille de police pour les messages d'erreur */
-  font-family: $font-3; /* Utilise Roboto Bold */
+  font-size: 0.9rem;
+  font-family: $font-3;
 }
 
 .success {
   color: green;
   font-weight: bold;
-  font-size: 0.9rem; /* Ajustez la taille de police pour les messages de succès */
-  font-family: $font-3; /* Utilise Roboto Bold */
+  font-size: 0.9rem;
+  font-family: $font-3;
 }

@@ -1,174 +1,162 @@
-/* Styles de base pour tous les écrans */
 .artiste-artiste-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Répartit l'espace entre les éléments */
-    padding: 10px;
-    border-bottom: 1px solid $color-2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid $color-2;
 }
 
 .follow-handler-search {
-    display: flex;
-    align-items: center;
-    margin-left: auto; /* Pousse le bouton à droite */
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .follow-handler-search button {
-    display: flex;
-    align-items: center; /* Aligne verticalement le texte et l'icône */
-    justify-content: flex-start; /* Aligne le contenu à gauche */
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    background: transparent;
-    border: none;
-    min-width: unset;
-    margin-right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  min-width: unset;
+  margin-right: 0;
 
-    /* Suppression de la marge à droite pour le texte */
-    img.icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 5px; /* Réduit la marge à droite de l'icône pour rapprocher le texte */
-        box-shadow: none;
-        border-radius: 0;
-    }
+  img.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    box-shadow: none;
+    border-radius: 0;
+  }
 
-    /* Style du texte */
-    &:hover {
-        color: $color-3;
-        transform: translateX(3px);
-    }
+  &:hover {
+    color: $color-3;
+    transform: translateX(3px);
+  }
 }
 
 .artiste-artiste-left {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .artiste-artiste-left img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .artiste-artiste-right {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .artiste-artiste-right h3 {
-    margin: 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    position: relative; /* Position relative pour le conteneur des icônes */
-    display: inline-block; /* Permet aux éléments internes d'être positionnés correctement */
-    padding: 30px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+  display: inline-block;
+  padding: 30px;
 }
 
-/* Styles pour les écrans de plus de 930px */
 @media (min-width: 930px) {
-    .artiste-container {
-        width: 50%; /* Conteneur principal prend 50% de la largeur de l'écran */
-        margin: 0 auto; /* Centrage horizontal */
-    }
+  .artiste-container {
+    width: 50%;
+    margin: 0 auto;
+  }
 }
 
-/* Styles pour la barre de recherche */
 .search-bar {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 @media (min-width: 930px) {
-    .search-container {
-        display: flex;
-        justify-content: center; /* Centre les éléments horizontalement */
-    }
+  .search-container {
+    display: flex;
+    justify-content: center;
+  }
 
-    .search-bar {
-        width: 50%; /* La barre de recherche prend 50% de la largeur de l'écran sur les grands écrans */
-    }
+  .search-bar {
+    width: 50%;
+  }
 }
 
-/* Affichage des détails de l'utilisateur */
 .artiste-user-details {
-    text-align: center;
-    margin-top: 10px;
-    padding: 10px;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+  border-bottom: 1px solid $color-2;
+
+  .artiste-data-artist {
+    font-size: 0.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-bottom: 1px solid $color-2;
+  }
 
-    .artiste-data-artist {
-        font-size: 0.8em;
-        display: flex;
-        justify-content: center; /* Centrer les éléments horizontalement */
-        align-items: center; /* Aligner verticalement */
-        border-bottom: 1px solid $color-2;
-      }
-      
-      .bullet {
-        margin: 0 8px; /* Espacement autour du caractère de puce */
-      }
-      
+  .bullet {
+    margin: 0 8px;
+  }
 }
-
-
 
 .toggle-icon {
-    width: 15px;
-    height: 15px;
-    position: absolute; /* Position absolue pour se superposer */
-    left: 0; /* Aligne l'icône à gauche du conteneur */
-    transition: transform 0.2s ease, opacity 0.2s ease; /* Transition pour la rotation et l'opacité */
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  left: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .toggle-icon.rotated {
-    transform: rotate(180deg); /* Rotation de 180 degrés */
+  transform: rotate(180deg);
 }
 
 .toggle-icon.hidden {
-    opacity: 0; /* Masque l'icône lorsque la classe 'hidden' est appliquée */
-    pointer-events: none; /* Évite les interactions quand l'icône est masquée */
+  opacity: 0;
+  pointer-events: none;
 }
 
-
-/* Conserver la largeur du conteneur artworks */
 .artiste-artworks-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Répartit l'espace entre les éléments */
-    padding-top: 20px;
-    padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .artiste-artwork-thumbnail {
-    width: calc((100% - 10px) / 3); /* Chaque vignette prend 1/4 de la largeur totale avec 5px d'espace entre elles */
-    height: 150px;
-    object-fit: cover;
-    border-radius: 5px;
+  width: calc((100% - 10px) / 3);
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
-/* Styles spécifiques pour les écrans de plus de 930px */
 @media (min-width: 930px) {
-    .artiste-user-details {
-        width: 50%; /* L'élément user-details prend 50% de la largeur */
-        margin: 0 auto; /* Centrage horizontal */
-    }
+  .artiste-user-details {
+    width: 50%;
+    margin: 0 auto;
+  }
 
-    .artiste-artworks-container {
-        width: 100%; /* Les artworks restent à 100% à l'intérieur du conteneur user-details */
-    }
+  .artiste-artworks-container {
+    width: 100%;
+  }
 }
 
 .message-button {
-    margin-top: 5px;
+  margin-top: 5px;
   padding: 5px;
   border-radius: 5px;
   background: #ffffff;
@@ -183,5 +171,5 @@
 }
 
 .message-button:hover {
-    background-color: $color-4;
+  background-color: $color-4;
 }

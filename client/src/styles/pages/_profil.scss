@@ -1,5 +1,5 @@
 body {
-  background-image: url('https://i.imgur.com/mPtV2Jv.png');
+  background-image: url("https://i.imgur.com/mPtV2Jv.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -23,14 +23,13 @@ body {
     margin: 0 auto 0 100px;
     display: grid;
     grid-template-columns: 60% 40%;
-  
+
     @media screen and (max-width: 885px) {
       grid-template-columns: 1fr;
       margin: 0 auto;
       padding-top: 70px;
     }
   }
-  
 
   .connection-form {
     border: none;
@@ -41,8 +40,7 @@ body {
     margin: 0 auto;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 
-      -5px 5px 10px 0px rgba(0, 0, 0, 0.123),
+    box-shadow: -5px 5px 10px 0px rgba(0, 0, 0, 0.123),
       2px 2px 10px -2px rgba(0, 0, 0, 0.123);
 
     @media screen and (max-width: 550px) {
@@ -51,14 +49,12 @@ body {
 
     @media screen and (min-width: 1281px) {
       margin-top: -40px;
-      
     }
 
     @media screen and (max-width: 850px) {
       margin-bottom: 100px;
       margin-top: -50px;
     }
-    
 
     .form-container {
       display: grid;
@@ -135,10 +131,10 @@ body {
     top: 50vh;
     left: 68.67vw;
     transform: translate(-40%, -50%);
-  
+
     img {
       height: 400px;
-      
+
       @media screen and (max-width: 1050px) {
         height: 350px;
       }
@@ -150,7 +146,7 @@ body {
       }
     }
   }
-  
+
   .update-container {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -164,8 +160,7 @@ body {
       border-radius: 10px;
       padding: 25px;
       margin: 20px 10px;
-      box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.072),
+      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.072),
         -10px -10px 20px rgba(0, 0, 0, 0.053);
 
       @media screen and (max-width: 700px) {
@@ -275,11 +270,11 @@ body {
         border-radius: 10px;
         transition: 0.2s;
         cursor: pointer;
-    
+
         &:hover {
           transform: translateX(2px);
         }
-    
+
         .icon {
           width: 25px;
           height: 25px;
@@ -297,14 +292,14 @@ body {
     position: fixed;
     opacity: 0; // Initialement invisible
     animation: popup 0.3s ease-out forwards; // Animation uniquement avec fade-in
-  
+
     @keyframes popup {
       to {
         opacity: 1; // Transition d'opacité de 0 à 1
         backdrop-filter: blur(2px); // Effet de flou en fond
       }
     }
-  
+
     .modal {
       position: absolute;
       top: 10%;
@@ -313,70 +308,68 @@ body {
       background: #efefef;
       padding: 25px;
       border-radius: 10px;
-      box-shadow: 
-        10px 10px 20px rgba(0, 0, 0, 0.237),
+      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.237),
         -10px -10px 20px rgba(0, 0, 0, 0.135);
       overflow: hidden; // Contenu caché au-delà des limites
-  
+
       // Limitation de la hauteur et ajout du scroll si nécessaire
       max-height: 80vh; // 80% de la hauteur de la fenêtre
       overflow-y: auto; // Ajoute la barre de scroll verticale si nécessaire
-      
-  
+
       // Personnalisation de la barre de scroll
       &::-webkit-scrollbar {
         width: 10px;
       }
-  
+
       &::-webkit-scrollbar-track {
         background: #f1f1f1; // Couleur de fond de la barre
         border-radius: 10px;
       }
-  
+
       &::-webkit-scrollbar-thumb {
         background: #7f7f7f; // Couleur de la poignée
         border-radius: 10px; // Bord arrondi pour un effet plus doux
         border: 2px solid $color-2; // Ajoute un peu de bord pour l'effet 3D
       }
-  
+
       &::-webkit-scrollbar-thumb:hover {
         background: darken($color-1, 10%); // Changement de couleur au hover
       }
-  
+
       h3 {
         min-width: 200px;
       }
-  
+
       .cross {
         position: absolute;
         top: 25px;
         right: 25px;
         transition: 0.1s;
         cursor: pointer;
-  
+
         &:hover {
           transform: scale(1.07);
         }
       }
-  
+
       // Styles pour le contenu de la modal (le texte)
       p {
         margin: 15px 0;
         line-height: 1.5;
       }
-  
+
       @media screen and (max-width: 600px) {
         width: 90%; // La modal prend 90% de la largeur de l'écran
         left: 50%;
         transform: translate(-50%);
       }
-  
+
       ul {
         margin: 20px 0 0;
         max-height: 500px;
         overflow-y: scroll;
         overflow-x: hidden;
-      
+
         &::-webkit-scrollbar {
           width: 2px;
         }
@@ -389,15 +382,15 @@ body {
         &::-webkit-scrollbar-thumb:hover {
           background: #555;
         }
-      
+
         li {
           display: grid;
           grid-template-columns: 64px 1fr; // Déclaration déplacée ici
-          grid-template-rows: auto auto;   // Déclaration déplacée ici
-          grid-row-gap: 10px;              // Déclaration déplacée ici
+          grid-template-rows: auto auto; // Déclaration déplacée ici
+          grid-row-gap: 10px; // Déclaration déplacée ici
           align-items: center;
           margin: 10px 0;
-      
+
           img {
             height: 50px;
             width: 50px;
@@ -409,13 +402,13 @@ body {
             text-align: left;
             min-width: 210px;
           }
-      
+
           .follow-handler {
             text-align: left;
             grid-column: span 2;
             width: 100%;
             margin-top: 10px;
-      
+
             button {
               display: flex;
               align-items: center;
@@ -429,7 +422,7 @@ body {
               margin-right: 0;
               padding: 10px;
               box-sizing: border-box;
-      
+
               img.icon {
                 width: 20px;
                 height: 20px;
@@ -437,7 +430,7 @@ body {
                 box-shadow: none;
                 border-radius: 0;
               }
-      
+
               &:hover {
                 color: $color-3;
                 transform: translateX(3px);
@@ -445,7 +438,7 @@ body {
             }
           }
         }
-      }      
+      }
     }
   }
   .popup-custom {
@@ -454,4 +447,40 @@ body {
     background-color: white; /* Couleur de fond */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Ombre pour donner un effet de profondeur */
   }
-}  
+}
+
+.delete-account-container {
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+}
+
+.delete-account-btn {
+  font-size: 0.8em;
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.412),
+    -5px -5px 10px rgba(0, 0, 0, 0.135);
+}
+
+.delete-account-btn:hover {
+  background-color: rgb(196, 0, 0);
+  color: white;
+}
+
+.centered-message {
+  text-align: center;
+  margin-top: 20px;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.here-link-style {
+  color: #007bff !important;
+  text-decoration: none;
+  cursor: pointer;
+}

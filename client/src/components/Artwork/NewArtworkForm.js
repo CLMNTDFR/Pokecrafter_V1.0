@@ -5,8 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addArtwork, getArtworks } from "../../actions/artwork.actions";
 
-// Limite de taille maximale du fichier à 500 Ko
-const MAX_FILE_SIZE = 500000; // 500 Ko
+const MAX_FILE_SIZE = 500000;
 
 const NewArtworkForm = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,15 +13,15 @@ const NewArtworkForm = () => {
   const [description, setDescription] = useState("");
   const [artworkPicture, setArtworkPicture] = useState("");
   const [file, setFile] = useState(null);
-  const [error, setError] = useState(""); // État pour gérer les messages d'erreur
+  const [error, setError] = useState("");
   const fileInputRef = useRef();
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
   const generateTitle = () => {
     const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0");
     const year = today.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
     return `${userData.username}-${category}-${formattedDate}`;
@@ -40,7 +39,7 @@ const NewArtworkForm = () => {
 
       await dispatch(addArtwork(data));
       dispatch(getArtworks());
-      window.location.href = "/"; // Redirige vers la page d'accueil
+      window.location.href = "/";
       cancelPost();
     } else {
       alert("Please enter all fields (category, description, picture)");
@@ -52,10 +51,10 @@ const NewArtworkForm = () => {
     if (selectedFile) {
       if (selectedFile.size > MAX_FILE_SIZE) {
         setError("File size exceeds 500 KB. Please choose a smaller file.");
-        setArtworkPicture(""); // Réinitialise l'aperçu de l'image
-        setFile(null); // Réinitialise le fichier
+        setArtworkPicture("");
+        setFile(null);
       } else {
-        setError(""); // Réinitialise l'erreur
+        setError("");
         setArtworkPicture(URL.createObjectURL(selectedFile));
         setFile(selectedFile);
       }
@@ -68,7 +67,7 @@ const NewArtworkForm = () => {
     setArtworkPicture("");
     setFile(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
-    setError(""); // Réinitialise l'erreur lors de l'annulation
+    setError("");
   };
 
   useEffect(() => {
@@ -119,7 +118,8 @@ const NewArtworkForm = () => {
               ref={fileInputRef}
             />
             {error && <div className="error-message">{error}</div>}
-            <br /><br />
+            <br />
+            <br />
             <div className="label-img-select">
               Select a category:
               <select
