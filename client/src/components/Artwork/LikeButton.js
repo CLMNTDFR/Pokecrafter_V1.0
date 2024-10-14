@@ -29,22 +29,40 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
 
   return (
     <div className="like-container">
+      <div className="heart-margin-top">
       {uid === null && (
-        <Popup
-          trigger={<img src="./img/icons/pokecrafter-heart.svg" alt="like" />}
-          position={["bottom center", "bottom right", "bottom left"]}
-          closeOnDocumentClick
-        >
-          <div>Connectez-vous pour aimer un artwork !</div>
-        </Popup>
-      )}
-      {uid && !liked && (
-        <img src="./img/icons/pokecrafter-heart.svg" onClick={like} alt="like" />
-      )}
-      {uid && liked && (
-        <img src="./img/icons/pokecrafter-heart-filled.svg" onClick={unlike} alt="unlike" />
-      )}
-      <span>{likersCount}</span>
+  <Popup
+    trigger={
+      <img
+        src="./img/icons/pokecrafter-heart.svg"
+        alt="like"
+        className="heart-icon"
+      />
+    }
+    position={["bottom center", "bottom right", "bottom left"]}
+    closeOnDocumentClick
+  >
+    <div>Connectez-vous pour aimer un artwork !</div>
+  </Popup>
+)}
+{uid && !liked && (
+  <img
+    src="./img/icons/pokecrafter-heart.svg"
+    onClick={like}
+    alt="like"
+    className="heart-icon"
+  />
+)}
+{uid && liked && (
+  <img
+    src="./img/icons/pokecrafter-heart-filled.svg"
+    onClick={unlike}
+    alt="unlike"
+    className="heart-icon"
+  />
+)}
+</div>
+      <span className="like-card-counter">{likersCount}</span>
     </div>
   );
 };

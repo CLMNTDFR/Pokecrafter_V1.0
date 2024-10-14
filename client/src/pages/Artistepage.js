@@ -83,8 +83,8 @@ const ArtistePage = () => {
               {!isEmpty(filteredUsers) &&
                 filteredUsers.map((user) => (
                   <li key={user._id}>
-                    <div className="artiste-container">
-                      <div className="artiste-left">
+                    <div className="artiste-artiste-container">
+                      <div className="artiste-artiste-left">
                         <img
                           src={
                             user.picture ||
@@ -94,7 +94,7 @@ const ArtistePage = () => {
                           alt="user-pic"
                         />
                       </div>
-                      <div className="artiste-right">
+                      <div className="artiste-artiste-right">
                         <h3 onClick={() => handleUserClick(user)}>
                           <img
                             src="/img/icons/pokecrafter-up4.svg"
@@ -126,9 +126,9 @@ const ArtistePage = () => {
                     </div>
 
                     {selectedUser && selectedUser._id === user._id && (
-                      <div className="user-details">
+                      <div className="artiste-user-details">
                         {/* Abonnements et Followers */}
-                        <div className="data-artist">
+                        <div className="artiste-data-artist">
                           <p>
                             <span>
                               {user.following ? user.following.length : 0}
@@ -148,7 +148,7 @@ const ArtistePage = () => {
                         <p>{user.bio}</p>
                         <br />
 
-                        <div className="artworks-container">
+                        <div className="artiste-artworks-container">
                           {getLastArtworks(user._id).map((artwork) => (
                             <img
                               key={artwork._id}
@@ -161,7 +161,7 @@ const ArtistePage = () => {
                               alt={`${user.username} - ${
                                 artwork?.title ? artwork.title : "Artwork"
                               }`}
-                              className="artwork-thumbnail"
+                              className="artiste-artwork-thumbnail"
                               onClick={() => handleImageClick(artwork)}
                             />
                           ))}

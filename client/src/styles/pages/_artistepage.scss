@@ -1,5 +1,5 @@
 /* Styles de base pour tous les écrans */
-.artiste-container {
+.artiste-artiste-container {
     display: flex;
     align-items: center;
     justify-content: space-between; /* Répartit l'espace entre les éléments */
@@ -41,23 +41,23 @@
     }
 }
 
-.artiste-left {
+.artiste-artiste-left {
     margin-right: 20px;
 }
 
-.artiste-left img {
+.artiste-artiste-left img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.artiste-right {
+.artiste-artiste-right {
     display: flex;
     flex-direction: column;
 }
 
-.artiste-right h3 {
+.artiste-artiste-right h3 {
     margin: 0;
     font-size: 16px;
     font-weight: bold;
@@ -99,13 +99,13 @@
 }
 
 /* Affichage des détails de l'utilisateur */
-.user-details {
+.artiste-user-details {
     text-align: center;
     margin-top: 10px;
     padding: 10px;
     border-bottom: 1px solid $color-2;
 
-    .data-artist {
+    .artiste-data-artist {
         font-size: 0.8em;
         display: flex;
         justify-content: center; /* Centrer les éléments horizontalement */
@@ -140,7 +140,7 @@
 
 
 /* Conserver la largeur du conteneur artworks */
-.artworks-container {
+.artiste-artworks-container {
     display: flex;
     align-items: center;
     justify-content: space-between; /* Répartit l'espace entre les éléments */
@@ -148,7 +148,7 @@
     padding-bottom: 20px;
 }
 
-.artwork-thumbnail {
+.artiste-artwork-thumbnail {
     width: calc((100% - 10px) / 3); /* Chaque vignette prend 1/4 de la largeur totale avec 5px d'espace entre elles */
     height: 150px;
     object-fit: cover;
@@ -157,12 +157,12 @@
 
 /* Styles spécifiques pour les écrans de plus de 930px */
 @media (min-width: 930px) {
-    .user-details {
+    .artiste-user-details {
         width: 50%; /* L'élément user-details prend 50% de la largeur */
         margin: 0 auto; /* Centrage horizontal */
     }
 
-    .artworks-container {
+    .artiste-artworks-container {
         width: 100%; /* Les artworks restent à 100% à l'intérieur du conteneur user-details */
     }
 }

@@ -216,6 +216,26 @@
       }
     }
     
+    .heart-margin-top {
+      transform: translateY(-0px);
+      .img {
+        height: 20px !important;
+        width: 20px !important;
+      }
+      .heart-icon {
+        width: 23px; /* Réduire la taille de 2 pixels */
+        height: 23px; /* Conserver le ratio de l'image */
+        transform: translateY(3px); /* Déplacer l'icône de 2 pixels vers le haut */
+
+        @media screen and (max-width: 930px) {
+          width: 21px !important;
+          height: 21px !important;
+          transform: translateY(8px) !important;
+          
+        }
+      }
+      
+    }
     
 
     .description {
@@ -230,6 +250,18 @@
       .comment-icon,
         .like-container {
           margin-right: 15px;
+          @media screen and (min-width: 930px) {
+            .like-card-counter {
+              transform: translate(0px, 2px);
+            }
+          }
+          @media screen and (max-width: 930px) {
+            .like-card-counter {
+              transform: translate(0px, 7px);
+            }
+            
+          }
+          
         }
         .share-icon {
           margin-right: 20px;
