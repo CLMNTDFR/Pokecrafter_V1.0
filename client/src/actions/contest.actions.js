@@ -6,7 +6,9 @@ export const ADD_CONTEST = "ADD_CONTEST";
 export const UPDATE_CONTEST = "UPDATE_CONTEST";
 export const DELETE_CONTEST = "DELETE_CONTEST";
 export const GET_CONTEST_ERRORS = "GET_CONTEST_ERRORS";
+export const SET_SELECTED_CONTEST_ID = "SET_SELECTED_CONTEST_ID";
 
+// Action pour obtenir un contest spécifique par ID
 export const getContest = (contestId) => {
   return (dispatch) => {
     return axios
@@ -18,6 +20,7 @@ export const getContest = (contestId) => {
   };
 };
 
+// Action pour obtenir tous les contests
 export const getAllContests = () => {
   return (dispatch) => {
     return axios
@@ -30,20 +33,27 @@ export const getAllContests = () => {
   };
 };
 
+// Action pour ajouter un nouveau contest
 export const addContest = (data) => {
   return (dispatch) => {
     return axios
-      .post(`${process.env.REACT_APP_API_URL}api/contests/`, data)
+      .post(`${process.env.REACT_APP_API_URL}api/contests/create`, data, {
+        withCredentials: true, // Assurez-vous que les cookies sont envoyés
+      })
       .then((res) => {
         if (res.data.errors) {
           dispatch({ type: GET_CONTEST_ERRORS, payload: res.data.errors });
         } else {
           dispatch({ type: GET_CONTEST_ERRORS, payload: "" });
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
 };
 
+
+
+// Action pour mettre à jour un contest existant
 export const updateContest = (contestId, data) => {
   return (dispatch) => {
     return axios({
@@ -58,6 +68,7 @@ export const updateContest = (contestId, data) => {
   };
 };
 
+// Action pour supprimer un contest
 export const deleteContest = (contestId) => {
   return (dispatch) => {
     return axios({
@@ -70,3 +81,9 @@ export const deleteContest = (contestId) => {
       .catch((err) => console.log(err));
   };
 };
+
+// Nouvelle action pour définir l'ID du contest sélectionné
+export const setSelectedContestId = (contestId) => ({
+  type: SET_SELECTED_CONTEST_ID,
+  payload: contestId,
+});

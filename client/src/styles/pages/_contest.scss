@@ -402,3 +402,173 @@ h3 {
     transform: translate(0, 0);
   }
 }
+
+.trophy-icon-remaining {
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  margin-right: 5px;
+  transform: translateY(-2px);
+}
+
+.submit-artwork-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none !important;
+}
+
+.custom-upload-button {
+  background-color: transparent;
+  color: rgb(0, 0, 0); /* Couleur du texte */
+  padding: 10px 20px; /* Espacement */
+  border: none; /* Pas de bordure */
+  border-radius: 5px; /* Coins arrondis */
+  cursor: pointer; /* Curseur pointer */
+  font-size: 16px; /* Taille de police */
+  margin-bottom: 10px; /* Espacement en bas */
+
+  &:hover {
+    background: $color-4;
+  }
+}
+
+.submit-artwork-button {
+  width: 45%;
+  padding: 5px 0;
+  border-radius: 10px;
+  background: $color-4;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  border: none;
+  transition: 0.2s;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+
+  @media screen and (min-width: 930px) {
+    width: 20%;  
+  }
+
+  &:hover {
+    background: $color-4;
+  }
+}
+
+.upload-error {
+  color: red; /* Couleur des erreurs */
+}
+
+.icon-button {
+  display: flex;               /* Utilise flexbox pour centrer l'icône et le texte */
+  align-items: center;        /* Centre verticalement le contenu */
+}
+
+.icon-button img {
+  width: 20px;                /* Largeur de l'icône */
+  height: 20px;               /* Hauteur de l'icône */
+  margin-right: 5px;         /* Espace entre l'icône et le texte */
+}
+
+.no-artworks-message {
+  text-align: center;         /* Centrer le texte */
+  color: #333;                /* Couleur du texte */
+  margin-top: 20px;           /* Espacement en haut */
+}
+
+.new-contest-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto; /* Centrer le conteneur */
+}
+
+.new-contest-form {
+  width: 100%;
+  max-width: 600px; /* Largeur maximale pour le formulaire */
+  padding: 20px;
+  background-color: transparent;
+}
+
+.new-contest-form-field {
+  margin-bottom: 15px; /* Espacement entre les champs */
+
+  label {
+    display: block; /* S'assurer que le label est au-dessus de l'input */
+    margin-bottom: 5px; /* Espacement sous le label */
+  }
+}
+
+
+
+.new-contest-form-input,
+.new-contest-form-textarea {
+  width: 100%; /* Prendre 100% de la largeur */
+  max-width: 100%; /* Ne pas dépasser 100% */
+  padding: 10px; /* Espacement interne */
+  border: 1px solid #9f9f9f; /* Bordure gris foncé */
+  border-radius: 5px; /* Arrondi pour les champs de saisie */
+}
+
+.new-contest-form-input {
+  height: 40px; /* Hauteur des inputs */
+}
+
+.new-contest-form-textarea {
+  height: 100px; /* Hauteur pour la textarea */
+}
+
+.new-contest-form-error {
+  color: red; /* Couleur rouge pour le message d'erreur */
+  font-size: 14px; /* Taille de police pour le message d'erreur */
+}
+
+.new-contest-form-submit-button {
+  display: block; /* Pour centrer le bouton */
+  margin: 0 auto; /* Centrer horizontalement */
+  padding: 10px 20px; /* Espacement interne */
+  background-color: transparent; /* Fond transparent */
+  color: #333; /* Couleur du texte */
+  border-radius: 20px; /* Arrondi pour le bouton */
+  font-size: 16px; /* Taille de police */
+  cursor: pointer; /* Curseur pointer */
+  transition: background-color 0.3s ease; /* Transition pour l'effet hover */
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Ombre noire vers le bas et la droite */
+  transition: 0.3s; /* Transition pour l'effet hover */
+}
+
+.new-contest-form-submit-button:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Couleur de fond légère au survol */
+}
+
+.new-contest-form-success {
+  text-align: center; /* Centrer le texte */
+  color: green; /* Couleur verte pour le message de succès */
+  font-weight: bold; /* Texte en gras */
+  margin-bottom: 20px; /* Espacement en bas */
+}
+
+/* Styles pour les écrans plus petits */
+@media (max-width: 930px) {
+  .new-contest-form-input,
+  .new-contest-form-textarea {
+    width: 100%; /* Prendre 100% de la largeur sur petits écrans */
+  }
+}
+
+.propose-contest {
+  display: block; /* Pour centrer le bouton */
+  margin: 0 auto; /* Centrer horizontalement */
+  padding: 10px 20px; /* Espacement interne */
+  background-color: transparent; /* Fond transparent */
+  color: #333; /* Couleur du texte */
+  border-radius: 20px; /* Arrondi pour le bouton */
+  font-size: 16px; /* Taille de police */
+  cursor: pointer; /* Curseur pointer */
+  transition: background-color 0.3s ease; /* Transition pour l'effet hover */
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Ombre noire vers le bas et la droite */
+  transition: 0.3s; /* Transition pour l'effet hover */
+}
+
+.propose-contest:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Couleur de fond légère au survol */
+}

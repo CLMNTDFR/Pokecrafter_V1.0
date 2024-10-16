@@ -11,7 +11,7 @@ const Home = () => {
       <LeftNav />
       <div className="main">
         <div className="header-container">
-          <h3>{selectedCategory}</h3>
+          <h3 className="title-of-page">{selectedCategory}</h3>
           <FilterButtons setSelectedCategory={setSelectedCategory} />
         </div>
         <hr />

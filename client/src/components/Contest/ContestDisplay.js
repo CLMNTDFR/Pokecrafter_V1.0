@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllContests } from "../../actions/contest.actions";
-import { getArtworksContest } from "../../actions/artwork.contest.actions";
+import {
+  getArtworksContest,
+  addArtworkContest,
+  deleteContestArtwork,
+} from "../../actions/artwork.contest.actions";
 import { isEmpty } from "../Utils";
 import LikeArtworkContestButton from "./LikeArtworkContestButton";
 
 const ContestDisplay = ({ selectedContestType }) => {
   const dispatch = useDispatch();
-  const contests = useSelector((state) => state.contestReducer);
+  const contests = useSelector((state) => state.contestReducer.contests);
   const artworksContest = useSelector((state) => state.artworkContestReducer);
   const usersData = useSelector((state) => state.usersReducer);
+  const userData = useSelector((state) => state.userReducer); // L'utilisateur connecté
+
   const [visibleContests, setVisibleContests] = useState(1);
   const [loadContests, setLoadContests] = useState(true);
   const [fullscreenImage, setFullscreenImage] = useState(null);
@@ -17,42 +23,27 @@ const ContestDisplay = ({ selectedContestType }) => {
   const [showFullDescription, setShowFullDescription] = useState({});
   const [hoveredContest, setHoveredContest] = useState(null);
   const [hoveredArtworkUser, setHoveredArtworkUser] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadError, setUploadError] = useState(null);
+  const [visibleArtworks, setVisibleArtworks] = useState({});
+  const [fileName, setFileName] = useState("");
+  const [refreshArtworks, setRefreshArtworks] = useState(false); // Pour forcer la mise à jour des artworks
 
+  // Fetch contests when the component mounts
   useEffect(() => {
     dispatch(getAllContests());
   }, [dispatch]);
 
+  // Fetch artworks for each contest
   useEffect(() => {
     if (!isEmpty(contests)) {
       contests.forEach((contest) => {
         dispatch(getArtworksContest(contest._id));
       });
     }
-  }, [contests, dispatch]);
+  }, [contests, refreshArtworks, dispatch]); // Dépend de refreshArtworks pour recharger les artworks
 
-  const filteredContests = contests
-    .filter((contest) => {
-      if (selectedContestType === "Current Contests") {
-        return !contest.isCompleted;
-      } else if (selectedContestType === "Past Contests") {
-        return contest.isCompleted;
-      }
-      return true;
-    })
-    .sort((a, b) => new Date(a.endDate) - new Date(b.endDate));
-
-  const getUserPseudo = (posterId) => {
-    const poster = usersData.find(
-      (user) => String(user._id) === String(posterId)
-    );
-    return poster ? poster.username : "Unknown user";
-  };
-
-  const getUserProfilePicture = (userId) => {
-    const user = usersData.find((user) => String(user._id) === String(userId));
-    return user ? user.picture : "/img/default-profile.png";
-  };
-
+  // Load more contests on scroll
   const loadMoreContests = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop + 1 >
@@ -72,22 +63,7 @@ const ContestDisplay = ({ selectedContestType }) => {
     return () => window.removeEventListener("scroll", loadMoreContests);
   }, [loadContests]);
 
-  const [visibleArtworks, setVisibleArtworks] = useState({});
-
-  const handleShowMoreArtworks = (contestId) => {
-    setVisibleArtworks((prevState) => ({
-      ...prevState,
-      [contestId]: (prevState[contestId] || 5) + 10,
-    }));
-  };
-
-  const handleShowLessArtworks = (contestId) => {
-    setVisibleArtworks((prevState) => ({
-      ...prevState,
-      [contestId]: 3,
-    }));
-  };
-
+  // Handle image click to open in fullscreen
   const handleImageClick = (imageSrc) => {
     setFullscreenImage(imageSrc);
   };
@@ -96,29 +72,83 @@ const ContestDisplay = ({ selectedContestType }) => {
     setFullscreenImage(null);
   };
 
-  const handleLikersCountChange = (artworkId, newCount) => {
-    setLikersCountByArtwork((prev) => ({
-      ...prev,
-      [artworkId]: newCount,
-    }));
+  // Fonction de soumission d'un fichier et ajout d'un artwork à un concours
+  const handleFileSubmit = (contestId) => {
+    if (!selectedFile) {
+      setUploadError("Please select a file before submitting.");
+      return;
+    }
+
+    // Vérifiez la taille du fichier (500 Ko max)
+    if (selectedFile.size > 500 * 1024) {
+      setUploadError("File size must be less than 500KB.");
+      return;
+    }
+
+    // Vérifiez le type de fichier (jpg/jpeg uniquement)
+    const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
+    if (fileExtension !== "jpg" && fileExtension !== "jpeg") {
+      setUploadError("Only JPG and JPEG files are allowed.");
+      return;
+    }
+
+    if (!userData || !userData._id) {
+      setUploadError("You must be logged in to submit an artwork.");
+      return;
+    }
+
+    // Créer un objet FormData et ajouter le fichier
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("contestId", contestId);
+    formData.append("posterId", userData._id); // Ajout de l'id du poster
+
+    // Appeler l'action addArtworkContest avec les données
+    dispatch(addArtworkContest(formData))
+      .then(() => {
+        // Réinitialiser le fichier sélectionné et le nom du fichier après un upload réussi
+        setSelectedFile(null);
+        setFileName(""); // Réinitialiser le nom du fichier
+        setUploadError(null); // Nettoyer les erreurs
+        setRefreshArtworks((prev) => !prev); // Forcer le rechargement des artworks après soumission
+      })
+      .catch((err) => {
+        setUploadError("File upload failed. Please try again.");
+      });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setFileName(file.name); // Mettre à jour le nom du fichier
+    }
+    setUploadError(null); // Réinitialiser les erreurs lors de la sélection d'un nouveau fichier
+  };
+
+  const handleClick = () => {
+    document.getElementById("fileInput").click(); // Simuler le clic sur l'input caché
+  };
+
+  const displayFileName =
+    fileName.length > 10 ? `${fileName.substring(0, 10)}...` : fileName;
+
+  const getUserProfilePicture = (userId) => {
+    const user = usersData.find((user) => String(user._id) === String(userId));
+    return user ? user.picture : "/img/default-profile.png";
   };
 
   const getDaysRemaining = (endDate) => {
     const now = new Date();
     const end = new Date(endDate);
     const timeDiff = end - now;
-    const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    return daysRemaining;
+    return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
   };
 
   const getRemainingDaysClass = (days) => {
-    if (days > 10) {
-      return "contest-days-green";
-    } else if (days <= 10 && days >= 3) {
-      return "contest-days-orange";
-    } else if (days < 3) {
-      return "contest-days-red";
-    }
+    if (days > 10) return "contest-days-green";
+    if (days <= 10 && days >= 3) return "contest-days-orange";
+    return "contest-days-red";
   };
 
   const toggleDescription = (contestId) => {
@@ -128,6 +158,60 @@ const ContestDisplay = ({ selectedContestType }) => {
     }));
   };
 
+  const handleLikersCountChange = (artworkId, newCount) => {
+    setLikersCountByArtwork((prev) => ({
+      ...prev,
+      [artworkId]: newCount,
+    }));
+  };
+
+  const handleShowMoreArtworks = (contestId) => {
+    const totalArtworks = artworksContest[contestId]?.length || 0; // Récupérer le nombre total d'artworks
+    setVisibleArtworks((prevState) => ({
+      ...prevState,
+      [contestId]: totalArtworks, // Afficher tout
+    }));
+  };
+
+  const handleShowLessArtworks = (contestId) => {
+    setVisibleArtworks((prevState) => ({
+      ...prevState,
+      [contestId]: 3, // Limiter à 3
+    }));
+  };
+
+  const handleRemoveArtwork = (artworkId, contestId) => {
+    dispatch(deleteContestArtwork(artworkId, contestId))
+      .then(() => {
+        setRefreshArtworks((prev) => !prev); // Forcer le rechargement après suppression
+      })
+      .catch((err) => console.log("Error deleting artwork:", err));
+  };
+
+  const hasUserSubmittedArtwork = (contestId) => {
+    const userArtwork = artworksContest[contestId]?.find(
+      (artwork) => artwork.posterId === userData._id
+    );
+    return userArtwork;
+  };
+
+  const getUserPseudo = (posterId) => {
+    const poster = usersData.find(
+      (user) => String(user._id) === String(posterId)
+    );
+    return poster ? poster.username : "Unknown user";
+  };
+
+  // Filtrer les concours en fonction du type sélectionné
+  const filteredContests = contests
+    .filter((contest) => {
+      if (selectedContestType === "Current Contests")
+        return !contest.isCompleted;
+      if (selectedContestType === "Past Contests") return contest.isCompleted;
+      return true;
+    })
+    .sort((a, b) => new Date(a.endDate) - new Date(b.endDate));
+
   return (
     <div className="contest-display">
       {!isEmpty(filteredContests) ? (
@@ -136,14 +220,12 @@ const ContestDisplay = ({ selectedContestType }) => {
             .slice()
             .sort((a, b) => b.likers.length - a.likers.length);
           const visibleCount = visibleArtworks[contest._id] || 3;
-
           const daysRemaining = getDaysRemaining(contest.endDate);
-
           const descriptionToShow =
             showFullDescription[contest._id] ||
-            contest.description.length <= 100
+            contest.description.length <= 200
               ? contest.description
-              : `${contest.description.slice(0, 100)}...`;
+              : `${contest.description.slice(0, 170)}...`;
 
           return (
             <div key={contest._id} className="contest-card">
@@ -153,7 +235,6 @@ const ContestDisplay = ({ selectedContestType }) => {
                   alt="Creator"
                   className="contest-creator-picture"
                 />
-
                 <h3>
                   {contest.name}
                   {contest.creatorRole === "super-admin" && (
@@ -176,27 +257,36 @@ const ContestDisplay = ({ selectedContestType }) => {
                   )}
                   <br />
                   <div style={{ fontSize: "0.6em" }}>
-                    by {getUserPseudo(contest.createdBy)}{" "}
+                    by {getUserPseudo(contest.createdBy)}
                   </div>
                 </h3>
               </div>
+
               <p
                 className={`contest-dates ${getRemainingDaysClass(
                   daysRemaining
                 )}`}
               >
                 {daysRemaining > 0 ? (
-                  `${daysRemaining} days remaining`
+                  <>
+                    <img
+                      src="/img/icons/pokecrafter-trophy2.svg"
+                      alt="trophy icon"
+                      className="trophy-icon-remaining"
+                    />
+                    {`${daysRemaining} days remaining`}
+                  </>
                 ) : (
                   <strong className="winner-display">
                     Winner: {getUserPseudo(sortedArtworks[0]?.posterId)}
                   </strong>
                 )}
               </p>
+
               <hr />
               <div className="description-contest">
                 <p>{descriptionToShow}</p>
-                {contest.description.length > 100 && (
+                {contest.description.length > 200 && (
                   <button
                     className="viewfulldescription-btn"
                     onClick={() => toggleDescription(contest._id)}
@@ -207,9 +297,16 @@ const ContestDisplay = ({ selectedContestType }) => {
                 <br />
               </div>
 
-              <div className="artwork-grid">
-                {!isEmpty(sortedArtworks) &&
-                  sortedArtworks.slice(0, visibleCount).map((artwork) => (
+              <div className="artwork-container">
+                {isEmpty(sortedArtworks) || sortedArtworks.length === 0 ? (
+                  <p className="no-artworks-message">
+                    Be the first to submit an artwork for the contest{" "}
+                    <strong>{contest.name}</strong>!
+                  </p>
+                ) : null}
+
+                <div className="artwork-grid">
+                  {sortedArtworks.slice(0, visibleCount).map((artwork) => (
                     <div key={artwork._id} className="artwork-thumbnail">
                       <div className="artwork-image-container">
                         <img
@@ -245,6 +342,7 @@ const ContestDisplay = ({ selectedContestType }) => {
                       />
                     </div>
                   ))}
+                </div>
               </div>
 
               <div className="artwork-buttons">
@@ -267,11 +365,72 @@ const ContestDisplay = ({ selectedContestType }) => {
               </div>
               <br />
               <br />
+              <div className="submit-artwork-section">
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept=".jpg,.jpeg"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }} // Masquer l'input par défaut
+                />
+                {hasUserSubmittedArtwork(contest._id) ? (
+                  <>
+                    <button
+                      className="custom-upload-button icon-button"
+                      onClick={() => {
+                        const confirmation = window.confirm(
+                          "Are you sure you want to remove your artwork from this contest? This action cannot be undone."
+                        );
+                        if (confirmation) {
+                          handleRemoveArtwork(
+                            hasUserSubmittedArtwork(contest._id)._id,
+                            contest._id // Passer contestId ici
+                          );
+                        }
+                      }}
+                    >
+                      <img
+                        src="/img/icons/pokecrafter-trash.svg"
+                        alt="Remove Icon"
+                      />{" "}
+                      {/* Icône de suppression */}
+                      Remove Artwork {/* Texte du bouton */}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="custom-upload-button icon-button"
+                      onClick={handleClick}
+                    >
+                      <img
+                        src="/img/icons/pokecrafter-add3.svg"
+                        alt="Add Icon"
+                      />{" "}
+                      {displayFileName || "Participate"}{" "}
+                      {/* Affiche le nom du fichier ou le texte par défaut */}
+                    </button>
+                    {selectedFile && (
+                      <button
+                        className="submit-artwork-button"
+                        onClick={() =>
+                          handleFileSubmit(contest._id, userData._id)
+                        }
+                      >
+                        Submit Your Artwork
+                      </button>
+                    )}
+                  </>
+                )}
+                {uploadError && <p className="upload-error">{uploadError}</p>}
+              </div>
+
+              <br />
             </div>
           );
         })
       ) : (
-        <p>No contests available.</p>
+        <p>Loading contests...</p>
       )}
 
       {fullscreenImage && (

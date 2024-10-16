@@ -1,5 +1,6 @@
 import {
   GET_CONTEST_ARTWORKS,
+  ADD_CONTEST_ARTWORK,
   LIKE_CONTEST_ARTWORK,
   UNLIKE_CONTEST_ARTWORK,
   ADD_COMMENT_CONTEST_ARTWORK,
@@ -18,6 +19,15 @@ export default function artworkContestReducer(state = initialState, action) {
       return {
         ...state,
         [action.payload.contestId]: action.payload.artworks || [],
+      };
+
+    case ADD_CONTEST_ARTWORK:
+      return {
+        ...state,
+        [action.payload.contestId]: [
+          ...(state[action.payload.contestId] || []),
+          action.payload.artwork, // Maintenant, artwork contient seulement les données de l'œuvre
+        ],
       };
 
     case LIKE_CONTEST_ARTWORK:
@@ -61,14 +71,14 @@ export default function artworkContestReducer(state = initialState, action) {
           ) || [],
       };
 
-    case DELETE_CONTEST_ARTWORK:
-      return {
-        ...state,
-        [action.payload.contestId]:
-          state[action.payload.contestId]?.filter(
-            (artwork) => artwork._id !== action.payload.artworkId
+      case DELETE_CONTEST_ARTWORK:
+        return {
+          ...state,
+          [action.payload.contestId]: state[action.payload.contestId]?.filter(
+            (artwork) => artwork._id !== action.payload.artworkId // Filtrer pour retirer l'artwork supprimé
           ) || [],
-      };
+        };
+      
 
     case ADD_COMMENT_CONTEST_ARTWORK:
       return {

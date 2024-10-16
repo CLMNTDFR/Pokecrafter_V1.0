@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { dateParser } from "../Utils";
-import FollowHandler from "../Profil/FollowHandler";
 import LikeButton from "./LikeButton";
 import CardComments from "./CardComments";
 
@@ -11,7 +10,6 @@ const Card = ({ artwork }) => {
   const [likersCount, setLikersCount] = useState(artwork.likers.length);
   const [showComments, setShowComments] = useState(false);
   const usersData = useSelector((state) => state.usersReducer);
-  const userData = useSelector((state) => state.userReducer);
 
   useEffect(() => {
     if (usersData && usersData.length > 0) {
@@ -73,13 +71,11 @@ const Card = ({ artwork }) => {
             <div className="card-header">
               <div className="pseudo">
                 <h4>{poster ? poster.username : "Unknown user"}</h4>
-                {artwork && artwork.posterId !== userData._id && (
-                  <FollowHandler idToFollow={artwork.posterId} type={"card"} />
-                )}
               </div>
               <span className="publication-date">
                 {artwork ? dateParser(artwork.createdAt) : ""}
               </span>
+              <br />
             </div>
 
             <img
@@ -100,7 +96,7 @@ const Card = ({ artwork }) => {
               {artwork?.description.split("\n").map((line, index) => (
                 <span key={index}>
                   {line}
-                  <br />
+                  <br /><br />
                 </span>
               ))}
             </p>

@@ -47,7 +47,8 @@ module.exports.createArtworkContest = async (req, res) => {
         }
 
         // Formater le nom du fichier pour le contest
-        const fileName = "Pokecrafter_contest_" + req.body.contestId + "_" + req.body.posterId + ".jpg";
+        const timestamp = Date.now();
+        const fileName = `Pokecrafter_contest_${req.body.contestId}_${req.body.posterId}_${timestamp}.jpg`;
         const filePath = path.join(__dirname, "../client/public/img/uploads/artwork_contest", fileName);
         console.log('Chemin du fichier:', filePath);
 

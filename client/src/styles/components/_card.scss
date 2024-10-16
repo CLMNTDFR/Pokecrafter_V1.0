@@ -10,7 +10,7 @@
   border-bottom: 2px solid #ababab;
 
   @media screen and (min-width: 930px) {
-    max-width: 200vh;
+    max-width: 140vh;
   }
 
   @media screen and (max-width: 590px) {
@@ -39,6 +39,11 @@
         margin-left: 0px;
         border-radius: 50px;
       }
+
+      @media screen and (min-width: 930px) {
+        transform: translateX(17px);
+        
+      }
     }
     @media screen and (max-width: 590px) {
       position: absolute;
@@ -66,7 +71,7 @@
         font-style: italic;
         font-family: $font-1;
         color: #4c4c4c;
-        transform: translateY(-8px);
+        transform: translate(-0px, 0px);
 
         @media screen and (max-width: 590px) {
           transform: translate(50px, -20px);
@@ -141,14 +146,7 @@
         margin-top: -18px;
       }
     }
-    .follow-text {
-      display: inline-block;
-      margin-left: 0px;
-      font-size: 0.85rem;
-      font-weight: lighter;
-      color: $color-3;
-      transform: translateY(-8px);
-    }
+
     .update-post {
       textarea {
         font-size: 1.3rem;

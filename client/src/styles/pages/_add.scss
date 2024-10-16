@@ -106,3 +106,23 @@
 .send:hover {
   background: $color-4;
 }
+
+.custom-upload-button {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0; /* Couleur de fond */
+  border: 1px solid #ccc; /* Bordure */
+  padding: 10px 15px; /* Espacement */
+  cursor: pointer; /* Curseur pointer */
+  border-radius: 5px; /* Coins arrondis */
+
+  &:hover {
+    background: $color-4 !important;
+  }
+}
+
+.custom-upload-button img {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 5px;
+}

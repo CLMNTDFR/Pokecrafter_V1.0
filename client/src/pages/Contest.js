@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LeftNav from "../components/LeftNav";
 import ContestDisplay from "../components/Contest/ContestDisplay";
 import FilterContest from "../components/FilterContest";
+import NewContestForm from "../components/Contest/NewContestForm"; // Importer le formulaire
 import { useContext } from "react";
 import { UidContext } from "../components/AppContext";
 import { Link } from "react-router-dom";
@@ -9,6 +10,12 @@ import { Link } from "react-router-dom";
 const Contest = () => {
   const uid = useContext(UidContext);
   const [selectedContestType, setSelectedContestType] = useState("Current Contests");
+  const [showForm, setShowForm] = useState(false); // État pour afficher le formulaire
+  const [formSuccess, setFormSuccess] = useState(false); // État pour gérer le succès du formulaire
+
+  const toggleForm = () => {
+    setShowForm(!showForm); // Alterner l'affichage du formulaire
+  };
 
   return (
     <div className="home">
@@ -20,7 +27,17 @@ const Contest = () => {
         </div>
         <hr />
         {uid ? (
-          <ContestDisplay selectedContestType={selectedContestType} />
+          <>
+            {formSuccess && (
+              <p className="contest-success-message">Contest created successfully!</p>
+            )} {/* Afficher le message de succès */}
+            <button onClick={toggleForm} className="propose-contest">
+              {showForm ? "Hide Contest Form" : "Propose a contest"}
+            </button>
+            {showForm && <NewContestForm setFormSuccess={setFormSuccess} />} {/* Passer setFormSuccess au formulaire */}
+            <hr />
+            <ContestDisplay selectedContestType={selectedContestType} />
+          </>
         ) : (
           <div className="centered-container">
             <Link to="/profil" className="please-login">

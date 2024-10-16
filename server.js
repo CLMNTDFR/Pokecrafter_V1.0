@@ -30,7 +30,8 @@ const io = socketIo(server, {
 // Configuration de CORS
 app.use(cors({
     origin: 'http://localhost:3000',
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['Authorization', 'Content-Type'],
 }));
 
 app.use(express.json());

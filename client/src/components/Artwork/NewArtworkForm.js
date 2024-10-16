@@ -74,6 +74,13 @@ const NewArtworkForm = () => {
     if (!isEmpty(userData)) setIsLoading(false);
   }, [userData]);
 
+  // Fonction pour déclencher le clic sur l'input file
+  const handleClick = () => {
+    fileInputRef.current.click(); // Clic sur l'input caché
+  };
+
+  const displayFileName = file ? file.name.substring(0, 10) + (file.name.length > 10 ? '...' : '') : '';
+
   return (
     <div className="post-container">
       {isLoading ? (
@@ -107,7 +114,8 @@ const NewArtworkForm = () => {
             ></textarea>
             <br />
             <br />
-            <div className="label-img-select">Choose an image</div>
+            <br />
+            <div className="label-img-select">
             <input
               type="file"
               id="file"
@@ -116,9 +124,14 @@ const NewArtworkForm = () => {
               accept=".jpg, .jpeg"
               onChange={handlePicture}
               ref={fileInputRef}
+              style={{ display: "none" }} // Masquer l'input par défaut
             />
+            <button className="custom-upload-button" onClick={handleClick}>
+              <img src="/img/icons/pokecrafter-add3.svg" alt="Add Icon" style={{ width: '15px', height: '15px', marginRight: '5px' }} />
+              {displayFileName || "Upload an artwork"} {/* Affiche le nom du fichier ou le texte par défaut */}
+            </button>
             {error && <div className="error-message">{error}</div>}
-            <br />
+            </div>
             <br />
             <div className="label-img-select">
               Select a category:
