@@ -7,6 +7,7 @@ import Contest from '../../pages/Contest';
 import Add from '../../pages/Add';
 import NavBar from '../NavBar';
 import Artistepage from '../../pages/Artistepage';
+import Messenger from '../../pages/Messenger';
 
 const Index = () => {
     return (
@@ -19,6 +20,7 @@ const Index = () => {
                 <Route path="/contests" element={<Contest />} />
                 <Route path="/artist" element={<Artistepage />} />
                 <Route path="/add" element={<Add />} />
+                <Route path="/messages" element={<Messenger />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </Router>
