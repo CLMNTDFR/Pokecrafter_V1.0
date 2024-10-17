@@ -572,3 +572,29 @@ h3 {
 .propose-contest:hover {
   background-color: rgba(0, 0, 0, 0.1); /* Couleur de fond légère au survol */
 }
+
+.delete-contest-button {
+  background: transparent; /* Fond transparent */
+  border: none; /* Pas de bordure */
+  cursor: pointer; /* Curseur pointer pour indiquer que c'est cliquable */
+  padding-bottom: 10px; /* Espacement autour du contenu */
+  margin-left: 5px;
+}
+
+.delete-contest-icon {
+  width: 17px; /* Largeur de l'icône */
+  height: 17px; /* Hauteur de l'icône */
+  margin-right: 5px; /* Espacement entre l'icône et le texte */
+  transform: translateY(2px); /* Décalage de l'icône */
+}
+
+.delete-contest-button {
+  font-size: 1em; /* Taille du texte */
+  color: #d9534f; /* Couleur du texte, vous pouvez la changer si nécessaire */
+}
+
+/* Ajoutez un style au survol si désiré */
+.delete-contest-button:hover {
+  opacity: 0.8; /* Réduction de l'opacité au survol */
+  background: transparent; /* Fond transparent */
+}

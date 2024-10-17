@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllContests } from "../../actions/contest.actions";
+import { getAllContests, deleteContest } from "../../actions/contest.actions";
 import {
   getArtworksContest,
   addArtworkContest,
@@ -202,6 +202,12 @@ const ContestDisplay = ({ selectedContestType }) => {
     return poster ? poster.username : "Unknown user";
   };
 
+  const handleDeleteContest = (contestId) => {
+    // Vous pouvez appeler une action Redux ici ou faire une requête API pour supprimer le concours
+    dispatch(deleteContest(contestId)); // Exemple d'utilisation d'une action Redux
+  };
+  
+
   // Filtrer les concours en fonction du type sélectionné
   const filteredContests = contests
     .filter((contest) => {
@@ -212,238 +218,261 @@ const ContestDisplay = ({ selectedContestType }) => {
     })
     .sort((a, b) => new Date(a.endDate) - new Date(b.endDate));
 
-  return (
-    <div className="contest-display">
-      {!isEmpty(filteredContests) ? (
-        filteredContests.slice(0, visibleContests).map((contest) => {
-          const sortedArtworks = (artworksContest[contest._id] || [])
-            .slice()
-            .sort((a, b) => b.likers.length - a.likers.length);
-          const visibleCount = visibleArtworks[contest._id] || 3;
-          const daysRemaining = getDaysRemaining(contest.endDate);
-          const descriptionToShow =
-            showFullDescription[contest._id] ||
-            contest.description.length <= 200
-              ? contest.description
-              : `${contest.description.slice(0, 170)}...`;
-
-          return (
-            <div key={contest._id} className="contest-card">
-              <div className="contest-header">
-                <img
-                  src={getUserProfilePicture(contest.createdBy)}
-                  alt="Creator"
-                  className="contest-creator-picture"
-                />
-                <h3>
-                  {contest.name}
-                  {contest.creatorRole === "super-admin" && (
-                    <div
-                      className="official-contest-icon-container"
-                      onMouseEnter={() => setHoveredContest(contest._id)}
-                      onMouseLeave={() => setHoveredContest(null)}
-                    >
-                      <img
-                        src="/img/icons/pokecrafter-official-contest.svg"
-                        alt="Official Contest"
-                        className="official-contest-icon"
-                      />
-                      {hoveredContest === contest._id && (
-                        <div className="popup-description-official">
-                          Official contest! Participate to win a black trophy.
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  <br />
-                  <div style={{ fontSize: "0.6em" }}>
-                    by {getUserPseudo(contest.createdBy)}
-                  </div>
-                </h3>
-              </div>
-
-              <p
-                className={`contest-dates ${getRemainingDaysClass(
-                  daysRemaining
-                )}`}
-              >
-                {daysRemaining > 0 ? (
-                  <>
-                    <img
-                      src="/img/icons/pokecrafter-trophy2.svg"
-                      alt="trophy icon"
-                      className="trophy-icon-remaining"
-                    />
-                    {`${daysRemaining} days remaining`}
-                  </>
-                ) : (
-                  <strong className="winner-display">
-                    Winner: {getUserPseudo(sortedArtworks[0]?.posterId)}
-                  </strong>
-                )}
-              </p>
-
-              <hr />
-              <div className="description-contest">
-                <p>{descriptionToShow}</p>
-                {contest.description.length > 200 && (
-                  <button
-                    className="viewfulldescription-btn"
-                    onClick={() => toggleDescription(contest._id)}
-                  >
-                    {showFullDescription[contest._id] ? "See Less" : "See More"}
-                  </button>
-                )}
-                <br />
-              </div>
-
-              <div className="artwork-container">
-                {isEmpty(sortedArtworks) || sortedArtworks.length === 0 ? (
-                  <p className="no-artworks-message">
-                    Be the first to submit an artwork for the contest{" "}
-                    <strong>{contest.name}</strong>!
-                  </p>
-                ) : null}
-
-                <div className="artwork-grid">
-                  {sortedArtworks.slice(0, visibleCount).map((artwork) => (
-                    <div key={artwork._id} className="artwork-thumbnail">
-                      <div className="artwork-image-container">
+    return (
+      <div className="contest-display">
+        {!isEmpty(filteredContests) ? (
+          filteredContests.slice(0, visibleContests).map((contest) => {
+            const sortedArtworks = (artworksContest[contest._id] || [])
+              .slice()
+              .sort((a, b) => b.likers.length - a.likers.length);
+            const visibleCount = visibleArtworks[contest._id] || 3;
+            const daysRemaining = getDaysRemaining(contest.endDate);
+            const descriptionToShow =
+              showFullDescription[contest._id] ||
+              contest.description.length <= 200
+                ? contest.description
+                : `${contest.description.slice(0, 170)}...`;
+    
+            return (
+              <div key={contest._id} className="contest-card">
+                <div className="contest-header">
+                  <img
+                    src={getUserProfilePicture(contest.createdBy)}
+                    alt="Creator"
+                    className="contest-creator-picture"
+                  />
+                  <h3>
+                    {contest.name}
+                    {contest.creatorRole === "super-admin" && (
+                      <div
+                        className="official-contest-icon-container"
+                        onMouseEnter={() => setHoveredContest(contest._id)}
+                        onMouseLeave={() => setHoveredContest(null)}
+                      >
                         <img
-                          src={artwork.picture}
-                          alt={artwork.title}
-                          onClick={() => handleImageClick(artwork.picture)}
-                          className="artwork-image"
+                          src="/img/icons/pokecrafter-official-contest.svg"
+                          alt="Official Contest"
+                          className="official-contest-icon"
                         />
-                        <img
-                          src={getUserProfilePicture(artwork.posterId)}
-                          alt="Artwork Author"
-                          className="artwork-user-picture-overlay"
-                          onMouseEnter={() =>
-                            setHoveredArtworkUser(artwork.posterId)
-                          }
-                          onMouseLeave={() => setHoveredArtworkUser(null)}
-                        />
-                        {hoveredArtworkUser === artwork.posterId && (
-                          <div className="artwork-author-popup">
-                            {getUserPseudo(artwork.posterId)}
+                        {hoveredContest === contest._id && (
+                          <div className="popup-description-official">
+                            Official contest! Participate to win a black trophy.
                           </div>
                         )}
                       </div>
-                      <LikeArtworkContestButton
-                        artwork={artwork}
-                        likersCount={
-                          likersCountByArtwork[artwork._id] ||
-                          artwork.likers.length
-                        }
-                        setLikersCount={(newCount) =>
-                          handleLikersCountChange(artwork._id, newCount)
-                        }
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="artwork-buttons">
-                {visibleCount < sortedArtworks.length && (
-                  <button
-                    className="see-more-btn"
-                    onClick={() => handleShowMoreArtworks(contest._id)}
-                  >
-                    Load more artworks
-                  </button>
-                )}
-                {visibleCount > 5 && (
-                  <button
-                    className="see-less-btn"
-                    onClick={() => handleShowLessArtworks(contest._id)}
-                  >
-                    Hide
-                  </button>
-                )}
-              </div>
-              <br />
-              <br />
-              <div className="submit-artwork-section">
-                <input
-                  id="fileInput"
-                  type="file"
-                  accept=".jpg,.jpeg"
-                  onChange={handleFileChange}
-                  style={{ display: "none" }} // Masquer l'input par défaut
-                />
-                {hasUserSubmittedArtwork(contest._id) ? (
-                  <>
-                    <button
-                      className="custom-upload-button icon-button"
-                      onClick={() => {
-                        const confirmation = window.confirm(
-                          "Are you sure you want to remove your artwork from this contest? This action cannot be undone."
-                        );
-                        if (confirmation) {
-                          handleRemoveArtwork(
-                            hasUserSubmittedArtwork(contest._id)._id,
-                            contest._id // Passer contestId ici
-                          );
-                        }
-                      }}
-                    >
-                      <img
-                        src="/img/icons/pokecrafter-trash.svg"
-                        alt="Remove Icon"
-                      />{" "}
-                      {/* Icône de suppression */}
-                      Remove Artwork {/* Texte du bouton */}
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      className="custom-upload-button icon-button"
-                      onClick={handleClick}
-                    >
-                      <img
-                        src="/img/icons/pokecrafter-add3.svg"
-                        alt="Add Icon"
-                      />{" "}
-                      {displayFileName || "Participate"}{" "}
-                      {/* Affiche le nom du fichier ou le texte par défaut */}
-                    </button>
-                    {selectedFile && (
-                      <button
-                        className="submit-artwork-button"
-                        onClick={() =>
-                          handleFileSubmit(contest._id, userData._id)
-                        }
-                      >
-                        Submit Your Artwork
-                      </button>
                     )}
-                  </>
-                )}
-                {uploadError && <p className="upload-error">{uploadError}</p>}
+                    <br />
+                    <div style={{ fontSize: "0.6em" }}>
+                      by {getUserPseudo(contest.createdBy)}
+                      {/* Vérifier si l'utilisateur est le créateur du concours */}
+                      {userData._id === contest.createdBy && (
+                        <button
+                        className="delete-contest-button"
+                        onClick={() => {
+                          const confirmation = window.confirm(
+                            "Are you sure you want to delete this contest? This action cannot be undone."
+                          );
+                          if (confirmation) {
+                            // Appeler la fonction pour supprimer le concours ici
+                            handleDeleteContest(contest._id);
+                          }
+                        }}
+                      >
+                        <img
+                          src="/img/icons/pokecrafter-trash.svg"
+                          alt="Delete Icon"
+                          className="delete-contest-icon"
+                        />
+                        Delete contest
+                      </button>
+                      
+                      )}
+                    </div>
+                  </h3>
+                </div>
+    
+                <p
+                  className={`contest-dates ${getRemainingDaysClass(
+                    daysRemaining
+                  )}`}
+                >
+                  {daysRemaining > 0 ? (
+                    <>
+                      <img
+                        src="/img/icons/pokecrafter-trophy2.svg"
+                        alt="trophy icon"
+                        className="trophy-icon-remaining"
+                      />
+                      {`${daysRemaining} days remaining`}
+                    </>
+                  ) : (
+                    <strong className="winner-display">
+                      Winner: {getUserPseudo(sortedArtworks[0]?.posterId)}
+                    </strong>
+                  )}
+                </p>
+    
+                <hr />
+                <div className="description-contest">
+                  <p>{descriptionToShow}</p>
+                  {contest.description.length > 200 && (
+                    <button
+                      className="viewfulldescription-btn"
+                      onClick={() => toggleDescription(contest._id)}
+                    >
+                      {showFullDescription[contest._id] ? "See Less" : "See More"}
+                    </button>
+                  )}
+                  <br />
+                </div>
+    
+                <div className="artwork-container">
+                  {isEmpty(sortedArtworks) || sortedArtworks.length === 0 ? (
+                    <p className="no-artworks-message">
+                      Be the first to submit an artwork for the contest{" "}
+                      <strong>{contest.name}</strong>!
+                    </p>
+                  ) : null}
+    
+                  <div className="artwork-grid">
+                    {sortedArtworks.slice(0, visibleCount).map((artwork) => (
+                      <div key={artwork._id} className="artwork-thumbnail">
+                        <div className="artwork-image-container">
+                          <img
+                            src={artwork.picture}
+                            alt={artwork.title}
+                            onClick={() => handleImageClick(artwork.picture)}
+                            className="artwork-image"
+                          />
+                          <img
+                            src={getUserProfilePicture(artwork.posterId)}
+                            alt="Artwork Author"
+                            className="artwork-user-picture-overlay"
+                            onMouseEnter={() =>
+                              setHoveredArtworkUser(artwork.posterId)
+                            }
+                            onMouseLeave={() => setHoveredArtworkUser(null)}
+                          />
+                          {hoveredArtworkUser === artwork.posterId && (
+                            <div className="artwork-author-popup">
+                              {getUserPseudo(artwork.posterId)}
+                            </div>
+                          )}
+                        </div>
+                        <LikeArtworkContestButton
+                          artwork={artwork}
+                          likersCount={
+                            likersCountByArtwork[artwork._id] ||
+                            artwork.likers.length
+                          }
+                          setLikersCount={(newCount) =>
+                            handleLikersCountChange(artwork._id, newCount)
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+    
+                <div className="artwork-buttons">
+                  {visibleCount < sortedArtworks.length && (
+                    <button
+                      className="see-more-btn"
+                      onClick={() => handleShowMoreArtworks(contest._id)}
+                    >
+                      Load more artworks
+                    </button>
+                  )}
+                  {visibleCount > 5 && (
+                    <button
+                      className="see-less-btn"
+                      onClick={() => handleShowLessArtworks(contest._id)}
+                    >
+                      Hide
+                    </button>
+                  )}
+                </div>
+                <br />
+                <br />
+                <div className="submit-artwork-section">
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept=".jpg,.jpeg"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }} // Masquer l'input par défaut
+                  />
+                  {hasUserSubmittedArtwork(contest._id) ? (
+                    <>
+                      <button
+                        className="custom-upload-button icon-button"
+                        onClick={() => {
+                          const confirmation = window.confirm(
+                            "Are you sure you want to remove your artwork from this contest? This action cannot be undone."
+                          );
+                          if (confirmation) {
+                            handleRemoveArtwork(
+                              hasUserSubmittedArtwork(contest._id)._id,
+                              contest._id // Passer contestId ici
+                            );
+                          }
+                        }}
+                      >
+                        <img
+                          src="/img/icons/pokecrafter-trash.svg"
+                          alt="Remove Icon"
+                        />{" "}
+                        {/* Icône de suppression */}
+                        Remove Artwork {/* Texte du bouton */}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        className="custom-upload-button icon-button"
+                        onClick={handleClick}
+                      >
+                        <img
+                          src="/img/icons/pokecrafter-add3.svg"
+                          alt="Add Icon"
+                        />{" "}
+                        {displayFileName || "Participate"}{" "}
+                        {/* Affiche le nom du fichier ou le texte par défaut */}
+                      </button>
+                      {selectedFile && (
+                        <button
+                          className="submit-artwork-button"
+                          onClick={() =>
+                            handleFileSubmit(contest._id, userData._id)
+                          }
+                        >
+                          Submit Your Artwork
+                        </button>
+                      )}
+                    </>
+                  )}
+                  {uploadError && <p className="upload-error">{uploadError}</p>}
+                </div>
+    
+                <br />
               </div>
-
-              <br />
-            </div>
-          );
-        })
-      ) : (
-        <p>Loading contests...</p>
-      )}
-
-      {fullscreenImage && (
-        <div className="fullscreen-modal" onClick={handleCloseFullscreen}>
-          <img
-            src={fullscreenImage}
-            alt="Fullscreen artwork"
-            className="fullscreen-image"
-          />
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default ContestDisplay;
+            );
+          })
+        ) : (
+          <p>Loading contests...</p>
+        )}
+    
+        {fullscreenImage && (
+          <div className="fullscreen-modal" onClick={handleCloseFullscreen}>
+            <img
+              src={fullscreenImage}
+              alt="Fullscreen artwork"
+              className="fullscreen-image"
+            />
+          </div>
+        )}
+      </div>
+    );
+  };  
+  
+  export default ContestDisplay;
