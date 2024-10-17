@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
+const Artwork = require("../models/artwork.model");
+const ArtworkContest = require("../models/artwork.contest.model");
+const Contest = require("../models/contest.model");
+const Message = require("../models/message.model");
+const Conversation = require("../models/conversation.model");
+
 
 const userSchema = new mongoose.Schema(
     {
@@ -86,6 +92,7 @@ userSchema.statics.login = async function(email, password_hash) {
     }
     throw Error('wrong email')
   };
+
 
 const UserModel = mongoose.model('user', userSchema);
 
