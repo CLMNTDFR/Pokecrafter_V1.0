@@ -4,7 +4,7 @@ const ArtworkContest = require('../models/artwork.contest.model');
 const ObjectID = require("mongoose").Types.ObjectId;
 const UserModel = require('../models/user.model'); // Assurez-vous que le chemin est correct
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('1 0 * * *', async () => {
     console.log('Vérification des contests en cours...');
     try {
         const currentDate = new Date();

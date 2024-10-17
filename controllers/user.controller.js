@@ -2,6 +2,11 @@ const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 const authController = require('../controllers/auth.controller');
 const authMiddleware = require('../middleware/auth.middleware'); // Assurez-vous que le chemin est correct
+const ArtworkModel = require("../models/artwork.model"); // Si tu as un modèle d'artwork
+const ArtworkContestModel = require("../models/artwork.contest.model"); // Si tu as un modèle séparé pour les contests d'artwork
+const ContestModel = require("../models/contest.model"); // Pour les contests créés par l'utilisateur
+
+
 
 
 
@@ -52,22 +57,55 @@ module.exports.updateUser = async (req, res) => {
     }
   };
 
-
-module.exports.deleteUser = async (req, res) => {
-    if (!ObjectID.isValid(req.params.id)) {
-      return res.status(400).send("ID unknown : " + req.params.id);
-    }
-  
+  module.exports.deleteUser = async (req, res) => {
     try {
-      const deletedUser = await UserModel.findByIdAndDelete(req.params.id);
+      const userId = req.params.id;
   
-      if (!deletedUser) {
-        return res.status(404).json({ message: "User not found" });
+      // Vérifier si l'utilisateur existe
+      const user = await UserModel.findById(userId);
+      if (!user) {
+        return res.status(404).send('User not found');
       }
   
-      res.status(200).json({ message: "Successfully deleted." });
+      // 1. Supprimer l'utilisateur
+      await UserModel.findByIdAndDelete(userId);
+  
+      // 2. Supprimer tous les artworks créés par cet utilisateur
+      await ArtworkModel.deleteMany({ posterId: userId });
+      await ArtworkContestModel.deleteMany({ posterId: userId });
+  
+      // 3. Supprimer les commentaires postés par l'utilisateur dans tous les artworks
+      await ArtworkModel.updateMany(
+        {},
+        { $pull: { comments: { commenterId: userId } } }
+      );
+      await ArtworkContestModel.updateMany(
+        {},
+        { $pull: { comments: { commenterId: userId } } }
+      );
+  
+      // 4. Supprimer les likes faits par l'utilisateur dans tous les artworks
+      await ArtworkModel.updateMany(
+        {},
+        { $pull: { likers: userId } }
+      );
+      await ArtworkContestModel.updateMany(
+        {},
+        { $pull: { likers: userId } }
+      );
+  
+      // 5. Supprimer cet utilisateur des listes de followers et following des autres utilisateurs
+      await UserModel.updateMany(
+        {},
+        { $pull: { followers: userId, following: userId } }
+      );
+  
+      // Réponse de succès
+      res.status(200).send({ message: "User and all related data deleted successfully." });
+  
     } catch (err) {
-      return res.status(500).json({ message: err.message });
+      console.error(err);
+      return res.status(500).send('Internal server error');
     }
   };
 
@@ -122,4 +160,3 @@ module.exports.unfollow = async (req, res) => {
       return res.status(500).json({ message: err.message });
     }
   };
-

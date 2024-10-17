@@ -22,3 +22,5 @@ router.post("/upload", uploadController.uploadProfil);
 
 
 module.exports = router;
+
+module.exports = router;
