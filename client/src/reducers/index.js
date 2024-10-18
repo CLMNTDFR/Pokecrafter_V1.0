@@ -5,6 +5,7 @@ import artworkReducer from './artwork.reducer';
 import errorReducer from './error.reducer';
 import contestReducer from './contest.reducer';
 import artworkContestReducer from './artwork.contest.reducer';
+import conversationReducer from './conversation.reducer';
 
 export default combineReducers({
     userReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
     errorReducer,
     contestReducer,
     artworkContestReducer,
+    conversationReducer,
 });

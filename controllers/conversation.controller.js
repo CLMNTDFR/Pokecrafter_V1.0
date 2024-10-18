@@ -48,3 +48,24 @@ exports.getConversationMessages = async (req, res) => {
         return res.status(500).json({ error: 'Erreur lors de la récupération des messages.' });
     }
 };
+
+// Récupérer les conversations de l'utilisateur
+exports.getUserConversations = async (req, res) => {
+    const userId = req.params.userId;
+    console.log("Fetching conversations for user ID:", userId); // Ajoute ceci pour voir si l'ID est bien reçu
+
+    try {
+        const conversations = await Conversation.find({
+            participants: { $in: [userId] }
+        });
+
+        if (!conversations || conversations.length === 0) {
+            return res.status(404).json({ error: 'No conversations found' });
+        }
+
+        return res.status(200).json(conversations);
+    } catch (error) {
+        console.error('Error fetching conversations:', error);
+        return res.status(500).json({ error: 'Error fetching conversations' });
+    }
+};
