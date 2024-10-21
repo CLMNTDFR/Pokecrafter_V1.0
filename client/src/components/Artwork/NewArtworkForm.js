@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addArtwork, getArtworks } from "../../actions/artwork.actions";
 
-const MAX_FILE_SIZE = 500000;
+const MAX_FILE_SIZE = 500000; // Maximum file size of 500 KB
 
 const NewArtworkForm = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +18,7 @@ const NewArtworkForm = () => {
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
+  // Generate a title based on the current date and user info
   const generateTitle = () => {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, "0");
@@ -27,6 +28,7 @@ const NewArtworkForm = () => {
     return `${userData.username}-${category}-${formattedDate}`;
   };
 
+  // Handle artwork submission
   const handlePost = async () => {
     if (category && description && artworkPicture) {
       const data = new FormData();
@@ -46,6 +48,7 @@ const NewArtworkForm = () => {
     }
   };
 
+  // Handle picture selection
   const handlePicture = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -61,6 +64,7 @@ const NewArtworkForm = () => {
     }
   };
 
+  // Reset the form fields
   const cancelPost = () => {
     setCategory("AI");
     setDescription("");
@@ -70,13 +74,14 @@ const NewArtworkForm = () => {
     setError("");
   };
 
+   // Set loading state based on user data
   useEffect(() => {
     if (!isEmpty(userData)) setIsLoading(false);
   }, [userData]);
 
-  // Fonction pour déclencher le clic sur l'input file
+  // Trigger click on hidden file input
   const handleClick = () => {
-    fileInputRef.current.click(); // Clic sur l'input caché
+    fileInputRef.current.click();
   };
 
   const displayFileName = file ? file.name.substring(0, 10) + (file.name.length > 10 ? '...' : '') : '';
@@ -116,21 +121,21 @@ const NewArtworkForm = () => {
             <br />
             <br />
             <div className="label-img-select">
-            <input
-              type="file"
-              id="file"
-              name="file"
-              className="file-input-custom"
-              accept=".jpg, .jpeg"
-              onChange={handlePicture}
-              ref={fileInputRef}
-              style={{ display: "none" }} // Masquer l'input par défaut
-            />
-            <button className="custom-upload-button" onClick={handleClick}>
-              <img src="/img/icons/pokecrafter-add3.svg" alt="Add Icon" style={{ width: '15px', height: '15px', marginRight: '5px' }} />
-              {displayFileName || "Upload an artwork"} {/* Affiche le nom du fichier ou le texte par défaut */}
-            </button>
-            {error && <div className="error-message">{error}</div>}
+              <input
+                type="file"
+                id="file"
+                name="file"
+                className="file-input-custom"
+                accept=".jpg, .jpeg"
+                onChange={handlePicture}
+                ref={fileInputRef}
+                style={{ display: "none" }}
+              />
+              <button className="custom-upload-button" onClick={handleClick}>
+                <img src="/img/icons/pokecrafter-add3.svg" alt="Add Icon" style={{ width: '15px', height: '15px', marginRight: '5px' }} />
+                {displayFileName || "Upload an artwork"}
+              </button>
+              {error && <div className="error-message">{error}</div>}
             </div>
             <br />
             <div className="label-img-select">

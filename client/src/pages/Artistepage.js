@@ -2,13 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../actions/users.actions";
 import { getAllArtworks } from "../actions/artwork.actions";
-import { createConversation } from "../actions/conversation.actions"; // Import de l'action
+import { createConversation } from "../actions/conversation.actions"; 
 import { isEmpty } from "../components/Utils";
 import LeftNav from "../components/LeftNav";
 import Trophy from "../components/Profil/Trophy";
 import FollowHandler from "../components/Profil/FollowHandler";
 import { UidContext } from "../components/AppContext";
-import { Link, useNavigate } from "react-router-dom"; // Importer useHistory pour la redirection
+import { Link, useNavigate } from "react-router-dom"; 
 
 const ArtistePage = () => {
   const [loadUsers, setLoadUsers] = useState(true);
@@ -22,7 +22,7 @@ const ArtistePage = () => {
   const uid = useContext(UidContext);
   const navigate = useNavigate();
 
-
+  // Load users and artworks when the component mounts
   useEffect(() => {
     if (loadUsers) {
       dispatch(getUsers());
@@ -31,10 +31,11 @@ const ArtistePage = () => {
     }
   }, [loadUsers, dispatch]);
 
+  // Filter users based on search term and logged-in user
   const filteredUsers = Array.isArray(users)
     ? users.filter(
         (user) =>
-          user._id !== uid &&
+          user._id !== uid && 
           user.username.toLowerCase().startsWith(searchTerm.toLowerCase())
       )
     : [];
@@ -45,6 +46,7 @@ const ArtistePage = () => {
     );
   };
 
+  // Retrieve the last 3 artworks for a specific user
   const getLastArtworks = (userId) => {
     return artworks
       .filter((artwork) => artwork.posterId === userId)
@@ -61,17 +63,15 @@ const ArtistePage = () => {
     setFullScreenImage(null);
   };
 
-  // Fonction pour créer une conversation et rediriger
+  // Create a conversation and navigate to messages
   const handleMessageClick = async (user) => {
     if (uid && user._id) {
-        const conversation = await dispatch(createConversation(uid, user._id));
-        if (conversation && conversation._id) {
-            // Utilisez `navigate` pour rediriger
-            navigate(`/messages`);
-        }
+      const conversation = await dispatch(createConversation(uid, user._id));
+      if (conversation && conversation._id) {
+        navigate(`/messages`);
+      }
     }
-};
-
+  };
 
   return (
     <div className="home">
@@ -190,7 +190,7 @@ const ArtistePage = () => {
                           className="message-button"
                           onClick={() => handleMessageClick(user)}
                         >
-                          Message
+                          Add to contact list
                         </button>
                         <br />
                         <br />

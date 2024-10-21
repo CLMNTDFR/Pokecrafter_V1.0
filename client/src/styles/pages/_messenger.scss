@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 100%; // Par défaut, prendre toute la largeur sur les écrans mobiles et tablettes
+  width: 100%;
 
   @media (min-width: 930px) {
-    width: 50%; // Réduire la largeur à 50% sur les écrans de bureau
-    margin: 0 auto; // Centrer horizontalement
+    width: 50%;
+    margin: 0 auto;
   }
 }
 
@@ -30,13 +30,12 @@
 }
 
 .conversation-item.unread .conversation-info h4 {
-  font-weight: bold; /* Rendre le texte en gras pour les messages non lus */
+  font-weight: bold;
 }
 
 .conversation-item:hover {
   background-color: #f5f5f5;
 }
-
 
 .profile-pic {
   width: 50px;
@@ -44,6 +43,7 @@
   border-radius: 50%;
   margin-right: 20px;
   margin-bottom: 10px;
+  object-fit: cover;
 }
 
 .conversation-info {
@@ -70,7 +70,7 @@
 }
 
 .messages-container::-webkit-scrollbar {
-  width: 8px; /* Adjust width as needed */
+  width: 8px;
 }
 
 .messages-container::-webkit-scrollbar-track {
@@ -78,12 +78,12 @@
 }
 
 .messages-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* Gray color */
+  background-color: #888;
   border-radius: 5px;
 }
 
 .messages-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Darker on hover */
+  background-color: #555;
 }
 
 .message {
@@ -94,7 +94,7 @@
 
 .message-sender {
   font-size: 0.8em;
-  color: #333; /* Dark gray */
+  color: #333;
   margin-bottom: 3px;
 }
 
@@ -107,31 +107,26 @@
 }
 
 .message.sent {
-  background: linear-gradient(
-    to bottom right, 
-    #c6c6c6, /* Plus foncé en haut à gauche */
-    #d1d1d1 /* Plus clair en bas à droite */
-  );
+  background: linear-gradient(to bottom right, #c6c6c6, #d1d1d1);
   text-align: right;
   padding: 10px;
   margin: 5px 0;
   border-radius: 10px;
-  color: #333; /* Ajuster la couleur du texte si nécessaire */
+  color: #333;
+  border: #a6a6a6 solid 1px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .message.received {
-  background: linear-gradient(
-    to bottom left, 
-    #e0e0e0, /* Plus foncé en haut à droite */
-    #f9f9f9 /* Plus clair en bas à gauche */
-  );
+  background: linear-gradient(to bottom left, #e0e0e0, #f9f9f9);
   text-align: left;
   padding: 10px;
   margin: 5px 0;
   border-radius: 10px;
-  color: #333; /* Ajuster la couleur du texte si nécessaire */
+  color: #333;
+  border: #a6a6a6 solid 1px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
-
 
 .message-form {
   display: flex;
@@ -169,7 +164,7 @@
 }
 
 .messenger-search-bar {
-  width: 100%; /* Prendre toute la largeur de son conteneur */
+  width: 100%;
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
@@ -181,6 +176,6 @@
 
 @media (min-width: 930px) {
   .messenger-search-container {
-    width: 100%; /* S'assurer que le conteneur prend 100% de largeur */
+    width: 100%;
   }
 }

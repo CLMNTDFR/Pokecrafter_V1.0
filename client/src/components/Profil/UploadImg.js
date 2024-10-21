@@ -4,10 +4,11 @@ import { uploadPicture } from "../../actions/user.actions";
 
 const UploadImg = () => {
   const [file, setFile] = useState(null);
-  const [displayFileName, setDisplayFileName] = useState("Change profile picture"); // Texte par défaut
+  const [displayFileName, setDisplayFileName] = useState("Change profile picture");
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userReducer);
 
+  // Handles the picture upload
   const handlePicture = (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -18,24 +19,25 @@ const UploadImg = () => {
     dispatch(uploadPicture(data, userData._id));
   };
 
+  // Updates the file state and display filename when a new file is selected
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
-      setDisplayFileName(selectedFile.name); // Mettre à jour le nom du fichier à afficher
+      setDisplayFileName(selectedFile.name);
     }
   };
 
-  // Fonction pour déclencher le clic sur l'input file
+  // Trigger click on hidden file input
   const handleClick = () => {
-    document.getElementById("file").click(); // Clic sur l'input caché
+    document.getElementById("file").click();
   };
 
   return (
     <form 
       onSubmit={handlePicture} 
       className="upload-pic" 
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }} // Centrage
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <br />
       <input
@@ -44,17 +46,17 @@ const UploadImg = () => {
         name="file"
         accept=".jpg, .jpeg, .png"
         onChange={handleFileChange}
-        style={{ display: "none" }} // Masquer l'input par défaut
+        style={{ display: "none" }}
       />
       <button className="custom-upload-button" onClick={handleClick}>
         <img
           src="/img/icons/pokecrafter-add3.svg"
           alt="Add Icon"
-          className="add-icon" // Ajouter une classe CSS pour l'icône
+          className="add-icon"
         />
-        {displayFileName} {/* Affiche le nom du fichier ou le texte par défaut */}
+        {displayFileName}
       </button>
-      <input type="submit" value="Submit" className="submit-button" style={{ transform: "translateY(-40px)" }}/>
+      <input type="submit" value="Submit" className="submit-button" style={{ transform: "translateY(-40px)" }} />
     </form>
   );
 };

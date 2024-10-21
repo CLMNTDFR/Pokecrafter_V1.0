@@ -10,12 +10,14 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
 
+  // Like the artwork
   const like = () => {
     setLiked(true);
     setLikersCount(likersCount + 1);
     dispatch(likeArtwork(artwork._id, uid));
   };
 
+  // Unlike the artwork
   const unlike = () => {
     setLiked(false);
     setLikersCount(likersCount - 1);
@@ -23,6 +25,7 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
   };
 
   useEffect(() => {
+    // Check if the user already liked the artwork
     if (artwork.likers.includes(uid)) setLiked(true);
     else setLiked(false);
   }, [uid, artwork.likers]);
@@ -30,38 +33,38 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
   return (
     <div className="like-container">
       <div className="heart-margin-top">
-      {uid === null && (
-  <Popup
-    trigger={
-      <img
-        src="./img/icons/pokecrafter-heart.svg"
-        alt="like"
-        className="heart-icon"
-      />
-    }
-    position={["bottom center", "bottom right", "bottom left"]}
-    closeOnDocumentClick
-  >
-    <div>Log in to like an artwork!</div>
-  </Popup>
-)}
-{uid && !liked && (
-  <img
-    src="./img/icons/pokecrafter-heart.svg"
-    onClick={like}
-    alt="like"
-    className="heart-icon"
-  />
-)}
-{uid && liked && (
-  <img
-    src="./img/icons/pokecrafter-heart-filled.svg"
-    onClick={unlike}
-    alt="unlike"
-    className="heart-icon"
-  />
-)}
-</div>
+        {uid === null && (
+          <Popup
+            trigger={
+              <img
+                src="./img/icons/pokecrafter-heart.svg"
+                alt="like"
+                className="heart-icon"
+              />
+            }
+            position={["bottom center", "bottom right", "bottom left"]}
+            closeOnDocumentClick
+          >
+            <div>Log in to like an artwork!</div>
+          </Popup>
+        )}
+        {uid && !liked && (
+          <img
+            src="./img/icons/pokecrafter-heart.svg"
+            onClick={like}
+            alt="like"
+            className="heart-icon"
+          />
+        )}
+        {uid && liked && (
+          <img
+            src="./img/icons/pokecrafter-heart-filled.svg"
+            onClick={unlike}
+            alt="unlike"
+            className="heart-icon"
+          />
+        )}
+      </div>
       <span className="like-card-counter">{likersCount}</span>
     </div>
   );

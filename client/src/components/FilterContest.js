@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const FilterContest = ({ setSelectedContestType, setCurrentPage }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Function to handle contest selection (current or past)
   const handleContestTypeSelect = (contestType) => {
     setSelectedContestType(contestType);
     setIsOpen(false);

@@ -8,7 +8,7 @@ export const DELETE_CONTEST = "DELETE_CONTEST";
 export const GET_CONTEST_ERRORS = "GET_CONTEST_ERRORS";
 export const SET_SELECTED_CONTEST_ID = "SET_SELECTED_CONTEST_ID";
 
-// Action pour obtenir un contest spécifique par ID
+// Action to get a specific contest by ID
 export const getContest = (contestId) => {
   return (dispatch) => {
     return axios
@@ -20,25 +20,24 @@ export const getContest = (contestId) => {
   };
 };
 
-// Action pour obtenir tous les contests
+// Action to get all contests
 export const getAllContests = () => {
   return (dispatch) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/contests/`)
       .then((res) => {
-        console.log("API response:", res.data);
         dispatch({ type: GET_ALL_CONTESTS, payload: res.data });
       })
       .catch((err) => console.log(err));
   };
 };
 
-// Action pour ajouter un nouveau contest
+// Action to add a new contest
 export const addContest = (data) => {
   return (dispatch) => {
     return axios
       .post(`${process.env.REACT_APP_API_URL}api/contests/create`, data, {
-        withCredentials: true, // Assurez-vous que les cookies sont envoyés
+        withCredentials: true, // Ensure cookies are sent
       })
       .then((res) => {
         if (res.data.errors) {
@@ -51,9 +50,7 @@ export const addContest = (data) => {
   };
 };
 
-
-
-// Action pour mettre à jour un contest existant
+// Action to update an existing contest
 export const updateContest = (contestId, data) => {
   return (dispatch) => {
     return axios({
@@ -68,7 +65,7 @@ export const updateContest = (contestId, data) => {
   };
 };
 
-// Action pour supprimer un contest
+// Action to delete a contest
 export const deleteContest = (contestId) => {
   return (dispatch) => {
     return axios({
@@ -82,7 +79,7 @@ export const deleteContest = (contestId) => {
   };
 };
 
-// Nouvelle action pour définir l'ID du contest sélectionné
+// New action to set the selected contest ID
 export const setSelectedContestId = (contestId) => ({
   type: SET_SELECTED_CONTEST_ID,
   payload: contestId,

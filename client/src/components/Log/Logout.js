@@ -3,12 +3,14 @@ import axios from "axios";
 import cookie from "js-cookie";
 
 const Logout = () => {
+  // Remove cookie from the browser
   const removeCookie = (key) => {
     if (window !== "undefined") {
       cookie.remove(key, { expires: 1 });
     }
   };
 
+  // Handle user logout
   const logout = async () => {
     await axios({
       method: "get",
@@ -16,7 +18,7 @@ const Logout = () => {
       withCredentials: true,
     })
       .then(() => removeCookie("jwt"))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
     
     window.location = "/";
   };

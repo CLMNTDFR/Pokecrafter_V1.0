@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 import { UidContext } from "./AppContext";
 
 const MessageButton = () => {
-  const uid = useContext(UidContext); // Contexte utilisateur (connecté ou non)
+  const uid = useContext(UidContext);
 
-  // Si l'utilisateur est connecté, on affiche le bouton. Sinon, on retourne null (rien).
+  // If the user is logged in, display the button. Otherwise, return null (nothing).
   if (!uid) return null;
 
   return (

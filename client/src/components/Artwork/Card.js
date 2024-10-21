@@ -11,17 +11,19 @@ const Card = ({ artwork }) => {
   const [showComments, setShowComments] = useState(false);
   const usersData = useSelector((state) => state.usersReducer);
 
+  // Use effect to set loading state based on usersData availability
   useEffect(() => {
     if (usersData && usersData.length > 0) {
       setIsLoading(false);
     }
   }, [usersData]);
 
-  const poster =
-    artwork && artwork.posterId
-      ? usersData.find((user) => String(user._id) === String(artwork.posterId))
-      : null;
+  // Find the poster of the artwork from the usersData
+  const poster = artwork && artwork.posterId
+    ? usersData.find((user) => String(user._id) === String(artwork.posterId))
+    : null;
 
+  // Handler to toggle full screen image
   const handleImageClick = () => {
     setIsImageFullScreen(true);
   };
@@ -30,6 +32,7 @@ const Card = ({ artwork }) => {
     setIsImageFullScreen(false);
   };
 
+  // Handler for sharing artwork link
   const handleShareClick = async () => {
     try {
       const shareUrl = new URL(artwork.picture, window.location.origin).href;
@@ -42,29 +45,22 @@ const Card = ({ artwork }) => {
         toast.classList.remove("show");
       }, 3000);
     } catch (err) {
-      console.error("Failed to copy: ", err);
+      console.error("Failed to copy the share URL:", err);
     }
   };
 
   return (
     <li className="card-container" key={artwork?._id}>
       {isLoading ? (
-        <i className="fas fa-spinner fa-spin"></i>
+        <i className="fas fa-spinner fa-spin"></i> // Loading spinner
       ) : (
         <>
           <div className="card-left">
             <img
-              src={
-                poster && poster.picture
-                  ? poster.picture
-                  : process.env.PUBLIC_URL +
-                    "/img/uploads/profil/random-user.png"
-              }
-              alt={
-                poster
-                  ? `Profil picture of ${poster.username}`
-                  : "Default user picture"
-              }
+              src={poster && poster.picture
+                ? poster.picture
+                : `${process.env.PUBLIC_URL}/img/uploads/profil/random-user.png`}
+              alt={poster ? `Profile picture of ${poster.username}` : "Default user picture"}
             />
           </div>
           <div className="card-right">
@@ -79,15 +75,10 @@ const Card = ({ artwork }) => {
             </div>
 
             <img
-              src={
-                artwork?.picture
-                  ? artwork.picture
-                  : process.env.PUBLIC_URL +
-                    "/img/uploads/profil/random-artwork.png"
-              }
-              alt={`${poster ? poster.username : "Unknown user"} - ${
-                artwork?.title ? artwork.title : "Artwork"
-              }`}
+              src={artwork?.picture
+                ? artwork.picture
+                : `${process.env.PUBLIC_URL}/img/uploads/profil/random-artwork.png`}
+              alt={`${poster ? poster.username : "Unknown user"} - ${artwork?.title || "Artwork"}`}
               className="card-pic"
               onClick={handleImageClick}
             />
@@ -130,12 +121,9 @@ const Card = ({ artwork }) => {
           {isImageFullScreen && (
             <div className="fullscreen-modal" onClick={handleCloseFullScreen}>
               <img
-                src={
-                  artwork?.picture
-                    ? artwork.picture
-                    : process.env.PUBLIC_URL +
-                      "/img/uploads/profil/random-artwork.png"
-                }
+                src={artwork?.picture
+                  ? artwork.picture
+                  : `${process.env.PUBLIC_URL}/img/uploads/profil/random-artwork.png`}
                 alt="Fullscreen artwork"
                 className="fullscreen-image"
               />

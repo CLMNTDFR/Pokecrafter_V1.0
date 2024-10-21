@@ -13,28 +13,30 @@ const LikeArtworkContestButton = ({ artwork, likersCount, setLikersCount }) => {
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
 
-  const like = () => {
+  // Check if the user has liked the artwork
+  useEffect(() => {
+    setLiked(artwork.likers.includes(uid));
+  }, [uid, artwork.likers]);
+
+  // Handle liking the artwork
+  const handleLike = () => {
     setLiked(true);
     setLikersCount(likersCount + 1);
     dispatch(likeContestArtwork(artwork._id, uid));
   };
 
-  const unlike = () => {
+  // Handle unliking the artwork
+  const handleUnlike = () => {
     setLiked(false);
     setLikersCount(likersCount - 1);
     dispatch(unlikeContestArtwork(artwork._id, uid));
   };
 
-  useEffect(() => {
-    if (artwork.likers.includes(uid)) setLiked(true);
-    else setLiked(false);
-  }, [uid, artwork.likers]);
-
   return (
     <div className="like-container">
       <div className="like-margin-top-contest">
         <div className="like-flex-container">
-          {uid === null && (
+          {uid === null ? (
             <Popup
               trigger={<img src="/img/icons/heart-empty.svg" alt="like" />}
               position={["bottom center", "bottom right", "bottom left"]}
@@ -42,20 +44,18 @@ const LikeArtworkContestButton = ({ artwork, likersCount, setLikersCount }) => {
             >
               <div>Connect to like</div>
             </Popup>
-          )}
-          {uid && !liked && (
-            <img
-              src="./img/icons/pokecrafter-heart.svg"
-              onClick={like}
-              alt="like"
-              className="like-img-contest"
-            />
-          )}
-          {uid && liked && (
+          ) : liked ? (
             <img
               src="./img/icons/pokecrafter-heart-filled.svg"
-              onClick={unlike}
+              onClick={handleUnlike}
               alt="unlike"
+              className="like-img-contest"
+            />
+          ) : (
+            <img
+              src="./img/icons/pokecrafter-heart.svg"
+              onClick={handleLike}
+              alt="like"
               className="like-img-contest"
             />
           )}

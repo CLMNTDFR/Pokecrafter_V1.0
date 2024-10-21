@@ -5,8 +5,8 @@ import { deleteArtwork } from "../../actions/artwork.actions";
 const DeleteCard = (props) => {
   const dispatch = useDispatch();
 
+  // Dispatch delete action for artwork
   const deleteQuote = () => {
-    console.log("Attempting to delete artwork with ID:", props.id);
     dispatch(deleteArtwork(props.id));
   };
 

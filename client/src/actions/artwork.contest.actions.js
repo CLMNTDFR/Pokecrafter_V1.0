@@ -11,6 +11,7 @@ export const ADD_COMMENT_CONTEST_ARTWORK = "ADD_COMMENT_CONTEST_ARTWORK";
 export const EDIT_COMMENT_CONTEST_ARTWORK = "EDIT_COMMENT_CONTEST_ARTWORK";
 export const DELETE_COMMENT_CONTEST_ARTWORK = "DELETE_COMMENT_CONTEST_ARTWORK";
 
+// Fetch artworks for a specific contest
 export const getArtworksContest = (contestId) => {
   return (dispatch) => {
     return axios
@@ -27,7 +28,7 @@ export const getArtworksContest = (contestId) => {
   };
 };
 
-// Fonction utilitaire pour générer automatiquement un title et une description
+// Utility function to generate title and description for artwork
 const generateTitleAndDescription = (posterId, contestId) => {
   const dateNow = Date.now();
   const prefix = "Pokecrafter_contest_";
@@ -39,10 +40,10 @@ const generateTitleAndDescription = (posterId, contestId) => {
   return { title, description };
 };
 
-// Action pour ajouter un artwork au contest
+// Action to add artwork to a contest
 export const addArtworkContest = (data) => {
   return (dispatch) => {
-    // Vérifiez si les valeurs posterId et contestId sont présentes
+    // Check for posterId and contestId presence
     const posterId = data.get("posterId");
     const contestId = data.get("contestId");
     if (!posterId || !contestId) {
@@ -50,14 +51,14 @@ export const addArtworkContest = (data) => {
       return;
     }
 
-    // Appel de la fonction pour générer title et description automatiquement
+    // Generate title and description automatically
     const { title, description } = generateTitleAndDescription(posterId, contestId);
 
-    // Ajouter les champs générés automatiquement à l'objet FormData
+    // Append generated fields to FormData
     data.append("title", title);
     data.append("description", description);
 
-    // Envoi de la requête POST à l'API
+    // Send POST request to API
     return axios
       .post(`${process.env.REACT_APP_API_URL}api/artwork-contest/`, data)
       .then((res) => {
@@ -77,11 +78,7 @@ export const addArtworkContest = (data) => {
   };
 };
 
-
-
-
-
-
+// Like a contest artwork
 export const likeContestArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
@@ -90,7 +87,6 @@ export const likeContestArtwork = (artworkId, userId) => {
       data: { id: userId },
     })
       .then((res) => {
-        console.log("Like response:", res.data);
         dispatch({
           type: LIKE_CONTEST_ARTWORK,
           payload: { artworkId, userId },
@@ -100,6 +96,7 @@ export const likeContestArtwork = (artworkId, userId) => {
   };
 };
 
+// Unlike a contest artwork
 export const unlikeContestArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
@@ -117,6 +114,7 @@ export const unlikeContestArtwork = (artworkId, userId) => {
   };
 };
 
+// Update a contest artwork description
 export const updateContestArtwork = (artworkId, description) => {
   return (dispatch) => {
     return axios({
@@ -134,6 +132,7 @@ export const updateContestArtwork = (artworkId, description) => {
   };
 };
 
+// Delete a contest artwork
 export const deleteContestArtwork = (artworkId, contestId) => {
   return (dispatch) => {
     return axios
@@ -141,7 +140,7 @@ export const deleteContestArtwork = (artworkId, contestId) => {
       .then((res) => {
         dispatch({
           type: DELETE_CONTEST_ARTWORK,
-          payload: { artworkId, contestId }, // Ajouter contestId au payload
+          payload: { artworkId, contestId }, // Add contestId to payload
         });
       })
       .catch((err) => {
@@ -150,7 +149,7 @@ export const deleteContestArtwork = (artworkId, contestId) => {
   };
 };
 
-
+// Add a comment to a contest artwork
 export const addCommentContestArtwork = (
   artworkId,
   commenterId,
@@ -170,6 +169,7 @@ export const addCommentContestArtwork = (
   };
 };
 
+// Edit a comment on a contest artwork
 export const editCommentContestArtwork = (artworkId, commentId, text) => {
   return (dispatch) => {
     return axios({
@@ -187,6 +187,7 @@ export const editCommentContestArtwork = (artworkId, commentId, text) => {
   };
 };
 
+// Delete a comment from a contest artwork
 export const deleteCommentContestArtwork = (artworkId, commentId) => {
   return (dispatch) => {
     return axios({

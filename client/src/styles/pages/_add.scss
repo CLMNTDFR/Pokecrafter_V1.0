@@ -110,11 +110,11 @@
 .custom-upload-button {
   display: flex;
   align-items: center;
-  background-color: #f0f0f0; /* Couleur de fond */
-  border: 1px solid #ccc; /* Bordure */
-  padding: 10px 15px; /* Espacement */
-  cursor: pointer; /* Curseur pointer */
-  border-radius: 5px; /* Coins arrondis */
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
 
   &:hover {
     background: $color-4 !important;

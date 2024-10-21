@@ -3,8 +3,9 @@ import axios from "axios";
 
 const SignInForm = () => {
   const [email, setEmail] = useState("");
-  const [password_hash, setPassword] = useState("");
+  const [passwordHash, setPassword] = useState("");
 
+  // Handle user login
   const handleLogin = (e) => {
     e.preventDefault();
     const emailError = document.querySelector(".email.error");
@@ -12,15 +13,14 @@ const SignInForm = () => {
 
     axios({
       method: "post",
-      url: process.env.REACT_APP_API_URL + "api/user/login",
+      url: `${process.env.REACT_APP_API_URL}api/user/login`,
       withCredentials: true,
       data: {
         email,
-        password_hash,
+        password_hash: passwordHash,
       },
     })
       .then((res) => {
-        console.log(res);
         if (res.data.errors) {
           emailError.innerHTML = res.data.errors.email;
           passwordError.innerHTML = res.data.errors.password_hash;
@@ -28,14 +28,13 @@ const SignInForm = () => {
           window.location = "/";
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         emailError.innerHTML = "Unknown email or incorrect password";
       });
   };
 
   return (
-    <form action="" onSubmit={handleLogin} id="sign-up-form">
+    <form onSubmit={handleLogin} id="sign-up-form">
       <label htmlFor="email">Email</label>
       <br />
       <input
@@ -54,7 +53,7 @@ const SignInForm = () => {
         name="password"
         id="password"
         onChange={(e) => setPassword(e.target.value)}
-        value={password_hash}
+        value={passwordHash}
       />
       <div className="password-hash error"></div>
       <br />

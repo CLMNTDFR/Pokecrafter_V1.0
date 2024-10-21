@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LeftNav from "../components/LeftNav";
 import Thread from "../components/Thread";
-import FilterButtons from "../components/FilterButtons"; // Les boutons pour filtrer par catégories
+import FilterButtons from "../components/FilterButtons";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");

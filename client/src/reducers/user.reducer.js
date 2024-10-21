@@ -9,6 +9,7 @@ import {
 
 const initialState = {};
 
+// Reducer for user actions
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USER:

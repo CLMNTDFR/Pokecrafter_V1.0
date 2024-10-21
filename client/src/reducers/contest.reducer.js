@@ -8,10 +8,11 @@ import {
 } from "../actions/contest.actions";
 
 const initialState = {
-  contests: [], // Assurez-vous que ceci reste un tableau
-  selectedContestId: null, // Utilisé pour stocker l'ID du contest sélectionné
+  contests: [],
+  selectedContestId: null,
 };
 
+// Reducer for contest actions
 export default function contestReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CONTESTS:

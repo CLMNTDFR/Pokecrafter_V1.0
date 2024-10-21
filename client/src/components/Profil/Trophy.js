@@ -25,7 +25,6 @@ const Trophy = ({ userTrophies }) => {
   ];
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
-
   const trophiesToDisplay = userTrophies || [];
 
   return (

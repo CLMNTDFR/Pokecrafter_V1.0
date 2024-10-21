@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Action Types
 export const GET_USER = "GET_USER";
 export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
 export const UPDATE_BIO = "UPDATE_BIO";
@@ -8,9 +9,9 @@ export const UNFOLLOW_USER = "UNFOLLOW_USER";
 export const DELETE_USER = "DELETE_USER";
 
 // Errors
-
 export const GET_USER_ERRORS = "GET_USER_ERRORS";
 
+// Fetch user data by user ID
 export const getUser = (uid) => {
     return (dispatch) => {
         return axios({
@@ -20,10 +21,11 @@ export const getUser = (uid) => {
             .then((res) => {
                 dispatch({ type: GET_USER, payload: res.data });
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
     };
 };
 
+// Upload user profile picture
 export const uploadPicture = (data, id) => {
     return (dispatch) => {
         return axios({
@@ -33,20 +35,21 @@ export const uploadPicture = (data, id) => {
         })
         .then((res) => {
             if (res.data.errors) {
-              dispatch({ type: GET_USER_ERRORS, payload: res.data.errors });
+                dispatch({ type: GET_USER_ERRORS, payload: res.data.errors });
             } else {
-              dispatch({ type: GET_USER_ERRORS, payload: "" });
-              return axios
-                .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
-                .then((res) => {
-                  dispatch({ type: UPLOAD_PICTURE, payload: res.data.picture });
-                });
+                dispatch({ type: GET_USER_ERRORS, payload: "" });
+                return axios
+                    .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
+                    .then((res) => {
+                        dispatch({ type: UPLOAD_PICTURE, payload: res.data.picture });
+                    });
             }
-          })
-          .catch((err) => console.log(err));
-      };
+        })
+        .catch((err) => console.error(err));
     };
+};
 
+// Update user bio
 export const updateBio = (userId, bio) => {
     return (dispatch) => {
         return axios({
@@ -54,13 +57,14 @@ export const updateBio = (userId, bio) => {
             url: `${process.env.REACT_APP_API_URL}api/user/` + userId,
             data: { bio },
         })
-            .then((res) => {
-                dispatch({ type: UPDATE_BIO, payload: bio });
-            })
-            .catch((err) => console.log(err));
+        .then((res) => {
+            dispatch({ type: UPDATE_BIO, payload: bio });
+        })
+        .catch((err) => console.error(err));
     };
 };
 
+// Follow a user
 export const followUser = (followerId, idToFollow) => {
     return (dispatch) => {
         return axios({
@@ -68,13 +72,14 @@ export const followUser = (followerId, idToFollow) => {
             url: `${process.env.REACT_APP_API_URL}api/user/follow/` + followerId,
             data: { idToFollow },
         })
-            .then((res) => {
-                dispatch({ type: FOLLOW_USER, payload: { idToFollow } });
-            })
-            .catch((err) => console.log(err));
+        .then((res) => {
+            dispatch({ type: FOLLOW_USER, payload: { idToFollow } });
+        })
+        .catch((err) => console.error(err));
     };
 };
 
+// Unfollow a user
 export const unfollowUser = (followerId, idToUnfollow) => {
     return (dispatch) => {
         return axios({
@@ -82,22 +87,23 @@ export const unfollowUser = (followerId, idToUnfollow) => {
             url: `${process.env.REACT_APP_API_URL}api/user/unfollow/` + followerId,
             data: { idToUnfollow },
         })
-            .then((res) => {
-                dispatch({ type: UNFOLLOW_USER, payload: { idToUnfollow } });
-            })
-            .catch((err) => console.log(err));
+        .then((res) => {
+            dispatch({ type: UNFOLLOW_USER, payload: { idToUnfollow } });
+        })
+        .catch((err) => console.error(err));
     };
 };
 
+// Delete a user account
 export const deleteUser = (userId) => {
     return (dispatch) => {
-      return axios({
-        method: "delete",
-        url: `${process.env.REACT_APP_API_URL}api/user/` + userId,
-      })
-        .then((res) => {
-          dispatch({ type: DELETE_USER, payload: userId });
+        return axios({
+            method: "delete",
+            url: `${process.env.REACT_APP_API_URL}api/user/` + userId,
         })
-        .catch((err) => console.log(err));
+        .then((res) => {
+            dispatch({ type: DELETE_USER, payload: userId });
+        })
+        .catch((err) => console.error(err));
     };
-  };
+};

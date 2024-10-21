@@ -10,6 +10,7 @@ const TrendThread = () => {
   const dispatch = useDispatch();
   const artworks = useSelector((state) => state.artworkReducer);
 
+  // Function to check if more artworks should be loaded when scrolling
   const loadMore = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop + 1 >
@@ -20,16 +21,19 @@ const TrendThread = () => {
   };
 
   useEffect(() => {
+    // Load artworks when loadArtwork is true
     if (loadArtwork) {
       dispatch(getArtworks(count));
       setLoadArtwork(false);
       setCount((prevCount) => prevCount + 30);
     }
 
+    // Add scroll event listener
     window.addEventListener("scroll", loadMore);
     return () => window.removeEventListener("scroll", loadMore);
   }, [loadArtwork, count, dispatch]);
 
+  // Sort artworks by the number of likers (descending order)
   const sortedArtworks = artworks
     .slice()
     .sort((a, b) => b.likers.length - a.likers.length);

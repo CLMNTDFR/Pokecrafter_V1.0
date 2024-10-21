@@ -15,6 +15,7 @@ const CardUser = ({ artwork }) => {
   const usersData = useSelector((state) => state.usersReducer);
   const dispatch = useDispatch();
 
+  // Update artwork description
   const updateItem = async () => {
     if (textUpdate) {
       dispatch(updateArtwork(artwork._id, textUpdate));
@@ -22,9 +23,9 @@ const CardUser = ({ artwork }) => {
     setIsUpdated(false);
   };
 
+  // Delete artwork handler with confirmation
   const deleteArtworkHandler = () => {
     if (window.confirm("Do you really want to delete this artwork?")) {
-      console.log("Attempting to delete artwork with ID:", artwork._id);
       dispatch(deleteArtwork(artwork._id));
     }
   };
@@ -37,6 +38,7 @@ const CardUser = ({ artwork }) => {
     setIsImageFullScreen(false);
   };
 
+  // Copy artwork URL to clipboard
   const handleShareClick = async () => {
     try {
       const shareUrl = new URL(artwork.picture, window.location.origin).href;

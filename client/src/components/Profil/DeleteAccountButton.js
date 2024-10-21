@@ -7,19 +7,20 @@ const DeleteAccountButton = ({ userId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Displays a confirmation window and then redirects to the homepage
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete your account?")) {
       dispatch(deleteUser(userId)).then(() => {
-        navigate("/"); // Redirige vers la page d'accueil après suppression
+        navigate("/");
       });
     }
   };
 
   return (
     <div className="delete-account-container">
-    <button onClick={handleDelete} className="delete-account-btn">
-      Delete My Account
-    </button>
+      <button onClick={handleDelete} className="delete-account-btn">
+        Delete My Account
+      </button>
     </div>
   );
 };

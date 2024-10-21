@@ -107,12 +107,12 @@ nav {
   z-index: 1001;
   margin-top: -41px;
   margin-left: 30px;
-  margin-bottom: 0; /* Remplace 'none' par 0 */
+  margin-bottom: 0;
 
   img {
     height: 27px;
     width: 27px;
-    transition: transform 0.3s ease; /* Ajoute la transition */
+    transition: transform 0.3s ease;
   }
 
   @media screen and (max-width: 930px) {
@@ -126,6 +126,6 @@ nav {
   }
 
   &:hover img {
-    transform: translateX(3px); /* Décalage de 3px vers la droite */
+    transform: translateX(3px);
   }
 }

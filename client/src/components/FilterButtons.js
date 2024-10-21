@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
 const FilterButtons = ({ setSelectedCategory }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // State to manage dropdown open/close
 
+  // Function to handle category selection
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setIsOpen(false);

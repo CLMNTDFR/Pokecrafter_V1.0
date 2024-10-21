@@ -9,13 +9,14 @@ const Trending = () => {
   const artworks = useSelector((state) => state.artworkReducer);
   const [sortedArtworks, setSortedArtworks] = useState([]);
 
-
+  // Fetch artworks if none exist
   useEffect(() => {
     if (artworks.length === 0) {
       dispatch(getArtworks());
     }
   }, [dispatch, artworks]);
 
+  // Sort artworks by number of likers
   useEffect(() => {
     if (artworks.length > 0) {
       const sorted = [...artworks].sort((a, b) => b.likers.length - a.likers.length);

@@ -20,14 +20,15 @@ const UpdateProfil = () => {
   const [followingPopup, setFollowingPopup] = useState(false);
   const [followersPopup, setFollowersPopup] = useState(false);
 
+  // Handle the bio update
   const handleUpdate = () => {
     dispatch(updateBio(userData._id, bio));
     setUpdateForm(false);
   };
 
+  // Fetch artworks and set the bio when user data is available
   useEffect(() => {
     dispatch(getArtworks());
-
     if (userData && userData.bio) {
       setBio(userData.bio);
     }
@@ -39,7 +40,7 @@ const UpdateProfil = () => {
         <div className="left-part">
           <h3>Profile picture</h3>
           <br />
-          <img src={userData.picture} alt="user-profil-picture" />
+          <img src={userData.picture} alt="user-profile-picture" />
           <UploadImg />
         </div>
         <div className="right-part">
@@ -85,6 +86,7 @@ const UpdateProfil = () => {
           </h5>
         </div>
       </div>
+
       <br />
       <Trophy userTrophies={userData.trophies} />
       <br />
@@ -97,16 +99,14 @@ const UpdateProfil = () => {
 
       <div className="user-artworks">
         <br />
-        {artworks &&
-          artworks.some((artwork) => artwork.posterId === userData._id) && (
-            <h3 style={{ textAlign: "center", marginBottom: "-80px" }}>
-              Your Artworks
-            </h3>
-          )}
+        {artworks && artworks.some((artwork) => artwork.posterId === userData._id) && (
+          <h3 style={{ textAlign: "center", marginBottom: "-80px" }}>
+            Your Artworks
+          </h3>
+        )}
 
         <ul>
-          {artworks &&
-          artworks.some((artwork) => artwork.posterId === userData._id) ? (
+          {artworks && artworks.some((artwork) => artwork.posterId === userData._id) ? (
             artworks
               .filter((artwork) => artwork.posterId === userData._id)
               .map((artwork) => (
@@ -127,6 +127,7 @@ const UpdateProfil = () => {
         <br />
       </div>
 
+      {/* Following popup for displaying followed users */}
       {followingPopup && (
         <div className="popup-profil-container">
           <div className="modal">
@@ -142,13 +143,10 @@ const UpdateProfil = () => {
                 .filter((user) => userData.following.includes(user._id))
                 .map((user) => (
                   <li key={user._id}>
-                    <img src={user.picture} alt="user-profil-picture" />
+                    <img src={user.picture} alt="user-profile-picture" />
                     <h4>{user.username}</h4>
                     <div className="follow-handler">
-                      <FollowHandler
-                        idToFollow={user._id}
-                        type={"suggestion"}
-                      />
+                      <FollowHandler idToFollow={user._id} type={"suggestion"} />
                     </div>
                   </li>
                 ))}
@@ -156,6 +154,8 @@ const UpdateProfil = () => {
           </div>
         </div>
       )}
+
+      {/* Followers popup for displaying followers */}
       {followersPopup && (
         <div className="popup-profil-container">
           <div className="modal">
@@ -168,13 +168,10 @@ const UpdateProfil = () => {
                 .filter((user) => userData.followers.includes(user._id))
                 .map((user) => (
                   <li key={user._id}>
-                    <img src={user.picture} alt="user-profil-picture" />
+                    <img src={user.picture} alt="user-profile-picture" />
                     <h4>{user.username}</h4>
                     <div className="follow-handler">
-                      <FollowHandler
-                        idToFollow={user._id}
-                        type={"suggestion"}
-                      />
+                      <FollowHandler idToFollow={user._id} type={"suggestion"} />
                     </div>
                   </li>
                 ))}

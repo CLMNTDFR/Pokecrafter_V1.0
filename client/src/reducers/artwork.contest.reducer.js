@@ -13,6 +13,7 @@ import {
 
 const initialState = {};
 
+// Reducer for contest artwork actions
 export default function artworkContestReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CONTEST_ARTWORKS:
@@ -26,7 +27,7 @@ export default function artworkContestReducer(state = initialState, action) {
         ...state,
         [action.payload.contestId]: [
           ...(state[action.payload.contestId] || []),
-          action.payload.artwork, // Maintenant, artwork contient seulement les données de l'œuvre
+          action.payload.artwork,
         ],
       };
 
@@ -71,14 +72,13 @@ export default function artworkContestReducer(state = initialState, action) {
           ) || [],
       };
 
-      case DELETE_CONTEST_ARTWORK:
-        return {
-          ...state,
-          [action.payload.contestId]: state[action.payload.contestId]?.filter(
-            (artwork) => artwork._id !== action.payload.artworkId // Filtrer pour retirer l'artwork supprimé
-          ) || [],
-        };
-      
+    case DELETE_CONTEST_ARTWORK:
+      return {
+        ...state,
+        [action.payload.contestId]: state[action.payload.contestId]?.filter(
+          (artwork) => artwork._id !== action.payload.artworkId
+        ) || [],
+      };
 
     case ADD_COMMENT_CONTEST_ARTWORK:
       return {

@@ -10,6 +10,7 @@ const CardComments = ({ artwork }) => {
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
+  // Handle the submission of a new comment
   const handleComment = (e) => {
     e.preventDefault();
 
@@ -35,8 +36,7 @@ const CardComments = ({ artwork }) => {
                   src={
                     commenter && commenter.picture
                       ? commenter.picture
-                      : process.env.PUBLIC_URL +
-                        "/img/uploads/profil/random-user.png"
+                      : `${process.env.PUBLIC_URL}/img/uploads/profil/random-user.png`
                   }
                   alt={
                     commenter

@@ -8,23 +8,22 @@ const FollowHandler = ({ idToFollow, type }) => {
   const [isFollowed, setIsFollowed] = useState(false);
   const dispatch = useDispatch();
 
+  // Handle follow action
   const handleFollow = () => {
     dispatch(followUser(userData._id, idToFollow));
     setIsFollowed(true);
   };
 
+  // Handle unfollow action
   const handleUnfollow = () => {
     dispatch(unfollowUser(userData._id, idToFollow));
     setIsFollowed(false);
   };
 
   useEffect(() => {
+    // Check if the user is already followed
     if (!isEmpty(userData.following)) {
-      if (userData.following.includes(idToFollow)) {
-        setIsFollowed(true);
-      } else {
-        setIsFollowed(false);
-      }
+      setIsFollowed(userData.following.includes(idToFollow));
     }
   }, [userData, idToFollow]);
 

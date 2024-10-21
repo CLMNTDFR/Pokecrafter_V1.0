@@ -16,6 +16,7 @@ export const GET_ARTWORK_ERRORS = "GET_ARTWORK_ERRORS";
 
 export const GET_TRENDS = "GET_TRENDS";
 
+// Fetch limited number of artworks
 export const getArtworks = (num) => {
   return (dispatch) => {
     return axios
@@ -28,6 +29,7 @@ export const getArtworks = (num) => {
   };
 };
 
+// Fetch all artworks
 export const getAllArtworks = () => {
   return (dispatch) => {
     return axios
@@ -39,6 +41,7 @@ export const getAllArtworks = () => {
   };
 };
 
+// Add a new artwork
 export const addArtwork = (data) => {
   return (dispatch) => {
     return axios
@@ -53,6 +56,7 @@ export const addArtwork = (data) => {
   };
 };
 
+// Like an artwork
 export const likeArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
@@ -68,6 +72,7 @@ export const likeArtwork = (artworkId, userId) => {
   };
 };
 
+// Unlike an artwork
 export const unlikeArtwork = (artworkId, userId) => {
   return (dispatch) => {
     return axios({
@@ -84,6 +89,7 @@ export const unlikeArtwork = (artworkId, userId) => {
   };
 };
 
+// Update an artwork description
 export const updateArtwork = (artworkId, description) => {
   return (dispatch) => {
     return axios({
@@ -98,15 +104,14 @@ export const updateArtwork = (artworkId, description) => {
   };
 };
 
+// Delete an artwork
 export const deleteArtwork = (artworkId) => {
   return (dispatch) => {
-    console.log(`Sending DELETE request for artwork ID: ${artworkId}`);
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}api/artwork/` + artworkId,
     })
       .then((res) => {
-        console.log("Delete successful", res);
         dispatch({ type: DELETE_ARTWORK, payload: { artworkId } });
       })
       .catch((err) => {
@@ -115,6 +120,7 @@ export const deleteArtwork = (artworkId) => {
   };
 };
 
+// Add a comment to an artwork
 export const addComment = (artworkId, commenterId, text, commenterPseudo) => {
   return (dispatch) => {
     return axios({
@@ -131,6 +137,7 @@ export const addComment = (artworkId, commenterId, text, commenterPseudo) => {
   };
 };
 
+// Edit a comment on an artwork
 export const editComment = (artworkId, commentId, text) => {
   return (dispatch) => {
     return axios({
@@ -150,6 +157,7 @@ export const editComment = (artworkId, commentId, text) => {
   };
 };
 
+// Delete a comment from an artwork
 export const deleteComment = (artworkId, commentId) => {
   return (dispatch) => {
     return axios({
@@ -166,6 +174,7 @@ export const deleteComment = (artworkId, commentId) => {
   };
 };
 
+// Get trending artworks
 export const getTrends = (sortedArray) => {
   return (dispatch) => {
     dispatch({ type: GET_TRENDS, payload: sortedArray });

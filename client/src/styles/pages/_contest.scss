@@ -420,13 +420,13 @@ h3 {
 
 .custom-upload-button {
   background-color: transparent;
-  color: rgb(0, 0, 0); /* Couleur du texte */
-  padding: 10px 20px; /* Espacement */
-  border: none; /* Pas de bordure */
-  border-radius: 5px; /* Coins arrondis */
-  cursor: pointer; /* Curseur pointer */
-  font-size: 16px; /* Taille de police */
-  margin-bottom: 10px; /* Espacement en bas */
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
 
   &:hover {
     background: $color-4;
@@ -455,46 +455,46 @@ h3 {
 }
 
 .upload-error {
-  color: red; /* Couleur des erreurs */
+  color: red;
 }
 
 .icon-button {
-  display: flex;               /* Utilise flexbox pour centrer l'icône et le texte */
-  align-items: center;        /* Centre verticalement le contenu */
+  display: flex;
+  align-items: center;
 }
 
 .icon-button img {
-  width: 20px;                /* Largeur de l'icône */
-  height: 20px;               /* Hauteur de l'icône */
-  margin-right: 5px;         /* Espace entre l'icône et le texte */
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
 
 .no-artworks-message {
-  text-align: center;         /* Centrer le texte */
-  color: #333;                /* Couleur du texte */
-  margin-top: 20px;           /* Espacement en haut */
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
 }
 
 .new-contest-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px auto; /* Centrer le conteneur */
+  margin: 20px auto;
 }
 
 .new-contest-form {
   width: 100%;
-  max-width: 600px; /* Largeur maximale pour le formulaire */
+  max-width: 600px;
   padding: 20px;
   background-color: transparent;
 }
 
 .new-contest-form-field {
-  margin-bottom: 15px; /* Espacement entre les champs */
+  margin-bottom: 15px;
 
   label {
-    display: block; /* S'assurer que le label est au-dessus de l'input */
-    margin-bottom: 5px; /* Espacement sous le label */
+    display: block;
+    margin-bottom: 5px;
   }
 }
 
@@ -502,99 +502,98 @@ h3 {
 
 .new-contest-form-input,
 .new-contest-form-textarea {
-  width: 100%; /* Prendre 100% de la largeur */
-  max-width: 100%; /* Ne pas dépasser 100% */
-  padding: 10px; /* Espacement interne */
-  border: 1px solid #9f9f9f; /* Bordure gris foncé */
-  border-radius: 5px; /* Arrondi pour les champs de saisie */
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  border: 1px solid #9f9f9f;
+  border-radius: 5px;
 }
 
 .new-contest-form-input {
-  height: 40px; /* Hauteur des inputs */
+  height: 40px;
 }
 
 .new-contest-form-textarea {
-  height: 100px; /* Hauteur pour la textarea */
+  height: 100px;
 }
 
 .new-contest-form-error {
-  color: red; /* Couleur rouge pour le message d'erreur */
-  font-size: 14px; /* Taille de police pour le message d'erreur */
+  color: red;
+  font-size: 14px;
 }
 
 .new-contest-form-submit-button {
-  display: block; /* Pour centrer le bouton */
-  margin: 0 auto; /* Centrer horizontalement */
-  padding: 10px 20px; /* Espacement interne */
-  background-color: transparent; /* Fond transparent */
-  color: #333; /* Couleur du texte */
-  border-radius: 20px; /* Arrondi pour le bouton */
-  font-size: 16px; /* Taille de police */
-  cursor: pointer; /* Curseur pointer */
-  transition: background-color 0.3s ease; /* Transition pour l'effet hover */
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Ombre noire vers le bas et la droite */
-  transition: 0.3s; /* Transition pour l'effet hover */
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #333;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
 }
 
 .new-contest-form-submit-button:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* Couleur de fond légère au survol */
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .new-contest-form-success {
-  text-align: center; /* Centrer le texte */
-  color: green; /* Couleur verte pour le message de succès */
-  font-weight: bold; /* Texte en gras */
-  margin-bottom: 20px; /* Espacement en bas */
+  text-align: center;
+  color: green;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
-/* Styles pour les écrans plus petits */
 @media (max-width: 930px) {
   .new-contest-form-input,
   .new-contest-form-textarea {
-    width: 100%; /* Prendre 100% de la largeur sur petits écrans */
+    width: 100%;
   }
 }
 
 .propose-contest {
-  display: block; /* Pour centrer le bouton */
-  margin: 0 auto; /* Centrer horizontalement */
-  padding: 10px 20px; /* Espacement interne */
-  background-color: transparent; /* Fond transparent */
-  color: #333; /* Couleur du texte */
-  border-radius: 20px; /* Arrondi pour le bouton */
-  font-size: 16px; /* Taille de police */
-  cursor: pointer; /* Curseur pointer */
-  transition: background-color 0.3s ease; /* Transition pour l'effet hover */
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Ombre noire vers le bas et la droite */
-  transition: 0.3s; /* Transition pour l'effet hover */
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #333;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
 }
 
 .propose-contest:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* Couleur de fond légère au survol */
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .delete-contest-button {
-  background: transparent; /* Fond transparent */
-  border: none; /* Pas de bordure */
-  cursor: pointer; /* Curseur pointer pour indiquer que c'est cliquable */
-  padding-bottom: 10px; /* Espacement autour du contenu */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding-bottom: 10px;
   margin-left: 5px;
 }
 
 .delete-contest-icon {
-  width: 17px; /* Largeur de l'icône */
-  height: 17px; /* Hauteur de l'icône */
-  margin-right: 5px; /* Espacement entre l'icône et le texte */
-  transform: translateY(2px); /* Décalage de l'icône */
+  width: 17px;
+  height: 17px;
+  margin-right: 5px;
+  transform: translateY(2px);
 }
 
 .delete-contest-button {
-  font-size: 1em; /* Taille du texte */
-  color: #d9534f; /* Couleur du texte, vous pouvez la changer si nécessaire */
+  font-size: 1em;
+  color: #d9534f;
 }
 
-/* Ajoutez un style au survol si désiré */
+
 .delete-contest-button:hover {
-  opacity: 0.8; /* Réduction de l'opacité au survol */
-  background: transparent; /* Fond transparent */
+  opacity: 0.8;
+  background: transparent;
 }

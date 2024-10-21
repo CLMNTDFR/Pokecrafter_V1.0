@@ -9,8 +9,9 @@ import { getUsers } from "../actions/users.actions";
 import LeftNav from "../components/LeftNav";
 import { UidContext } from "../components/AppContext";
 import io from "socket.io-client";
+import { Link } from "react-router-dom";
 
-const socket = io("http://localhost:5000"); // Assurez-vous que l'URL correspond à celle de votre serveur backend
+const socket = io(process.env.REACT_APP_API_URL);
 
 const Messenger = () => {
   const dispatch = useDispatch();
@@ -26,46 +27,57 @@ const Messenger = () => {
 
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [messageContent, setMessageContent] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // État pour le terme de recherche
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Référence pour le conteneur des messages
+  // Reference for the messages container
   const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
-  // Charger les utilisateurs et les conversations au démarrage
+  // Load users and conversations on startup
   useEffect(() => {
     if (userData && userData._id) {
       dispatch(getConversations(userData._id));
-      dispatch(getUsers()); // Charger les informations des utilisateurs
+      dispatch(getUsers());
     }
 
-    // Écoute pour les messages entrants via Socket.IO
+    // Listen for incoming messages via Socket.IO
     socket.on("receiveMessage", (message) => {
-      // Ajouter directement le message aux messages actifs si la conversation est sélectionnée
-      if (selectedConversation && message.conversationId === selectedConversation) {
+      // Directly add the message to the active messages if the conversation is selected
+      if (
+        selectedConversation &&
+        message.conversationId === selectedConversation
+      ) {
         dispatch({
           type: "ADD_MESSAGE_TO_ACTIVE_CONVERSATION",
           payload: message,
         });
       }
 
-      // Vous pouvez également mettre à jour la liste des conversations pour montrer les nouveaux messages
+      // You can also update the conversation list to show new messages
       dispatch(getConversations(userData._id));
     });
 
-    // Cleanup: se déconnecter de Socket.IO quand le composant est démonté
+    // Cleanup: disconnect from Socket.IO when the component is unmounted
     return () => {
       socket.disconnect();
     };
   }, [userData, dispatch, selectedConversation]);
 
-  // Scroller automatiquement vers le bas lorsque les messages sont chargés ou modifiés
+  // Automatically scroll to the bottom when messages are loaded or changed
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeMessages]);
 
-  // Rejoindre une conversation Socket.IO lorsqu'elle est sélectionnée
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  }, [activeMessages]);
+
+  // Join a Socket.IO conversation when it is selected
   const handleSelectConversation = (conversationId) => {
     if (selectedConversation === conversationId) {
       setSelectedConversation(null);
@@ -73,12 +85,12 @@ const Messenger = () => {
       setSelectedConversation(conversationId);
       dispatch(getConversationMessages(conversationId));
 
-      // Rejoindre la conversation via Socket.IO
+      // Join the conversation via Socket.IO
       socket.emit("joinConversation", conversationId);
     }
   };
 
-  // Envoyer un message dans la conversation active
+  // Send a message in the active conversation
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (messageContent.trim() && selectedConversation) {
@@ -88,14 +100,14 @@ const Messenger = () => {
         content: messageContent,
       };
 
-      // Envoyer le message via l'action Redux et Socket.IO
+      // Send the message via Redux action and Socket.IO
       dispatch(sendMessage(selectedConversation, userData._id, messageContent));
       socket.emit("sendMessage", messageData);
-      setMessageContent(""); // Réinitialiser le champ de saisie
+      setMessageContent("");
     }
   };
 
-  // Trouver le pseudo de l'autre utilisateur dans une conversation
+  // Find the username of the other user in a conversation
   const getOtherParticipantUsername = (conversation) => {
     if (!conversation.participants || !userData || !userData._id) {
       return "Unknown";
@@ -111,7 +123,7 @@ const Messenger = () => {
     return otherParticipant ? otherParticipant.username : "Unknown";
   };
 
-  // Récupérer la photo de profil de l'autre utilisateur
+  // Retrieve the profile picture of the other user
   const getOtherParticipantProfilePic = (conversation) => {
     if (!conversation.participants || !userData || !userData._id) {
       return process.env.PUBLIC_URL + "/img/uploads/profil/random-user.png";
@@ -129,6 +141,7 @@ const Messenger = () => {
       : process.env.PUBLIC_URL + "/img/uploads/profil/random-user.png";
   };
 
+  // Retrieve the name of the message sender
   const getMessageSenderName = (senderId) => {
     if (senderId === userData._id) {
       return "You";
@@ -138,7 +151,7 @@ const Messenger = () => {
     return sender ? sender.username : "Unknown";
   };
 
-  // Filtrer les conversations en fonction du terme de recherche
+  // Filter conversations based on the search term
   const filteredConversations = conversations.filter((conversation) => {
     const otherUsername = getOtherParticipantUsername(conversation);
     return otherUsername.toLowerCase().includes(searchTerm.toLowerCase());
@@ -158,7 +171,6 @@ const Messenger = () => {
         <div className="messenger-container">
           {uid ? (
             <>
-              {/* Barre de recherche pour filtrer les conversations */}
               <div className="messenger-search-container">
                 <input
                   type="text"
@@ -168,15 +180,15 @@ const Messenger = () => {
                   className="messenger-search-bar"
                 />
               </div>
-              
-              {/* Liste des conversations */}
+
               {filteredConversations && filteredConversations.length > 0 ? (
                 <ul>
                   {filteredConversations.map((conversation) => {
-                    const otherUsername = getOtherParticipantUsername(conversation);
-                    const otherProfilePic = getOtherParticipantProfilePic(conversation);
+                    const otherUsername =
+                      getOtherParticipantUsername(conversation);
+                    const otherProfilePic =
+                      getOtherParticipantProfilePic(conversation);
 
-                    // Ajouter une condition pour vérifier les messages non lus
                     const hasUnreadMessages = conversation.unreadCount > 0;
 
                     return (
@@ -192,7 +204,7 @@ const Messenger = () => {
                           >
                             <img
                               src={otherProfilePic}
-                              alt="profile-pic"
+                              alt="pokecrafter-profile-pic"
                               className="profile-pic"
                             />
                             <div className="conversation-info">
@@ -207,9 +219,11 @@ const Messenger = () => {
                           </div>
                         </li>
 
-                        {/* Afficher les messages seulement pour la conversation sélectionnée */}
                         {selectedConversation === conversation._id && (
-                          <div className="messages-container">
+                          <div
+                            className="messages-container"
+                            ref={messagesContainerRef}
+                          >
                             {activeMessages.map((message) => (
                               <div
                                 key={message._id}
@@ -258,7 +272,11 @@ const Messenger = () => {
               )}
             </>
           ) : (
-            <p>Please log in to view and send messages.</p>
+            <div className="centered-container">
+              <Link to="/profil" className="please-login">
+                Merci de vous connecter pour utiliser la boite à messages
+              </Link>
+            </div>
           )}
         </div>
       </div>

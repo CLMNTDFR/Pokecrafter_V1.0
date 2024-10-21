@@ -14,7 +14,7 @@ const ContestDisplay = ({ selectedContestType }) => {
   const contests = useSelector((state) => state.contestReducer.contests);
   const artworksContest = useSelector((state) => state.artworkContestReducer);
   const usersData = useSelector((state) => state.usersReducer);
-  const userData = useSelector((state) => state.userReducer); // L'utilisateur connecté
+  const userData = useSelector((state) => state.userReducer);
 
   const [visibleContests, setVisibleContests] = useState(1);
   const [loadContests, setLoadContests] = useState(true);
@@ -79,13 +79,13 @@ const ContestDisplay = ({ selectedContestType }) => {
       return;
     }
 
-    // Vérifiez la taille du fichier (500 Ko max)
+    // Check file size (500KB max)
     if (selectedFile.size > 500 * 1024) {
       setUploadError("File size must be less than 500KB.");
       return;
     }
 
-    // Vérifiez le type de fichier (jpg/jpeg uniquement)
+    // Check file type (jpg/jpeg only)
     const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
     if (fileExtension !== "jpg" && fileExtension !== "jpeg") {
       setUploadError("Only JPG and JPEG files are allowed.");
@@ -97,20 +97,20 @@ const ContestDisplay = ({ selectedContestType }) => {
       return;
     }
 
-    // Créer un objet FormData et ajouter le fichier
+    // Create a FormData object and append the file
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("contestId", contestId);
-    formData.append("posterId", userData._id); // Ajout de l'id du poster
+    formData.append("posterId", userData._id);
 
-    // Appeler l'action addArtworkContest avec les données
+    // Call the addArtworkContest action with the data
     dispatch(addArtworkContest(formData))
       .then(() => {
-        // Réinitialiser le fichier sélectionné et le nom du fichier après un upload réussi
+        // Reset the selected file and file name after a successful upload
         setSelectedFile(null);
-        setFileName(""); // Réinitialiser le nom du fichier
-        setUploadError(null); // Nettoyer les erreurs
-        setRefreshArtworks((prev) => !prev); // Forcer le rechargement des artworks après soumission
+        setFileName("");
+        setUploadError(null);
+        setRefreshArtworks((prev) => !prev);
       })
       .catch((err) => {
         setUploadError("File upload failed. Please try again.");
@@ -121,13 +121,13 @@ const ContestDisplay = ({ selectedContestType }) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setFileName(file.name); // Mettre à jour le nom du fichier
+      setFileName(file.name);
     }
-    setUploadError(null); // Réinitialiser les erreurs lors de la sélection d'un nouveau fichier
+    setUploadError(null);
   };
 
   const handleClick = () => {
-    document.getElementById("fileInput").click(); // Simuler le clic sur l'input caché
+    document.getElementById("fileInput").click();
   };
 
   const displayFileName =
@@ -166,24 +166,24 @@ const ContestDisplay = ({ selectedContestType }) => {
   };
 
   const handleShowMoreArtworks = (contestId) => {
-    const totalArtworks = artworksContest[contestId]?.length || 0; // Récupérer le nombre total d'artworks
+    const totalArtworks = artworksContest[contestId]?.length || 0;
     setVisibleArtworks((prevState) => ({
       ...prevState,
-      [contestId]: totalArtworks, // Afficher tout
+      [contestId]: totalArtworks,
     }));
   };
 
   const handleShowLessArtworks = (contestId) => {
     setVisibleArtworks((prevState) => ({
       ...prevState,
-      [contestId]: 3, // Limiter à 3
+      [contestId]: 3,
     }));
   };
 
   const handleRemoveArtwork = (artworkId, contestId) => {
     dispatch(deleteContestArtwork(artworkId, contestId))
       .then(() => {
-        setRefreshArtworks((prev) => !prev); // Forcer le rechargement après suppression
+        setRefreshArtworks((prev) => !prev);
       })
       .catch((err) => console.log("Error deleting artwork:", err));
   };
@@ -203,12 +203,11 @@ const ContestDisplay = ({ selectedContestType }) => {
   };
 
   const handleDeleteContest = (contestId) => {
-    // Vous pouvez appeler une action Redux ici ou faire une requête API pour supprimer le concours
-    dispatch(deleteContest(contestId)); // Exemple d'utilisation d'une action Redux
+    dispatch(deleteContest(contestId));
   };
   
 
-  // Filtrer les concours en fonction du type sélectionné
+  // Filter contests based on the selected type
   const filteredContests = contests
     .filter((contest) => {
       if (selectedContestType === "Current Contests")
@@ -264,7 +263,6 @@ const ContestDisplay = ({ selectedContestType }) => {
                     <br />
                     <div style={{ fontSize: "0.6em" }}>
                       by {getUserPseudo(contest.createdBy)}
-                      {/* Vérifier si l'utilisateur est le créateur du concours */}
                       {userData._id === contest.createdBy && (
                         <button
                         className="delete-contest-button"
@@ -273,7 +271,6 @@ const ContestDisplay = ({ selectedContestType }) => {
                             "Are you sure you want to delete this contest? This action cannot be undone."
                           );
                           if (confirmation) {
-                            // Appeler la fonction pour supprimer le concours ici
                             handleDeleteContest(contest._id);
                           }
                         }}
@@ -400,7 +397,7 @@ const ContestDisplay = ({ selectedContestType }) => {
                     type="file"
                     accept=".jpg,.jpeg"
                     onChange={handleFileChange}
-                    style={{ display: "none" }} // Masquer l'input par défaut
+                    style={{ display: "none" }}
                   />
                   {hasUserSubmittedArtwork(contest._id) ? (
                     <>
@@ -413,7 +410,7 @@ const ContestDisplay = ({ selectedContestType }) => {
                           if (confirmation) {
                             handleRemoveArtwork(
                               hasUserSubmittedArtwork(contest._id)._id,
-                              contest._id // Passer contestId ici
+                              contest._id
                             );
                           }
                         }}
@@ -422,8 +419,7 @@ const ContestDisplay = ({ selectedContestType }) => {
                           src="/img/icons/pokecrafter-trash.svg"
                           alt="Remove Icon"
                         />{" "}
-                        {/* Icône de suppression */}
-                        Remove Artwork {/* Texte du bouton */}
+                        Remove Artwork
                       </button>
                     </>
                   ) : (
@@ -437,7 +433,6 @@ const ContestDisplay = ({ selectedContestType }) => {
                           alt="Add Icon"
                         />{" "}
                         {displayFileName || "Participate"}{" "}
-                        {/* Affiche le nom du fichier ou le texte par défaut */}
                       </button>
                       {selectedFile && (
                         <button

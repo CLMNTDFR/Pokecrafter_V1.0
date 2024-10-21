@@ -5,11 +5,12 @@ import Card from "./Artwork/Card";
 import { isEmpty } from "./Utils";
 
 const Thread = ({ selectedCategory }) => {
-  const [loadArtwork, setLoadArtwork] = useState(true);
-  const [count, setCount] = useState(100);
+  const [loadArtwork, setLoadArtwork] = useState(true); // State to control loading more artworks
+  const [count, setCount] = useState(100); // Number of artworks to load initially
   const dispatch = useDispatch();
   const artworks = useSelector((state) => state.artworkReducer);
 
+  // Function to check if more artworks should be loaded when scrolling
   const loadMore = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop + 1 >
@@ -20,16 +21,19 @@ const Thread = ({ selectedCategory }) => {
   };
 
   useEffect(() => {
+    // Load artworks when loadArtwork is true
     if (loadArtwork) {
       dispatch(getArtworks(count));
       setLoadArtwork(false);
       setCount((prevCount) => prevCount + 30);
     }
 
+    // Add scroll event listener
     window.addEventListener("scroll", loadMore);
     return () => window.removeEventListener("scroll", loadMore);
   }, [loadArtwork, count, dispatch]);
 
+  // Filter artworks based on selected category
   const filteredArtworks =
     selectedCategory === "All"
       ? artworks

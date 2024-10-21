@@ -10,15 +10,16 @@ const EditDeleteComment = ({ comment, artworkId }) => {
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
 
+  // Handle comment editing
   const handleEdit = (e) => {
     e.preventDefault();
-
     if (text) {
       dispatch(editComment(artworkId, comment._id, text));
       setEdit(false);
     }
   };
 
+  // Handle comment deletion
   const handleDelete = () => {
     if (window.confirm("Do you want to delete this comment?")) {
       dispatch(deleteComment(artworkId, comment._id));

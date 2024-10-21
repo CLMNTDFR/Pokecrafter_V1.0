@@ -4,26 +4,26 @@ import SignInForm from "./SignInForm";
 
 const SignUpForm = () => {
   const [formSubmit, setFormSubmit] = useState(false);
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [controlPassword, setControlPassword] = React.useState("");
-  const [showTermsPopup, setShowTermsPopup] = React.useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [controlPassword, setControlPassword] = useState("");
+  const [showTermsPopup, setShowTermsPopup] = useState(false);
 
+  // Handle user registration
   const handleRegister = async (e) => {
     e.preventDefault();
     const terms = document.getElementById("terms");
     const usernameError = document.querySelector(".username.error");
     const emailError = document.querySelector(".email.error");
     const passwordError = document.querySelector(".password.error");
-    const passwordConfirmError = document.querySelector(
-      ".password-confirm.error"
-    );
+    const passwordConfirmError = document.querySelector(".password-confirm.error");
     const termsError = document.querySelector(".terms.error");
 
     passwordConfirmError.innerHTML = "";
     termsError.innerHTML = "";
 
+    // Validate password match and terms acceptance
     if (password !== controlPassword || !terms.checked) {
       if (password !== controlPassword) {
         passwordConfirmError.innerHTML = "Passwords do not match";
@@ -32,6 +32,7 @@ const SignUpForm = () => {
         termsError.innerHTML = "Please accept the terms of use";
       }
     } else {
+      // Send registration data to the server
       await axios({
         method: "post",
         url: `${process.env.REACT_APP_API_URL}api/user/register`,
@@ -51,7 +52,7 @@ const SignUpForm = () => {
             setFormSubmit(true);
           }
         })
-        .catch((err) => console.log(err));
+        .catch(() => {});
     }
   };
 
@@ -64,7 +65,7 @@ const SignUpForm = () => {
           <h4 className="success">Registration successful, please log in</h4>
         </>
       ) : (
-        <form action="" onSubmit={handleRegister} id="sign-up-form">
+        <form onSubmit={handleRegister} id="sign-up-form">
           <label htmlFor="username">Username</label>
           <br />
           <input
