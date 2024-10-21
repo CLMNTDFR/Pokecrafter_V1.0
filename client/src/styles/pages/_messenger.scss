@@ -14,7 +14,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -42,7 +42,8 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
 }
 
 .conversation-info {
@@ -108,7 +109,7 @@
 .message.sent {
   background: linear-gradient(
     to bottom right, 
-    #a0a0a0, /* Plus foncé en haut à gauche */
+    #c6c6c6, /* Plus foncé en haut à gauche */
     #d1d1d1 /* Plus clair en bas à droite */
   );
   text-align: right;
@@ -138,6 +139,8 @@
 }
 
 .message-form input {
+  margin-top: 5px;
+  margin-bottom: 15px;
   flex: 1;
   padding: 10px;
   border-radius: 5px;
@@ -150,11 +153,34 @@
   background-color: transparent;
   color: rgb(0, 0, 0);
   border: none;
-  transform: translateX(-2px);
+  transform: translate(-5px, -4px);
   cursor: pointer;
 
   &:hover {
     background-color: #f5f5f5;
     font-weight: bolder;
+  }
+}
+
+.messenger-search-container {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+}
+
+.messenger-search-bar {
+  width: 100%; /* Prendre toute la largeur de son conteneur */
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 930px) {
+  .messenger-search-container {
+    width: 100%; /* S'assurer que le conteneur prend 100% de largeur */
   }
 }

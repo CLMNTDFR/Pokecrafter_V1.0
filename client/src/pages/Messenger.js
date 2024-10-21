@@ -26,6 +26,7 @@ const Messenger = () => {
 
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [messageContent, setMessageContent] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // État pour le terme de recherche
 
   // Référence pour le conteneur des messages
   const messagesEndRef = useRef(null);
@@ -71,7 +72,7 @@ const Messenger = () => {
     } else {
       setSelectedConversation(conversationId);
       dispatch(getConversationMessages(conversationId));
-      
+
       // Rejoindre la conversation via Socket.IO
       socket.emit("joinConversation", conversationId);
     }
@@ -137,6 +138,12 @@ const Messenger = () => {
     return sender ? sender.username : "Unknown";
   };
 
+  // Filtrer les conversations en fonction du terme de recherche
+  const filteredConversations = conversations.filter((conversation) => {
+    const otherUsername = getOtherParticipantUsername(conversation);
+    return otherUsername.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   return (
     <div className="home">
       <LeftNav />
@@ -151,83 +158,103 @@ const Messenger = () => {
         <div className="messenger-container">
           {uid ? (
             <>
+              {/* Barre de recherche pour filtrer les conversations */}
+              <div className="messenger-search-container">
+                <input
+                  type="text"
+                  placeholder="Search for a conversation"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="messenger-search-bar"
+                />
+              </div>
+              
               {/* Liste des conversations */}
-              {conversations && conversations.length > 0 ? (
+              {filteredConversations && filteredConversations.length > 0 ? (
                 <ul>
-                  {conversations.map((conversation) => {
-                    const otherUsername =
-                      getOtherParticipantUsername(conversation);
-                    const otherProfilePic =
-                      getOtherParticipantProfilePic(conversation);
+                  {filteredConversations.map((conversation) => {
+                    const otherUsername = getOtherParticipantUsername(conversation);
+                    const otherProfilePic = getOtherParticipantProfilePic(conversation);
 
                     // Ajouter une condition pour vérifier les messages non lus
                     const hasUnreadMessages = conversation.unreadCount > 0;
 
                     return (
-                      <li key={conversation._id}>
-                        <div
-                          className={`conversation-item ${
-                            hasUnreadMessages ? "unread" : ""
-                          }`}
-                          onClick={() =>
-                            handleSelectConversation(conversation._id)
-                          }
-                        >
-                          <img
-                            src={otherProfilePic}
-                            alt="profile-pic"
-                            className="profile-pic"
-                          />
-                          <div className="conversation-info">
-                            <h4>
-                              {otherUsername}
-                              {hasUnreadMessages && (
-                                <span className="unread-badge"></span>
-                              )}
-                            </h4>
-                            <p>{conversation.lastMessageContent}</p>
+                      <React.Fragment key={conversation._id}>
+                        <li>
+                          <div
+                            className={`conversation-item ${
+                              hasUnreadMessages ? "unread" : ""
+                            }`}
+                            onClick={() =>
+                              handleSelectConversation(conversation._id)
+                            }
+                          >
+                            <img
+                              src={otherProfilePic}
+                              alt="profile-pic"
+                              className="profile-pic"
+                            />
+                            <div className="conversation-info">
+                              <h4>
+                                {otherUsername}
+                                {hasUnreadMessages && (
+                                  <span className="unread-badge"></span>
+                                )}
+                              </h4>
+                              <p>{conversation.lastMessageContent}</p>
+                            </div>
                           </div>
-                        </div>
-                      </li>
+                        </li>
+
+                        {/* Afficher les messages seulement pour la conversation sélectionnée */}
+                        {selectedConversation === conversation._id && (
+                          <div className="messages-container">
+                            {activeMessages.map((message) => (
+                              <div
+                                key={message._id}
+                                className={`message ${
+                                  message.sender === userData._id
+                                    ? "sent"
+                                    : "received"
+                                }`}
+                              >
+                                <p
+                                  className={`message-sender ${
+                                    message.sender === userData._id
+                                      ? "right"
+                                      : "left"
+                                  }`}
+                                >
+                                  {getMessageSenderName(message.sender)}
+                                </p>
+                                <p>{message.content}</p>
+                              </div>
+                            ))}
+                            <div ref={messagesEndRef} />
+
+                            <form
+                              onSubmit={handleSendMessage}
+                              className="message-form"
+                            >
+                              <input
+                                type="text"
+                                value={messageContent}
+                                onChange={(e) =>
+                                  setMessageContent(e.target.value)
+                                }
+                                placeholder="Type your message..."
+                              />
+                              <button type="submit">Send</button>
+                            </form>
+                          </div>
+                        )}
+                      </React.Fragment>
                     );
                   })}
                 </ul>
               ) : (
                 <p>No conversations available</p>
-              )}
-
-              {/* Messages et formulaire de saisie */}
-              {selectedConversation && (
-                <div className="messages-container">
-                  {activeMessages.map((message) => (
-                    <div
-                      key={message._id}
-                      className={`message ${
-                        message.sender === userData._id ? "sent" : "received"
-                      }`}
-                    >
-                      <p
-                        className={`message-sender ${
-                          message.sender === userData._id ? "right" : "left"
-                        }`}
-                      >
-                        {getMessageSenderName(message.sender)}
-                      </p>
-                      <p>{message.content}</p>
-                    </div>
-                  ))}
-                  <div ref={messagesEndRef} />
-
-                  <form onSubmit={handleSendMessage} className="message-form">
-                    <input
-                      type="text"
-                      value={messageContent}
-                      onChange={(e) => setMessageContent(e.target.value)}
-                      placeholder="Type your message..."
-                    />
-                    <button type="submit">Send</button>
-                  </form>
-                </div>
               )}
             </>
           ) : (

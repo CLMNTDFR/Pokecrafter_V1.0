@@ -4,6 +4,7 @@ import axios from 'axios';
 export const GET_CONVERSATIONS = "GET_CONVERSATIONS";
 export const GET_CONVERSATION_MESSAGES = "GET_CONVERSATION_MESSAGES";
 export const SEND_MESSAGE = "SEND_MESSAGE";
+export const CREATE_CONVERSATION = "CREATE_CONVERSATION";
 
 // URL de base de l'API depuis les variables d'environnement
 const API_URL = process.env.REACT_APP_API_URL;
@@ -62,3 +63,29 @@ export const getMessageById = (messageId) => async (dispatch) => {
       console.error(err);
     }
   };
+
+export const createConversation = (userId1, userId2) => {
+  return async (dispatch) => {
+    try {
+        const response = await axios.post(
+            `${API_URL}conversations`,
+            {
+              participants: [userId1, userId2],
+            }
+          );
+          
+      
+      // Vous pouvez déclencher un dispatch ici pour mettre à jour la liste des conversations
+      dispatch({
+        type: "CREATE_CONVERSATION_SUCCESS",
+        payload: response.data,
+      });
+
+      return response.data; // Retourne les données de la conversation créée
+    } catch (err) {
+        console.error(err);
+        return { error: 'Erreur lors de la création de la conversation.' };
+      }
+      
+  };
+};

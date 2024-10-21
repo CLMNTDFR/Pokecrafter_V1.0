@@ -2,12 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../actions/users.actions";
 import { getAllArtworks } from "../actions/artwork.actions";
+import { createConversation } from "../actions/conversation.actions"; // Import de l'action
 import { isEmpty } from "../components/Utils";
 import LeftNav from "../components/LeftNav";
 import Trophy from "../components/Profil/Trophy";
 import FollowHandler from "../components/Profil/FollowHandler";
 import { UidContext } from "../components/AppContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Importer useHistory pour la redirection
 
 const ArtistePage = () => {
   const [loadUsers, setLoadUsers] = useState(true);
@@ -19,6 +20,8 @@ const ArtistePage = () => {
   const users = useSelector((state) => state.usersReducer);
   const artworks = useSelector((state) => state.artworkReducer);
   const uid = useContext(UidContext);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     if (loadUsers) {
@@ -57,6 +60,18 @@ const ArtistePage = () => {
     setIsImageFullScreen(false);
     setFullScreenImage(null);
   };
+
+  // Fonction pour créer une conversation et rediriger
+  const handleMessageClick = async (user) => {
+    if (uid && user._id) {
+        const conversation = await dispatch(createConversation(uid, user._id));
+        if (conversation && conversation._id) {
+            // Utilisez `navigate` pour rediriger
+            navigate(`/messages`);
+        }
+    }
+};
+
 
   return (
     <div className="home">
@@ -171,7 +186,12 @@ const ArtistePage = () => {
                         <Trophy userTrophies={user.trophies} />
                         <br />
                         <br />
-                        <button className="message-button">Message</button>
+                        <button
+                          className="message-button"
+                          onClick={() => handleMessageClick(user)}
+                        >
+                          Message
+                        </button>
                         <br />
                         <br />
                       </div>
