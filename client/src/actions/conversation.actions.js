@@ -53,3 +53,12 @@ export const sendMessage = (conversationId, senderId, content) => {
         }
     };
 };
+
+export const getMessageById = (messageId) => async (dispatch) => {
+    try {
+      const res = await axios.get(`/api/messages/${messageId}`);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
