@@ -67,3 +67,11 @@
     }
   }
 }
+
+.popup-like-wrapper {
+  position: absolute; /* Position absolute to prevent displacement of other elements */
+  top: -30px; /* Adjust height to be 30px higher */
+  left: 50%; /* Center horizontally relative to the trigger */
+  transform: translateX(-50%); /* Center the popup */
+  z-index: 10; /* Ensure it appears above other elements */
+}

@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UidContext } from "../AppContext";
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
 import { useDispatch } from "react-redux";
 import { likeArtwork, unlikeArtwork } from "../../actions/artwork.actions";
 
 const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
   const [liked, setLiked] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const uid = useContext(UidContext);
   const dispatch = useDispatch();
 
@@ -30,23 +29,35 @@ const LikeButton = ({ artwork, likersCount, setLikersCount }) => {
     else setLiked(false);
   }, [uid, artwork.likers]);
 
+  // Toggle the popup display
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
   return (
     <div className="like-container">
       <div className="heart-margin-top">
-        {uid === null && (
-          <Popup
-            trigger={
-              <img
-                src="./img/icons/pokecrafter-heart.svg"
-                alt="like"
-                className="heart-icon"
-              />
-            }
-            position={["bottom center", "bottom right", "bottom left"]}
-            closeOnDocumentClick
-          >
-            <div>Log in to like an artwork!</div>
-          </Popup>
+        {!uid && (
+          <div className="like-popup-trigger" onClick={togglePopup}>
+            <img
+              src="./img/icons/pokecrafter-heart.svg"
+              alt="like"
+              className="heart-icon"
+            />
+            {showPopup && (
+              <div className="popup-like-wrapper">
+                <div className="trophy-container">
+                  <div className="trophy">
+                    <div className="trophy-popup-container">
+                      <div className="popup-description">
+                        Log in to like an artwork!
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         )}
         {uid && !liked && (
           <img
