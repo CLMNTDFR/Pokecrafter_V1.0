@@ -40,6 +40,7 @@ const ArtistePage = () => {
       )
     : [];
 
+  // Toggle the selected user when a user is clicked
   const handleUserClick = (user) => {
     setSelectedUser((prevUser) =>
       prevUser && prevUser._id === user._id ? null : user
@@ -53,11 +54,13 @@ const ArtistePage = () => {
       .slice(0, 3);
   };
 
+  // Handle image click to display the artwork in fullscreen mode
   const handleImageClick = (artwork) => {
     setFullScreenImage(artwork.picture);
     setIsImageFullScreen(true);
   };
 
+  // Handle closing the fullscreen image modal
   const handleCloseFullScreen = () => {
     setIsImageFullScreen(false);
     setFullScreenImage(null);

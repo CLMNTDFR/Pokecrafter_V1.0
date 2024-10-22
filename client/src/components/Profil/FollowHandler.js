@@ -58,7 +58,7 @@ const FollowHandler = ({ idToFollow, type }) => {
                 alt="Follow back icon"
                 className="icon"
               />
-              Follow back
+              Follow
             </button>
           )}
           {type === "card" && (

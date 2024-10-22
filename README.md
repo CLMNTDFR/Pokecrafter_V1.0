@@ -90,6 +90,8 @@ This diagram illustrates the flow of data in the application, from user interact
 
 ## 👤 User-Story Map
 
+The user story map describes the main activities that a user can do. These activities are divided into steps then into more detailed sub-activities.
+
 [![user-story-maps-drawio.png](https://i.postimg.cc/13G8v2RL/user-story-maps-drawio.png)](https://postimg.cc/NK0GMNH4)
 
 ## 🏛️ Architecture
@@ -97,10 +99,6 @@ This diagram illustrates the flow of data in the application, from user interact
 Below is the architecture diagram that outlines the Minimum Viable Product (MVP) for the PokeCrafter platform. This diagram visualizes the interactions between different components, from user requests to data storage and processing.
 
 [![Data-Mod-drawio.png](https://i.postimg.cc/SQG2Lws3/Data-Mod-drawio.png)](https://postimg.cc/HjVkdvb9)
-
-## 🖼️ Mockup
-
-Here are a few mock-ups of the **POKE-CRAFTER** application, illustrating the different pages and their layout on mobile and desktop.
 
 ## 🚀 Installation and Configuration
 
@@ -143,13 +141,12 @@ Follow these steps to install and configure **POKE-CRAFTER** on your local machi
 
 #### 3. Database configuration:
 
+- Create an account on MongoDB Atlas
+- Follow Mongo DB [Mongo DB](https://www.mongodb.com/resources/products/fundamentals/mongodb-cluster-setup) instructions
+- Generate a token randomly with [this tool](https://it-tools.tech/token-generator)
+- Create an `.env` file in `/config` and `/client` taking the example of `.env(exemple)`
 
-
-#### 4. Configuration of environment variables:
-
-Create a `.env` file in the `/client` folder and root directories. Fill in the necessary information, such as database identifiers, API keys, etc.
-
-#### 5. Start the development server:
+#### 4. Start the development server:
 
 ##### Open two terminals:
 
@@ -166,7 +163,7 @@ cd /client
 npm start
 ```
 
-#### 6. Access the application:
+#### 5. Access the application:
 
 Open your browser and navigate to `http://localhost:3000` to access the frontend.
 
