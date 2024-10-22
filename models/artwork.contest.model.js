@@ -6,7 +6,7 @@ const ArtworkContestSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    contestId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Contest' }, // ID du contest
+    contestId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Contest' },
     
     title: {
       type: String,

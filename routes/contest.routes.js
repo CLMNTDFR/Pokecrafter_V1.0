@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const contestController = require('../controllers/contest.controller');
 const { requireAuth } = require("../middleware/auth.middleware");
-const fileUpload = require('express-fileupload'); // Require express-fileupload
-const path = require('path');
 
 
 // Routes pour les contests

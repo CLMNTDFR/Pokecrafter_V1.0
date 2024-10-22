@@ -5,26 +5,25 @@ exports.createConversation = async (req, res) => {
     const { participants } = req.body;
 
     if (!participants || participants.length !== 2) {
-        return res.status(400).json({ error: 'Deux participants sont requis pour créer une conversation.' });
+        return res.status(400).json({ error: 'Two participants are required to create a conversation.' });
     }
 
     try {
-        // Vérifie si une conversation existe déjà entre les deux participants, peu importe l'ordre
+        // Check if a conversation exists between 2 users
         let conversation = await Conversation.findOne({
             participants: { $size: 2, $all: participants }
         });
 
         if (conversation) {
-            return res.status(200).json(conversation); // La conversation existe déjà
+            return res.status(200).json(conversation);
         }
 
-        // Si elle n'existe pas, créer une nouvelle conversation
         conversation = new Conversation({ participants });
         await conversation.save();
 
         return res.status(201).json(conversation);
     } catch (error) {
-        return res.status(500).json({ error: 'Erreur lors de la création de la conversation.' });
+        return res.status(500).json({ error: 'Error creating conversation.' });
     }
 };
 
@@ -32,19 +31,18 @@ exports.getConversationMessages = async (req, res) => {
     const { conversationId } = req.params;
 
     if (!conversationId) {
-        return res.status(400).json({ error: 'ID de conversation manquant.' });
+        return res.status(400).json({ error: 'Conversation ID missing.' });
     }
 
     try {
-        // Récupère les messages associés à la conversation, triés par ordre croissant de date
         const messages = await Message.find({ conversationId }).sort({ createdAt: 1 });
 
         if (!messages) {
-            return res.status(404).json({ error: 'Aucun message trouvé pour cette conversation.' });
+            return res.status(404).json({ error: 'No messages found for this conversation.' });
         }
 
         return res.status(200).json(messages);
     } catch (error) {
-        return res.status(500).json({ error: 'Erreur lors de la récupération des messages.' });
+        return res.status(500).json({ error: 'Error retrieving messages.' });
     }
 };
