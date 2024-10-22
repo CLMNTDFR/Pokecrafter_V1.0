@@ -29,7 +29,7 @@ This project features various functionalities, such as a **messaging system** to
 ## 🎥 VIDEO PREVIEW
 
 
-
+https://github.com/user-attachments/assets/a67fbebf-eb0e-45b3-b3d1-ddd06cc3a4ee
 
 ## 🛠️ TECHNOLOGIES and TOOLS USED
 
