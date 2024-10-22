@@ -18,7 +18,7 @@ const Logout = () => {
       withCredentials: true,
     })
       .then(() => removeCookie("jwt"))
-      .catch((err) => console.error(err));
+      .catch(() => {});
     
     window.location = "/";
   };

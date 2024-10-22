@@ -125,13 +125,12 @@ export const addComment = (artworkId, commenterId, text, commenterPseudo) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url:
-        `${process.env.REACT_APP_API_URL}api/artwork/comment-artwork/` +
-        artworkId,
+      url: `${process.env.REACT_APP_API_URL}api/artwork/comment-artwork/${artworkId}`,
       data: { commenterId, text, commenterPseudo },
     })
       .then((res) => {
-        dispatch({ type: ADD_COMMENT, payload: { artworkId } });
+        // Assuming res.data returns the new comment object
+        dispatch({ type: ADD_COMMENT, payload: { artworkId, comment: res.data } });
       })
       .catch((err) => console.log(err));
   };

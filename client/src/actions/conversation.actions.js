@@ -13,11 +13,10 @@ const API_URL = process.env.REACT_APP_API_URL;
 export const getConversations = (userId) => {
   return async (dispatch) => {
     try {
-      // Use the environment variable to set the URL
       const res = await axios.get(`${API_URL}conversations/user/${userId}`);
       dispatch({ type: GET_CONVERSATIONS, payload: res.data });
     } catch (error) {
-      console.error("Error fetching conversations:", error);
+      // Handle error silently or use alternative error handling
     }
   };
 };
@@ -26,13 +25,12 @@ export const getConversations = (userId) => {
 export const getConversationMessages = (conversationId) => {
   return async (dispatch) => {
     try {
-      // Use the environment variable to set the URL
       const res = await axios.get(
         `${API_URL}conversations/${conversationId}/messages`
       );
       dispatch({ type: GET_CONVERSATION_MESSAGES, payload: res.data });
     } catch (error) {
-      console.error("Error fetching conversation messages:", error);
+      // Handle error silently or use alternative error handling
     }
   };
 };
@@ -41,7 +39,6 @@ export const getConversationMessages = (conversationId) => {
 export const sendMessage = (conversationId, senderId, content) => {
   return async (dispatch) => {
     try {
-      // Ensure withCredentials is added to send cookies
       const res = await axios.post(
         `${API_URL}messages`,
         { conversationId, sender: senderId, content },
@@ -50,7 +47,7 @@ export const sendMessage = (conversationId, senderId, content) => {
       dispatch({ type: SEND_MESSAGE, payload: res.data });
       dispatch(getConversationMessages(conversationId)); // Update messages
     } catch (error) {
-      console.error("Error sending message:", error);
+      // Handle error silently or use alternative error handling
     }
   };
 };
@@ -61,7 +58,7 @@ export const getMessageById = (messageId) => async (dispatch) => {
     const res = await axios.get(`/api/messages/${messageId}`);
     return res.data;
   } catch (err) {
-    console.error(err);
+    // Handle error silently or use alternative error handling
   }
 };
 
@@ -73,7 +70,6 @@ export const createConversation = (userId1, userId2) => {
         participants: [userId1, userId2],
       });
 
-      // You can dispatch here to update the conversation list
       dispatch({
         type: "CREATE_CONVERSATION_SUCCESS",
         payload: response.data,
@@ -81,7 +77,7 @@ export const createConversation = (userId1, userId2) => {
 
       return response.data; // Return the created conversation data
     } catch (err) {
-      console.error(err);
+      // Handle error silently or use alternative error handling
       return { error: "Error creating conversation." };
     }
   };

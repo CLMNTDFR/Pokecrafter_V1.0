@@ -50,9 +50,7 @@ const CardUser = ({ artwork }) => {
       setTimeout(() => {
         toast.classList.remove("show");
       }, 3000);
-    } catch (err) {
-      console.error("Failed to copy: ", err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {

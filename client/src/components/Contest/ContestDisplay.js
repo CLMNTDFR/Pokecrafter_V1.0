@@ -185,7 +185,8 @@ const ContestDisplay = ({ selectedContestType }) => {
       .then(() => {
         setRefreshArtworks((prev) => !prev);
       })
-      .catch((err) => console.log("Error deleting artwork:", err));
+      .catch(() => {
+      });
   };
 
   const hasUserSubmittedArtwork = (contestId) => {

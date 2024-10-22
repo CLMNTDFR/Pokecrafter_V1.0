@@ -22,7 +22,7 @@ const contestSchema = new mongoose.Schema({
         required: true,
         maxlength: 240,
     },
-    artworks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ArtworkContest' }],
+    artworks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ArtworkContest', default: [] }],
 
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,

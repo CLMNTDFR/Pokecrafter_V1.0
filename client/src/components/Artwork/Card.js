@@ -11,19 +11,16 @@ const Card = ({ artwork }) => {
   const [showComments, setShowComments] = useState(false);
   const usersData = useSelector((state) => state.usersReducer);
 
-  // Use effect to set loading state based on usersData availability
   useEffect(() => {
     if (usersData && usersData.length > 0) {
       setIsLoading(false);
     }
   }, [usersData]);
 
-  // Find the poster of the artwork from the usersData
   const poster = artwork && artwork.posterId
     ? usersData.find((user) => String(user._id) === String(artwork.posterId))
     : null;
 
-  // Handler to toggle full screen image
   const handleImageClick = () => {
     setIsImageFullScreen(true);
   };
@@ -32,7 +29,6 @@ const Card = ({ artwork }) => {
     setIsImageFullScreen(false);
   };
 
-  // Handler for sharing artwork link
   const handleShareClick = async () => {
     try {
       const shareUrl = new URL(artwork.picture, window.location.origin).href;
@@ -44,15 +40,13 @@ const Card = ({ artwork }) => {
       setTimeout(() => {
         toast.classList.remove("show");
       }, 3000);
-    } catch (err) {
-      console.error("Failed to copy the share URL:", err);
-    }
+    } catch (err) {}
   };
 
   return (
     <li className="card-container" key={artwork?._id}>
       {isLoading ? (
-        <i className="fas fa-spinner fa-spin"></i> // Loading spinner
+        <i className="fas fa-spinner fa-spin"></i>
       ) : (
         <>
           <div className="card-left">

@@ -15,8 +15,7 @@ export const getContest = (contestId) => {
       .get(`${process.env.REACT_APP_API_URL}api/contests/${contestId}`)
       .then((res) => {
         dispatch({ type: GET_CONTESTS, payload: res.data });
-      })
-      .catch((err) => console.log(err));
+      });
   };
 };
 
@@ -27,8 +26,7 @@ export const getAllContests = () => {
       .get(`${process.env.REACT_APP_API_URL}api/contests/`)
       .then((res) => {
         dispatch({ type: GET_ALL_CONTESTS, payload: res.data });
-      })
-      .catch((err) => console.log(err));
+      });
   };
 };
 
@@ -45,8 +43,7 @@ export const addContest = (data) => {
         } else {
           dispatch({ type: GET_CONTEST_ERRORS, payload: "" });
         }
-      })
-      .catch((err) => console.log(err));
+      });
   };
 };
 
@@ -57,11 +54,9 @@ export const updateContest = (contestId, data) => {
       method: "put",
       url: `${process.env.REACT_APP_API_URL}api/contests/` + contestId,
       data,
-    })
-      .then((res) => {
-        dispatch({ type: UPDATE_CONTEST, payload: { data, contestId } });
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      dispatch({ type: UPDATE_CONTEST, payload: { data, contestId } });
+    });
   };
 };
 
@@ -71,11 +66,9 @@ export const deleteContest = (contestId) => {
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}api/contests/` + contestId,
-    })
-      .then((res) => {
-        dispatch({ type: DELETE_CONTEST, payload: { contestId } });
-      })
-      .catch((err) => console.log(err));
+    }).then((res) => {
+      dispatch({ type: DELETE_CONTEST, payload: { contestId } });
+    });
   };
 };
 

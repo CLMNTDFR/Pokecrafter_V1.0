@@ -21,7 +21,9 @@ export const getUser = (uid) => {
             .then((res) => {
                 dispatch({ type: GET_USER, payload: res.data });
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                // Handle error silently or use alternative error handling
+            });
     };
 };
 
@@ -45,7 +47,9 @@ export const uploadPicture = (data, id) => {
                     });
             }
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            // Handle error silently or use alternative error handling
+        });
     };
 };
 
@@ -60,7 +64,9 @@ export const updateBio = (userId, bio) => {
         .then((res) => {
             dispatch({ type: UPDATE_BIO, payload: bio });
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            // Handle error silently or use alternative error handling
+        });
     };
 };
 
@@ -75,7 +81,9 @@ export const followUser = (followerId, idToFollow) => {
         .then((res) => {
             dispatch({ type: FOLLOW_USER, payload: { idToFollow } });
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            // Handle error silently or use alternative error handling
+        });
     };
 };
 
@@ -90,7 +98,9 @@ export const unfollowUser = (followerId, idToUnfollow) => {
         .then((res) => {
             dispatch({ type: UNFOLLOW_USER, payload: { idToUnfollow } });
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            // Handle error silently or use alternative error handling
+        });
     };
 };
 
@@ -104,6 +114,8 @@ export const deleteUser = (userId) => {
         .then((res) => {
             dispatch({ type: DELETE_USER, payload: userId });
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            // Handle error silently or use alternative error handling
+        });
     };
 };
