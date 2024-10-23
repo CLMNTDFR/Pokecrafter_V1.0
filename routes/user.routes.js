@@ -2,9 +2,6 @@ const router = require('express').Router();
 const userController = require('../controllers/user.controller');
 const authController = require('../controllers/auth.controller');
 const uploadController = require('../controllers/upload.controller');
-const authMiddleware = require('../middleware/auth.middleware');
-const fileUpload = require('express-fileupload');
-const path = require('path');
 
 
 router.post("/register", authController.signUp);
@@ -20,7 +17,5 @@ router.patch('/unfollow/:id', userController.unfollow);
 
 router.post("/upload", uploadController.uploadProfil);
 
-
-module.exports = router;
 
 module.exports = router;
