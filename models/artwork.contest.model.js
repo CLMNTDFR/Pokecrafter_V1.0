@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+// Define the Artwork Contest model. (Artworks that you can only find in a Contest)
+
 const ArtworkContestSchema = new mongoose.Schema(
   {
     posterId: {

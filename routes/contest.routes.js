@@ -3,6 +3,7 @@ const router = express.Router();
 const contestController = require('../controllers/contest.controller');
 const { requireAuth } = require("../middleware/auth.middleware");
 
+// Basic CRUD operation
 router.post('/create', requireAuth, contestController.createContest);
 router.get('/:id', contestController.getContestById);
 router.get('/', contestController.getAllContests);

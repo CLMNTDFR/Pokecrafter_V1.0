@@ -9,7 +9,7 @@ router.get('/contest/:contestID', artworkContestController.getArtworksByContestI
 router.patch('/:id', artworkContestController.updateArtworkContest);
 router.delete('/:id', artworkContestController.deleteArtworkContest);
 
-
+// Routes for likes and comments
 router.patch('/like-artwork-contest/:id', artworkContestController.likeArtworkContest);
 router.patch('/unlike-artwork-contest/:id', artworkContestController.unlikeArtworkContest);
 router.patch('/comment-artwork-contest/:id', artworkContestController.commentArtworkContest);

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+// Define the Contest model.
+
 const contestSchema = new mongoose.Schema({
     name: {
         type: String,

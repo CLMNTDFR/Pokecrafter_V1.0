@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+// Define the Artwork model.
+
 const ArtworkSchema = new mongoose.Schema(
   {
     posterId: {
