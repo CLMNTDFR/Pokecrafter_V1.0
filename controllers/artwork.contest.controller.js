@@ -4,6 +4,7 @@ const ArtworkContest = require('../models/artwork.contest.model');
 const Contest = require('../models/contest.model');
 const ObjectID = require("mongoose").Types.ObjectId;
 
+// Handles the creation of a new artwork submission for a contest
 module.exports.createArtworkContest = async (req, res) => {
     try {
         const contest = await Contest.findById(req.body.contestId);
@@ -23,20 +24,23 @@ module.exports.createArtworkContest = async (req, res) => {
 
         const file = req.files.file;
 
-        // Checking the MIME
+        // Checking the MIME type of the uploaded file
         const validMimeTypes = ["image/jpg", "image/png", "image/jpeg"];
         if (!validMimeTypes.includes(file.mimetype)) {
             throw Error("invalid file");
         }
 
+        // Ensure the uploaded file size does not exceed the limit
         if (file.size > 500000) {
             throw Error("max size");
         }
 
+        // Constructing the file name and file path
         const timestamp = Date.now();
         const fileName = `Pokecrafter_contest_${req.body.contestId}_${req.body.posterId}_${timestamp}.jpg`;
         const filePath = path.join(__dirname, "../client/public/img/uploads/artwork_contest", fileName);
 
+        // Move the uploaded file to the specified directory
         file.mv(filePath, async (err) => {
             if (err) {
                 return res.status(500).json({ message: "File upload failed", error: err });
@@ -53,8 +57,10 @@ module.exports.createArtworkContest = async (req, res) => {
                     comments: [],
                 });
 
+                // Save the new artwork contest to the database
                 const artworkContest = await newArtworkContest.save();
 
+                // Update the contest to reference the new artwork
                 contest.artworks.push(artworkContest._id);
                 await contest.save();
 
@@ -68,6 +74,7 @@ module.exports.createArtworkContest = async (req, res) => {
     }
 };
 
+// Retrieves all artworks associated with a specific contest ID
 module.exports.getArtworksByContestId = async (req, res) => {
   const { contestID } = req.params;
 
@@ -83,10 +90,11 @@ module.exports.getArtworksByContestId = async (req, res) => {
   }
 };
 
-
+// Updates an existing artwork contest by ID
 module.exports.updateArtworkContest = async (req, res) => {
     const { id } = req.params;
   
+    // Validate the provided ID
     if (!ObjectID.isValid(id)) {
       return res.status(400).send("ID unknown: " + id);
     }
@@ -98,6 +106,7 @@ module.exports.updateArtworkContest = async (req, res) => {
     };
   
     try {
+      // Update the artwork contest details
       const updatedArtwork = await ArtworkContest.findByIdAndUpdate(
         id,
         { $set: updatedRecord },
@@ -112,12 +121,14 @@ module.exports.updateArtworkContest = async (req, res) => {
     } catch (err) {
       res.status(500).send(err);
     }
-  };
+};
 
+// Deletes an artwork contest by ID
 module.exports.deleteArtworkContest = async (req, res) => {
     const { id } = req.params;
 
     try {
+        // Attempt to delete the artwork contest from the database
         const deletedArtwork = await ArtworkContest.findByIdAndDelete(id);
         if (!deletedArtwork) return res.status(404).json({ message: 'Artwork not found' });
 
@@ -127,10 +138,12 @@ module.exports.deleteArtworkContest = async (req, res) => {
     }
 };
 
+// Retrieves a specific artwork contest by its ID
 module.exports.getArtworkContestById = async (req, res) => {
     const { id } = req.params;
 
     try {
+        // Find the artwork contest by ID
         const artwork = await ArtworkContest.findById(id);
         if (!artwork) return res.status(404).json({ message: 'Artwork not found' });
 
@@ -140,11 +153,13 @@ module.exports.getArtworkContestById = async (req, res) => {
     }
 };
 
+// Likes an artwork contest by ID
 module.exports.likeArtworkContest = async (req, res) => {
     if (!ObjectID.isValid(req.params.id))
       return res.status(400).send("ID unknown: " + req.params.id);
   
     try {
+      // Add the user's ID to the likers array of the artwork contest
       const artworkContest = await ArtworkContest.findByIdAndUpdate(
         req.params.id,
         {
@@ -155,6 +170,7 @@ module.exports.likeArtworkContest = async (req, res) => {
       
       if (!artworkContest) return res.status(404).send("Artwork Contest not found");
 
+      // Add the artwork contest ID to the user's liked artworks
       const user = await UserModel.findByIdAndUpdate(
         req.body.id,
         {
@@ -172,11 +188,13 @@ module.exports.likeArtworkContest = async (req, res) => {
     }
   };
 
-  module.exports.unlikeArtworkContest = async (req, res) => {
+// Unlikes an artwork contest by ID
+module.exports.unlikeArtworkContest = async (req, res) => {
     if (!ObjectID.isValid(req.params.id))
       return res.status(400).send("ID unknown: " + req.params.id);
   
     try {
+      // Remove the user's ID from the likers array of the artwork contest
       const artworkContest = await ArtworkContest.findByIdAndUpdate(
         req.params.id,
         {
@@ -187,6 +205,7 @@ module.exports.likeArtworkContest = async (req, res) => {
       
       if (!artworkContest) return res.status(404).send("Artwork Contest not found");
   
+      // Remove the artwork contest ID from the user's liked artworks
       const user = await UserModel.findByIdAndUpdate(
         req.body.id,
         {
@@ -204,12 +223,14 @@ module.exports.likeArtworkContest = async (req, res) => {
     }
   };
 
+// Adds a comment to an artwork contest
 module.exports.commentArtworkContest = async (req, res) => {
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).send("ID unknown: " + req.params.id);
     }
 
     try {
+        // Update the artwork contest by pushing a new comment
         const updatedArtwork = await ArtworkContest.findByIdAndUpdate(
             req.params.id,
             {
@@ -231,10 +252,11 @@ module.exports.commentArtworkContest = async (req, res) => {
 
         return res.status(200).send(updatedArtwork);
     } catch (err) {
-        return res.status(500).send({ error: "Internal server error", details: err });
+        res.status(500).send({ error: "Internal server error", details: err });
     }
 };
 
+// Edits a specific comment on an artwork contest
 module.exports.editCommentArtworkContest = async (req, res) => {
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).send("ID unknown: " + req.params.id);
@@ -246,6 +268,7 @@ module.exports.editCommentArtworkContest = async (req, res) => {
 
         if (!comment) return res.status(404).send("Comment not found");
 
+        // Update the comment text
         comment.text = req.body.text;
 
         await artwork.save();
@@ -255,37 +278,38 @@ module.exports.editCommentArtworkContest = async (req, res) => {
     }
 };
 
+// Deletes a specific comment from an artwork contest by comment ID and returns the updated artwork.
 module.exports.deleteCommentArtworkContest = async (req, res) => {
-    const { id } = req.params;
-    const { commentId } = req.body;
+  const { id } = req.params;
+  const { commentId } = req.body;
 
-    if (!ObjectID.isValid(id)) {
-        return res.status(400).send("ID unknown: " + id);
-    }
+  if (!ObjectID.isValid(id)) {
+      return res.status(400).send("ID unknown: " + id);
+  }
 
-    if (!ObjectID.isValid(commentId)) {
-        return res.status(400).send("Comment ID unknown: " + commentId);
-    }
+  if (!ObjectID.isValid(commentId)) {
+      return res.status(400).send("Comment ID unknown: " + commentId);
+  }
 
-    try {
-        const artwork = await ArtworkContest.findById(id);
+  try {
+      const artwork = await ArtworkContest.findById(id);
 
-        if (!artwork) {
-            return res.status(404).send("Artwork not found");
-        }
+      if (!artwork) {
+          return res.status(404).send("Artwork not found");
+      }
 
-        const commentIndex = artwork.comments.findIndex(comment => comment._id.equals(commentId));
+      const commentIndex = artwork.comments.findIndex(comment => comment._id.equals(commentId));
 
-        if (commentIndex === -1) {
-            return res.status(404).send("Comment not found");
-        }
+      if (commentIndex === -1) {
+          return res.status(404).send("Comment not found");
+      }
 
-        artwork.comments.splice(commentIndex, 1);
+      artwork.comments.splice(commentIndex, 1);
 
-        await artwork.save();
+      await artwork.save();
 
-        res.status(200).json(artwork);
-    } catch (err) {
-        res.status(500).send("Internal server error");
-    }
+      res.status(200).json(artwork);
+  } catch (err) {
+      res.status(500).send("Internal server error");
+  }
 };

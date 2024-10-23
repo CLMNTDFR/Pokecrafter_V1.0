@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+// Define the message model.
+
 const messageSchema = new mongoose.Schema({
     conversationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' },
     sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

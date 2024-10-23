@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
+// Define the user model
+
 const userSchema = new mongoose.Schema(
     {
         username: {
@@ -67,26 +69,28 @@ const userSchema = new mongoose.Schema(
     }
 );
 
+// Middleware to hash the password before saving the user document
 userSchema.pre("save", async function(next) {
+    // Check if the password_hash field has been modified
     if (this.isModified('password_hash')) {
-        const salt = await bcrypt.genSalt();
-        this.password_hash = await bcrypt.hash(this.password_hash, salt);
+        const salt = await bcrypt.genSalt(); // Generate a salt for hashing
+        this.password_hash = await bcrypt.hash(this.password_hash, salt); // Hash the password with the salt
     }
-    next();
+    next(); // Proceed to the next middleware or save operation
 });
 
+// Static method for user login, validating email and password
 userSchema.statics.login = async function(email, password_hash) {
-    const user = await this.findOne({ email });
+    const user = await this.findOne({ email }); // Find user by email
     if (user) {
-      const auth = await bcrypt.compare(password_hash, user.password_hash);
+      const auth = await bcrypt.compare(password_hash, user.password_hash); // Compare provided password with stored hash
       if (auth) {
-        return user;
+        return user; // Return user if authentication is successful
       }
-      throw Error('wrong password_hash');
+      throw Error('wrong password_hash'); // Throw error if password is incorrect
     }
-    throw Error('wrong email')
-  };
-
+    throw Error('wrong email'); // Throw error if user with email does not exist
+};
 
 const UserModel = mongoose.model('user', userSchema);
 
