@@ -9,11 +9,13 @@ import rootReducer from "./reducers";
 import reportWebVitals from "./reportWebVitals";
 import { getUsers } from "./actions/users.actions";
 
+// Configure the Redux store with the root reducer and thunk middleware
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
 
+// Dispatch the getUsers action to fetch the initial list of users
 store.dispatch(getUsers());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

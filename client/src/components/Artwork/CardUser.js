@@ -30,10 +30,12 @@ const CardUser = ({ artwork }) => {
     }
   };
 
+  // Handle image click to open in fullscreen
   const handleImageClick = () => {
     setIsImageFullScreen(true);
   };
 
+  // Handle closing the fullscreen image view
   const handleCloseFullScreen = () => {
     setIsImageFullScreen(false);
   };
@@ -53,12 +55,14 @@ const CardUser = ({ artwork }) => {
     } catch (err) {}
   };
 
+  // Set loading state to false once usersData is available
   useEffect(() => {
     if (usersData && usersData.length > 0) {
       setIsLoading(false);
     }
   }, [usersData]);
 
+  // Find the user who posted the artwork
   const poster =
     artwork && artwork.posterId
       ? usersData.find((user) => String(user._id) === String(artwork.posterId))

@@ -24,7 +24,10 @@ const Trophy = ({ userTrophies }) => {
     },
   ];
 
+  // State to keep track of the index of the trophy being hovered over
   const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  // List of trophies to display, defaulting to an empty array if userTrophies is not provided
   const trophiesToDisplay = userTrophies || [];
 
   return (

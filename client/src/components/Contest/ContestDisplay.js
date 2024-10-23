@@ -53,6 +53,7 @@ const ContestDisplay = ({ selectedContestType }) => {
     }
   };
 
+  // Load more contests when the user scrolls to the bottom of the page
   useEffect(() => {
     if (loadContests) {
       setVisibleContests((prev) => prev + 10);
@@ -68,6 +69,7 @@ const ContestDisplay = ({ selectedContestType }) => {
     setFullscreenImage(imageSrc);
   };
 
+  // Handle closing the fullscreen image modal
   const handleCloseFullscreen = () => {
     setFullscreenImage(null);
   };
@@ -92,6 +94,7 @@ const ContestDisplay = ({ selectedContestType }) => {
       return;
     }
 
+    // Check if the user is logged in before submitting an artwork
     if (!userData || !userData._id) {
       setUploadError("You must be logged in to submit an artwork.");
       return;
@@ -117,6 +120,7 @@ const ContestDisplay = ({ selectedContestType }) => {
       });
   };
 
+  // Handle file input change event
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -126,18 +130,22 @@ const ContestDisplay = ({ selectedContestType }) => {
     setUploadError(null);
   };
 
+  // Function to handle the click event for the file input
   const handleClick = () => {
     document.getElementById("fileInput").click();
   };
 
+  // Display the file name, truncate if it's longer than 10 characters
   const displayFileName =
     fileName.length > 10 ? `${fileName.substring(0, 10)}...` : fileName;
 
+  // Function to get the profile picture of a user by their userId
   const getUserProfilePicture = (userId) => {
     const user = usersData.find((user) => String(user._id) === String(userId));
     return user ? user.picture : "/img/default-profile.png";
   };
 
+  // Function to calculate the number of days remaining until the contest end date
   const getDaysRemaining = (endDate) => {
     const now = new Date();
     const end = new Date(endDate);
@@ -145,12 +153,14 @@ const ContestDisplay = ({ selectedContestType }) => {
     return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
   };
 
+  // Function to get the CSS class based on the number of days remaining
   const getRemainingDaysClass = (days) => {
     if (days > 10) return "contest-days-green";
     if (days <= 10 && days >= 3) return "contest-days-orange";
     return "contest-days-red";
   };
 
+  // Function to toggle the full description of a contest
   const toggleDescription = (contestId) => {
     setShowFullDescription((prevState) => ({
       ...prevState,
@@ -158,6 +168,7 @@ const ContestDisplay = ({ selectedContestType }) => {
     }));
   };
 
+  // Function to handle the change in the number of likers for an artwork
   const handleLikersCountChange = (artworkId, newCount) => {
     setLikersCountByArtwork((prev) => ({
       ...prev,
@@ -165,6 +176,7 @@ const ContestDisplay = ({ selectedContestType }) => {
     }));
   };
 
+  // Function to show all artworks for a specific contest
   const handleShowMoreArtworks = (contestId) => {
     const totalArtworks = artworksContest[contestId]?.length || 0;
     setVisibleArtworks((prevState) => ({
@@ -173,6 +185,7 @@ const ContestDisplay = ({ selectedContestType }) => {
     }));
   };
 
+  // Function to show less artworks for a specific contest
   const handleShowLessArtworks = (contestId) => {
     setVisibleArtworks((prevState) => ({
       ...prevState,
@@ -180,15 +193,18 @@ const ContestDisplay = ({ selectedContestType }) => {
     }));
   };
 
+  // Function to handle the removal of an artwork from a contest
   const handleRemoveArtwork = (artworkId, contestId) => {
     dispatch(deleteContestArtwork(artworkId, contestId))
       .then(() => {
         setRefreshArtworks((prev) => !prev);
       })
       .catch(() => {
+        // Handle error if needed
       });
   };
 
+  // Function to check if the current user has submitted an artwork for a specific contest
   const hasUserSubmittedArtwork = (contestId) => {
     const userArtwork = artworksContest[contestId]?.find(
       (artwork) => artwork.posterId === userData._id
@@ -196,6 +212,7 @@ const ContestDisplay = ({ selectedContestType }) => {
     return userArtwork;
   };
 
+  // Function to get the username (pseudo) of a user by their userId
   const getUserPseudo = (posterId) => {
     const poster = usersData.find(
       (user) => String(user._id) === String(posterId)
@@ -203,6 +220,7 @@ const ContestDisplay = ({ selectedContestType }) => {
     return poster ? poster.username : "Unknown user";
   };
 
+  // Function to handle the deletion of a contest
   const handleDeleteContest = (contestId) => {
     dispatch(deleteContest(contestId));
   };

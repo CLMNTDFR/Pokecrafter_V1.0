@@ -26,6 +26,7 @@ const EditDeleteComment = ({ comment, artworkId }) => {
     }
   };
 
+  // Check if the current user is the author of the comment
   useEffect(() => {
     const checkAuthor = () => {
       if (uid === comment.commenterId) {

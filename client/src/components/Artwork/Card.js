@@ -11,24 +11,29 @@ const Card = ({ artwork }) => {
   const [showComments, setShowComments] = useState(false);
   const usersData = useSelector((state) => state.usersReducer);
 
+  // Set loading state to false once usersData is available
   useEffect(() => {
     if (usersData && usersData.length > 0) {
       setIsLoading(false);
     }
   }, [usersData]);
 
+  // Find the poster of the artwork from the usersData using the posterId
   const poster = artwork && artwork.posterId
     ? usersData.find((user) => String(user._id) === String(artwork.posterId))
     : null;
 
+  // Handle the click event on the image to open it in fullscreen mode
   const handleImageClick = () => {
     setIsImageFullScreen(true);
   };
 
+  // Handle the click event to close the fullscreen image
   const handleCloseFullScreen = () => {
     setIsImageFullScreen(false);
   };
 
+  // Handle the click event to share the artwork URL
   const handleShareClick = async () => {
     try {
       const shareUrl = new URL(artwork.picture, window.location.origin).href;

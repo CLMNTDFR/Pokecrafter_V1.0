@@ -84,6 +84,7 @@ const NewArtworkForm = () => {
     fileInputRef.current.click();
   };
 
+  // Display the file name, truncated if it's longer than 10 characters
   const displayFileName = file ? file.name.substring(0, 10) + (file.name.length > 10 ? '...' : '') : '';
 
   return (

@@ -20,8 +20,8 @@ const FollowHandler = ({ idToFollow, type }) => {
     setIsFollowed(false);
   };
 
+  // Check if the user is already followed
   useEffect(() => {
-    // Check if the user is already followed
     if (!isEmpty(userData.following)) {
       setIsFollowed(userData.following.includes(idToFollow));
     }

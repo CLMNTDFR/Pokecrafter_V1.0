@@ -11,6 +11,7 @@ import { UidContext } from "../components/AppContext";
 import io from "socket.io-client";
 import { Link } from "react-router-dom";
 
+// Initialize Socket.IO connection
 const socket = io(process.env.REACT_APP_API_URL);
 
 const Messenger = () => {

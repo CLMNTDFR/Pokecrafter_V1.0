@@ -20,8 +20,8 @@ const TrendThread = () => {
     }
   };
 
+  // Load artworks when loadArtwork is true
   useEffect(() => {
-    // Load artworks when loadArtwork is true
     if (loadArtwork) {
       dispatch(getArtworks(count));
       setLoadArtwork(false);

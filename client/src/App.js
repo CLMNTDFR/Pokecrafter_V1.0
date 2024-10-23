@@ -10,6 +10,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Function to fetch the token from the server
     const fetchToken = async () => {
       await axios({
         method: "get",
@@ -17,12 +18,13 @@ const App = () => {
         withCredentials: true,
       })
         .then((res) => {
-          setUid(res.data);
+          setUid(res.data); // Set the UID state with the fetched token
         })
-        .catch((err) => console.log("No token"));
+        .catch((err) => console.log("No token")); // Log an error if no token is found
     };
     fetchToken();
 
+    // If UID is set, dispatch the getUser action
     if (uid) dispatch(getUser(uid));
   }, [uid, dispatch]);
 
